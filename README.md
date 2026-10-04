@@ -6,6 +6,8 @@ Ten short, free PDF guides on using AI chats for everyday tasks. Each one uses r
 
 The guides are written for phone reading. No signup required.
 
+Questions or feedback: aitoolsthatwork@atomicmail.io
+
 ## What is in here
 
 1. 3 Examples of Using AI in Real Scenarios
