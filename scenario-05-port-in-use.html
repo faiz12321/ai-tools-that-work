@@ -17,7 +17,7 @@ h2{font-size:26px;line-height:1.25;margin:0 0 16px}
 p{margin:12px 0}
 pre{white-space:pre-wrap;overflow-wrap:anywhere;word-break:break-word;font:16px/1.55 ui-monospace,Menlo,Consolas,monospace;margin:14px 0;padding:16px;border-radius:8px}
 .command{background:#060d1a;color:#cfeaff;border:1px solid #2c4a78}
-.output{background:#0a1b2b;color:#a8ecd8;border:1px solid #2c5a58}
+.output{background:#0a1b2b;color:#a8ecd8;border:1px solid #2c5a58}pre.output{white-space:pre;overflow-wrap:normal;word-break:normal;overflow-x:auto;max-width:100%}
 .output-label{font-size:15px;color:#a8ecd8;margin-top:22px}
 label{display:block;font-size:16px;margin-bottom:8px}
 textarea{display:block;width:100%;background:#060d1a;color:#fff;border:1px solid #6d8fc4;border-radius:6px;padding:14px;font:16px/1.55 ui-monospace,Menlo,Consolas,monospace;resize:vertical}
@@ -77,7 +77,7 @@ function render(){ const s=stages[index];ran=false;chosen=null;
 $('progress').innerHTML='<span>Step '+(index+1)+' of '+stages.length+'</span><span>'+(s.kind==='command'?'Recorded command':s.kind==='decision'?'Decision':'Debrief')+'</span>';
 document.querySelector('progress').value=index+1;$('back').disabled=index===0;$('next').textContent=index===LAST?'Try again':'Next step';
 let html='<h2>'+esc(s.title)+'</h2>';
-if(s.kind==='command'){html+='<p class="shell">Open <strong>'+esc(s.shell)+'</strong> in your app folder.</p><p>Type this command, or tap to fill it. Run reveals its recorded result.</p><pre class="command"><code>'+esc(s.command)+'</code></pre><form id="command-form"><label for="command">Your command</label><textarea id="command" rows="3" autocapitalize="none" autocorrect="off" spellcheck="false"></textarea><div class="buttons"><button type="button" id="use">Use command</button><button type="button" id="run">Run command</button><button type="button" id="hint-button">Hint</button></div></form><p id="hint" class="hint" hidden>'+esc(s.hint)+'</p><p id="error" class="error" role="alert" hidden></p><div id="result" role="status" hidden><div class="output-label">Captured output \u00b7 Exit code '+s.exit+'</div><pre class="output"><code>'+esc(s.output||'(no output)')+'</code></pre><p class="lesson">'+esc(s.lesson)+'</p></div>';}
+if(s.kind==='command'){html+='<p class="shell">Open <strong>'+esc(s.shell)+'</strong> in your app folder.</p><p>Type this command, or tap to fill it. Run reveals its recorded result.</p><pre class="command"><code>'+esc(s.command)+'</code></pre><form id="command-form"><label for="command">Your command</label><textarea id="command" rows="3" autocapitalize="none" autocorrect="off" spellcheck="false"></textarea><div class="buttons"><button type="button" id="use">Use command</button><button type="button" id="run">Run command</button><button type="button" id="hint-button">Hint</button></div></form><p id="hint" class="hint" hidden>'+esc(s.hint)+'</p><p id="error" class="error" role="alert" hidden></p><div id="result" role="status" hidden><div class="output-label">Captured output \u00b7 Exit code '+s.exit+'</div><pre class="output" tabindex="0" aria-label="Captured output, scrolls sideways"><code>'+esc(s.output||'(no output)')+'</code></pre><p class="lesson">'+esc(s.lesson)+'</p></div>';}
 else if(s.kind==='decision'){html+='<p>'+esc(s.question)+'</p><div class="choices">'+s.choices.map((c,i)=>'<button type="button" data-choice="'+i+'"><span>'+(i+1)+'</span>'+esc(c)+'</button>').join('')+'</div><p id="feedback" role="status" hidden></p>';}
 else{html+=RECAP;}
 $('stage').innerHTML=html;
