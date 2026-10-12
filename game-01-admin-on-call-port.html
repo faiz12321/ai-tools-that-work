@@ -1,0 +1,209 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="color-scheme" content="dark"><title>Admin on call: the new version will not start | AI Tools That Work</title><meta name="description" content="A hands-on Linux practice game: find which program is using port 8080, check it, stop only that one and verify. Real recorded command output."><link rel="canonical" href="https://faiz12321.github.io/ai-tools-that-work/game-01-admin-on-call-port.html"><style>
+*{box-sizing:border-box}html,body{margin:0;background:#05080d}
+body{font:18px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;color:#dcf3dc}
+main{max-width:880px;margin:0 auto;padding:22px 16px 56px}
+.brand{color:#7fe3a0;font-size:14px;letter-spacing:.1em;font-weight:700;margin-bottom:10px}
+h1{font:800 34px/1.15 "Courier New",ui-monospace,Menlo,monospace;margin:0 0 14px;color:#f2fff2}
+h2{font:700 24px/1.25 "Courier New",ui-monospace,Menlo,monospace;margin:26px 0 10px;color:#f2fff2}
+p{margin:0 0 14px}
+.alert{border:2px solid #ffcf66;border-radius:10px;background:#1c1606;padding:16px;margin:16px 0}
+.alert b{color:#ffcf66}.alert .tag{display:inline-block;background:#ffcf66;color:#1c1606;font-weight:800;padding:2px 10px;border-radius:6px;font-size:15px;margin-bottom:8px;letter-spacing:.06em}
+.notice{border-left:5px solid #4fb3ff;background:#0b1622;padding:12px 16px;border-radius:0 8px 8px 0;margin:14px 0;font-size:17px}
+.stages{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0}
+.stages span{border:1px solid #2c5a3c;border-radius:999px;padding:6px 14px;font-size:16px;color:#9ec8aa}
+.stages span.on{border-color:#7fe3a0;color:#f2fff2;background:#0f2a18}
+.stages span.done{background:#164a28;color:#eaffea;border-color:#7fe3a0}
+.term{background:#02040a;border:2px solid #2c5a3c;border-radius:10px;padding:14px;margin:12px 0}
+.termhead{color:#9ec8aa;font-size:15px;margin-bottom:8px}
+.entry{margin:0 0 16px}
+.cmdline{font:17px/1.5 ui-monospace,Menlo,Consolas,monospace;color:#f2fff2;overflow-wrap:anywhere}
+.prompt{color:#7fe3a0}
+pre{font:16px/1.5 ui-monospace,Menlo,Consolas,monospace;margin:6px 0;white-space:pre;overflow-x:auto;overflow-wrap:normal;max-width:100%;color:#b6f5c6;background:#06100a;border:1px solid #1d4a2c;border-radius:8px;padding:12px}
+.meta{font-size:15px;color:#9ec8aa}
+.label{font-size:14px;color:#9ec8aa;letter-spacing:.05em;text-transform:uppercase}
+.gm{border-left:5px solid #ffcf66;background:#1c1606;color:#ffe9b0;padding:10px 14px;border-radius:0 8px 8px 0;margin:8px 0;font-size:17px}
+.gm.bad{border-color:#ff8a80;background:#2a0f0d;color:#ffd6d2}
+.gm.lesson{border-color:#4fb3ff;background:#0b1622;color:#cfe8ff}
+.inputrow{display:flex;flex-direction:column;gap:10px;margin-top:8px}
+.inputwrap{display:flex;align-items:center;gap:8px;background:#02040a;border:2px solid #7fe3a0;border-radius:8px;padding:6px 10px}
+.inputwrap .prompt{font:16px ui-monospace,Menlo,monospace;white-space:nowrap}
+label.sr{position:absolute;left:-9999px}
+input#cmd{flex:1;min-width:0;background:transparent;border:0;color:#f2fff2;font:18px ui-monospace,Menlo,Consolas,monospace;padding:10px 4px;outline:none}
+.row{display:flex;flex-wrap:wrap;gap:10px}
+button{font:700 18px/1.2 -apple-system,Helvetica,Arial,sans-serif;min-height:50px;padding:12px 18px;border-radius:8px;border:2px solid #7fe3a0;background:#7fe3a0;color:#04120a;cursor:pointer}
+button.ghost{background:transparent;color:#cdeed6}
+button:focus-visible,input:focus-visible,summary:focus-visible,pre:focus-visible{outline:3px solid #ffcf66;outline-offset:2px}
+details{margin:14px 0;border:1px solid #2c5a3c;border-radius:8px;padding:10px 14px;background:#07110b}
+summary{cursor:pointer;font-weight:700;min-height:44px;display:flex;align-items:center}
+.pad{display:flex;flex-direction:column;gap:8px;margin-top:8px}
+.pad button{text-align:left;font:16px ui-monospace,Menlo,Consolas,monospace;font-weight:400;background:#0b1a12;color:#dcf3dc;border:1px solid #2c5a3c;overflow-wrap:anywhere;min-height:46px}
+.clues{list-style:none;padding:0;margin:8px 0}
+.clues li{border:1px solid #2c5a3c;border-radius:8px;padding:10px 14px;margin:8px 0;background:#07110b}
+.clues li.found{border-color:#7fe3a0;background:#0f2a18}
+.clues .q{color:#9ec8aa}
+.stats{color:#9ec8aa;font-size:16px}
+table{border-collapse:collapse;width:100%;font-size:16px}
+td,th{border:1px solid #2c5a3c;padding:8px 10px;text-align:left;vertical-align:top}
+td:first-child{font-family:ui-monospace,Menlo,Consolas,monospace;overflow-wrap:anywhere}
+.case{border:2px solid #7fe3a0;border-radius:10px;background:#0f2a18;padding:16px;margin:18px 0}
+footer{margin-top:36px;color:#9ec8aa;font-size:16px;border-top:1px solid #1d4a2c;padding-top:16px}
+a{color:#7fc4ff}
+@media (max-width:480px){h1{font-size:28px}main{padding:18px 12px 48px}.term{padding:10px}}
+@media (prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}}
+</style></head><body>
+<main>
+<div class="brand">AI TOOLS THAT WORK &middot; ADMIN ON CALL</div>
+<h1>The new version will not start</h1>
+<div class="alert" role="region" aria-label="Pager alert"><span class="tag">PAGER 02:14</span>
+<p><b>shop-01:</b> the deploy of shop-api 2.0.0 failed. The new version cannot start, and the shop is still answering with old behaviour.</p>
+<p>You are logged in to <b>shop-01</b> as <b>root</b>. The deploy ran <b>node server.js</b> in <b>/srv/shop</b>. Your job: get 2.0.0 running on port 8080 without breaking anything else on this machine.</p></div>
+<div class="notice">Recorded simulation, not a live terminal. The machine, the shop and its folders are made up. The output is real: every command below was run on a small Linux lab and its output was captured. Nothing you type runs on your device. Commands that are not in the recording get a game note instead of output.</div>
+<div class="stages" id="stages" aria-label="Progress"><span class="on" data-s="1">1 Find the owner</span><span data-s="2">2 Identify it</span><span data-s="3">3 Fix it</span><span data-s="4">4 Verify</span></div>
+<h2>Terminal</h2>
+<div class="term" id="term"><div class="termhead">root@shop-01 &middot; type a command, press Enter or tap Run command</div><div id="log" aria-live="polite"></div>
+<div class="inputrow"><div class="inputwrap"><span class="prompt" id="prompt" aria-hidden="true">#</span><label class="sr" for="cmd">Your command</label><input id="cmd" type="text" autocomplete="off" autocapitalize="none" autocorrect="off" spellcheck="false" placeholder="type here"></div>
+<div class="row"><button type="button" id="run">Run command</button><button type="button" id="hint" class="ghost">Hint</button></div></div>
+<p id="status" role="status" class="stats">Commands: 0 · Hints: 0 · Wrong moves: 0</p></div>
+<details id="padbox"><summary>Command pad: tap to type (phone friendly)</summary><div class="pad" id="pad"><button type="button" data-i="0">ss -ltnp</button><button type="button" data-i="1">ss -ltnp | grep :8080</button><button type="button" data-i="2">lsof -t -i :8080</button><button type="button" data-i="3">fuser 8080/tcp</button><button type="button" data-i="4">pgrep -a node</button><button type="button" data-i="5">ps -p &lt;PID&gt; -o pid,ppid,user,args</button><button type="button" data-i="6">pwdx &lt;PID&gt;</button><button type="button" data-i="7">curl -s localhost:8080</button><button type="button" data-i="8">curl -s localhost:8081</button><button type="button" data-i="9">node server.js</button><button type="button" data-i="10">kill &lt;PID&gt;</button><button type="button" data-i="11">pkill node</button><button type="button" data-i="12">reboot</button></div></details>
+<h2>Clue board</h2>
+<ul class="clues" id="clues"><li><span class="q">?</span> Who holds port 8080?</li><li><span class="q">?</span> Where did that program start from?</li><li><span class="q">?</span> What does it answer?</li><li><span class="q">?</span> What else is on this machine?</li></ul>
+<div id="debrief" hidden></div>
+<h2>Before you practice</h2>
+<div class="notice">This game only reveals recorded results. No commands run on your device. Stopping a program closes it and can lose unsaved work. Only do this on a computer you own or have permission to use, and only to a program you have checked.</div>
+<div class="notice">No warranty: provided as is, without a promise of completeness, accuracy or suitability for your system. This page is general learning material, not professional advice. No signup, analytics or tracking code is added. Progress stays in this tab and resets when you reload.</div>
+<details><summary>About the recording</summary>
+<p>The commands were run on a small Linux lab (Ubuntu 22.04, Node.js v22.23.3, Python 3.10.12, iproute2 5.15.0, lsof 4.93.2, procps-ng 3.3.17, curl 7.81.0) in its own process and network space, so the lists show only the lab's programs. A script ran every command in the order of each game state and captured its output and exit code. The whole recording was run twice from scratch and the two runs matched, except for one command (lsof -i :8080) whose output includes a socket number that changes each run. That command is not offered in this game. Numbers such as process IDs came out the same in both runs and are shown as recorded.</p>
+<p>The shop, its folders and the reports server are made up for this lesson. Game notes (yellow, blue and red boxes) are authored text, not captured output. Tested only in Chrome.</p></details>
+<footer>Educational practice only. Made with AI Tools That Work.</footer>
+</main>
+<script>
+const D={"rec": {"S2": {"curl_8081": {"o": "Monthly sales report (sample)", "e": 0}, "ss_8080": {"o": "LISTEN 0      511                *:8080            *:*    users:((\"node\",pid=124,fd=25))", "e": 0}, "ss_8081": {"o": "LISTEN 0      5            0.0.0.0:8081      0.0.0.0:*    users:((\"python3\",pid=8,fd=5))", "e": 0}, "pgrep": {"o": "124 node server.js", "e": 0}, "ss_all": {"o": "State  Recv-Q Send-Q Local Address:Port Peer Address:PortProcess                        \nLISTEN 0      5            0.0.0.0:8081      0.0.0.0:*    users:((\"python3\",pid=8,fd=5))\nLISTEN 0      511                *:8080            *:*    users:((\"node\",pid=124,fd=25))", "e": 0}, "lsof_t": {"o": "124", "e": 0}, "ss_8080b": {"o": "LISTEN 0      511                *:8080            *:*    users:((\"node\",pid=124,fd=25))", "e": 0}, "fuser": {"o": "8080/tcp:              124", "e": 0}, "curl": {"o": "{\"service\":\"shop-api\",\"version\":\"2.0.0\"}", "e": 0}, "curl_s": {"o": "{\"service\":\"shop-api\",\"version\":\"2.0.0\"}", "e": 0}}, "S0": {"ss_all": {"o": "State  Recv-Q Send-Q Local Address:Port Peer Address:PortProcess                        \nLISTEN 0      5            0.0.0.0:8081      0.0.0.0:*    users:((\"python3\",pid=8,fd=5))\nLISTEN 0      511                *:8080            *:*    users:((\"node\",pid=10,fd=25)) ", "e": 0}, "ps_node": {"o": "    PID    PPID USER     COMMAND\n     10       1 root     node server.js", "e": 0}, "readlink_node": {"o": "/srv/shop-old", "e": 0}, "ps_py": {"o": "    PID    PPID USER     COMMAND\n      8       1 root     python3 -m http.server 8081 --directory /srv/reports", "e": 0}, "pgrep": {"o": "10 node server.js", "e": 0}, "start": {"o": "node:events:497\n      throw er; // Unhandled 'error' event\n      ^\n\nError: listen EADDRINUSE: address already in use :::8080\n    at Server.setupListenHandle [as _listen2] (node:net:1941:16)\n    at listenInCluster (node:net:1998:12)\n    at Server.listen (node:net:2103:7)\n    at Object.<anonymous> (/srv/shop/server.js:7:8)\n    at Module._compile (node:internal/modules/cjs/loader:1781:14)\n    at Object..js (node:internal/modules/cjs/loader:1913:10)\n    at Module.load (node:internal/modules/cjs/loader:1505:32)\n    at Function._load (node:internal/modules/cjs/loader:1309:12)\n    at wrapModuleLoad (node:internal/modules/cjs/loader:254:19)\n    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:171:5)\nEmitted 'error' event on Server instance at:\n    at emitErrorNT (node:net:1977:8)\n    at process.processTicksAndRejections (node:internal/process/task_queues:89:21) {\n  code: 'EADDRINUSE',\n  errno: -98,\n  syscall: 'listen',\n  address: '::',\n  port: 8080\n}\n\nNode.js v22.23.3", "e": 1}, "KILL": {"o": "", "e": 0}, "curl": {"o": "{\"service\":\"shop-api\",\"version\":\"1.4.2\"}", "e": 0}, "pwdx_node": {"o": "10: /srv/shop-old", "e": 0}, "ss_8081": {"o": "LISTEN 0      5            0.0.0.0:8081      0.0.0.0:*    users:((\"python3\",pid=8,fd=5))", "e": 0}, "lsof_t": {"o": "10", "e": 0}, "ss_8080": {"o": "LISTEN 0      511                *:8080            *:*    users:((\"node\",pid=10,fd=25)) ", "e": 0}, "curl_8081": {"o": "Monthly sales report (sample)", "e": 0}, "fuser": {"o": "8080/tcp:               10", "e": 0}, "curl_s": {"o": "{\"service\":\"shop-api\",\"version\":\"1.4.2\"}", "e": 0}, "ss_8080b": {"o": "LISTEN 0      511                *:8080            *:*    users:((\"node\",pid=10,fd=25)) ", "e": 0}, "pwdx_py": {"o": "8: /srv/reports", "e": 0}}, "S1": {"curl_s": {"o": "", "e": 7}, "pgrep": {"o": "", "e": 1}, "ss_8081": {"o": "LISTEN 0      5            0.0.0.0:8081      0.0.0.0:*    users:((\"python3\",pid=8,fd=5))", "e": 0}, "start": {"o": "shop-api v2.0.0 listening on port 8080", "e": 0}, "ss_8080": {"o": "", "e": 1}, "ss_8080b": {"o": "", "e": 1}, "curl": {"o": "curl: (7) Failed to connect to localhost port 8080 after 0 ms: Connection refused", "e": 7}, "ss_all": {"o": "State  Recv-Q Send-Q Local Address:Port Peer Address:PortProcess\nLISTEN 0      5            0.0.0.0:8081      0.0.0.0:*    users:((\"python3\",pid=8,fd=5))", "e": 0}}}, "np": 10, "pp": 8, "new": 124};const NP=D.np,PP=D.pp,NEW=D.new;const REC=D.rec;
+const $=id=>document.getElementById(id);
+let state='S0',clues={},done={},cmds=0,hints=0,wrong=0,hl={},hist=[],hpos=0,anim=null,closed=false,verifiedNew=false,verifiedRep=false;
+const CLUES=[
+ ['owner','Who holds port 8080?','Port 8080 is held by node, process ID '+NP+'.'],
+ ['folder','Where did that program start from?','It started from /srv/shop-old, not the new /srv/shop folder.'],
+ ['version','What does it answer?','It answers as version 1.4.2: the old build. You are deploying 2.0.0.'],
+ ['other','What else is on this machine?','Port 8081 is python3, process ID '+PP+': the reports server. Leave it alone.']
+];
+function renderClues(){$('clues').innerHTML=CLUES.map(c=>clues[c[0]]?'<li class="found"><b>Found:</b> '+c[2]+'</li>':'<li><span class="q">?</span> '+c[1]+'</li>').join('');}
+function renderStages(){const cur=stage();document.querySelectorAll('#stages span').forEach(s=>{const n=+s.dataset.s;s.className=closed||n<cur?'done':(n===cur?'on':'');});}
+function stage(){if(state==='S2')return 4;if(state==='S1')return 3;if(!clues.owner)return 1;if(!(clues.folder||clues.version))return 2;return 3;}
+const PAD=[['ss -ltnp'],['ss -ltnp | grep :8080'],['lsof -t -i :8080'],['fuser 8080/tcp'],['pgrep -a node'],['ps -p <PID> -o pid,ppid,user,args'],['pwdx <PID>'],['curl -s localhost:8080'],['curl -s localhost:8081'],['node server.js'],['kill <PID>'],['pkill node'],['reboot']];
+function buildPad(){$('pad').innerHTML=PAD.map((p,i)=>'<button type="button" data-i="'+i+'">'+p[0].replace('<','&lt;').replace('>','&gt;')+'</button>').join('');
+ $('pad').querySelectorAll('button').forEach(b=>b.onclick=()=>typeInto(PAD[+b.dataset.i][0]));}
+function typeInto(t){const inp=$('cmd');const cut=t.indexOf('<PID>');const txt=cut>=0?t.slice(0,cut):t;inp.value='';let i=0;const iv=setInterval(()=>{inp.value=txt.slice(0,++i);if(i>=txt.length)clearInterval(iv);},16);}
+function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+function sorted(s){return s.split('').sort().join('');}
+const WRONG_KILL_ALL=/^(pkill|killall)( -\w+)* (-f )?node$/;
+function parse(raw){let c=raw.trim().replace(/\s+/g,' ').replace(/^sudo /,'');let m;
+ if(!c)return{t:'empty'};
+ if(c==='help')return{t:'help'};if(c==='clear')return{t:'clear'};if(c==='hint')return{t:'hint'};
+ if((m=c.match(/^ss -([a-z]+)$/))&&sorted(m[1])==='lnpt')return{t:'rec',k:'ss_all'};
+ if((m=c.match(/^ss -([a-z]+) \| grep ["']?:?(8080|8081)["']?$/))&&sorted(m[1])==='lnpt')return{t:'rec',k:'ss_'+m[2]};
+ if(/^(lsof -ti ?:8080|lsof -t -i :8080|lsof -i :8080 -t|lsof -ti:8080)$/.test(c))return{t:'rec',k:'lsof_t'};
+ if(/^lsof -i ?:8080$/.test(c))return{t:'norec',why:'That is a real command, but its output has a socket number that changes every run, so it is not in this recording. Try lsof -t -i :8080 (prints only the process ID) or ss -ltnp.'};
+ if(c==='fuser 8080/tcp')return{t:'rec',k:'fuser'};
+ if(c==='node server.js')return{t:'rec',k:'start'};
+ if((m=c.match(/^curl( -s)? (?:http:\/\/)?(?:localhost|127\.0\.0\.1):(8080|8081)\/?$/))){if(m[2]==='8081')return{t:'rec',k:'curl_8081'};return{t:'rec',k:m[1]?'curl_s':'curl'};}
+ if(/^pgrep -(a|af|fa) node$/.test(c))return{t:'rec',k:'pgrep'};
+ if((m=c.match(/^ps -p (\d+) -o pid,ppid,user,args$/))){const n=+m[1];if(n===NP)return{t:'rec',k:'ps_node',pid:n};if(n===PP)return{t:'rec',k:'ps_py',pid:n};return{t:'norec',why:'Process '+n+' is not one of the programs in this case. Use a PID you found.'};}
+ if((m=c.match(/^pwdx (\d+)$/))){const n=+m[1];if(n===NP)return{t:'rec',k:'pwdx_node'};if(n===PP)return{t:'rec',k:'pwdx_py'};return{t:'norec',why:'Process '+n+' is not one of the programs in this case. Use a PID you found.'};}
+ if((m=c.match(/^readlink \/proc\/(\d+)\/cwd$/))){if(+m[1]===NP)return{t:'rec',k:'readlink_node'};return{t:'norec',why:'That process is not in this recording. Try pwdx or readlink with the PID you found.'};}
+ if(WRONG_KILL_ALL.test(c))return{t:'wrong',why:'Stopped before running, nothing was executed. This would stop every program named node, not just the one on port 8080. Only one is running in this lab, but on a real server you could stop your other apps. Stop one program by its PID, after you have checked what it is.'};
+ if(/^(reboot|shutdown( .*)?|init 6|systemctl reboot)$/.test(c))return{t:'wrong',why:'Stopped before running, nothing was executed. A reboot would clear the old copy but also stop the reports server and everything else, and you would not learn which program was the problem. If something starts the old copy at boot, the problem comes back.'};
+ if((m=c.match(/^kill( -9| -15| -TERM| -KILL| -SIGTERM| -SIGKILL)? (\d+)$/))){const n=+m[2];const hard=/9|KILL/.test(m[1]||'');
+   if(n===PP)return{t:'wrong',why:'Stopped before running, nothing was executed. Process '+PP+' is the python3 reports server on port 8081, not what holds port 8080. Stopping it would break the monthly reports.'};
+   if(n===NP)return{t:'kill',hard};
+   return{t:'norec',why:'Process '+n+' is not one of the programs in this case. Use a PID you found.'};}
+ return{t:'unknown'};}
+function note(cls,txt){const d=document.createElement('div');d.className='gm '+cls;d.innerHTML=txt;return d;}
+function addEntry(cmd){const e=document.createElement('div');e.className='entry';e.innerHTML='<div class="cmdline"><span class="prompt">root@shop-01:/srv/shop#</span> '+esc(cmd)+'</div>';$('log').appendChild(e);return e;}
+function showOut(e,o,exit,after){const lab=document.createElement('div');lab.className='label';lab.textContent='Recorded output';e.appendChild(lab);const pre=document.createElement('pre');pre.tabIndex=0;pre.setAttribute('aria-label','Recorded output, scrolls sideways');e.appendChild(pre);
+ const lines=o===''?[]:o.split('\n');const meta=document.createElement('div');meta.className='meta';meta.textContent=(o===''?'(no output) ':'')+'exit code '+exit;
+ const finish=()=>{pre.textContent=lines.join('\n');if(o==='')pre.hidden=true;e.appendChild(meta);if(after)after(e);anim=null;e.scrollIntoView({block:'nearest'});};
+ const reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+ if(reduce||lines.length<2){finish();return;}
+ let i=0;const step=Math.max(1,Math.ceil(lines.length/14));const iv=setInterval(()=>{i+=step;pre.textContent=lines.slice(0,i).join('\n');if(i>=lines.length){clearInterval(iv);finish();}},35);
+ anim=()=>{clearInterval(iv);finish();};}
+const LESSON={
+ S0:{ss_all:'ss lists sockets. The letters mean: l listening, t TCP, n show numbers, p show the program. Port 8080 is held by node, process ID '+NP+'. Port 8081 is held by python3, process ID '+PP+'.',
+ ss_8080:'Only the 8080 line, and it names the owner: node, process ID '+NP+'.',
+ ss_8081:'Port 8081 belongs to python3, process ID '+PP+': the reports server.',
+ lsof_t:'lsof -t prints only the process ID that uses that port: '+NP+'.',
+ fuser:'fuser also finds the owner. The number after the colon is the process ID: '+NP+'.',
+ start:'Port 8080 is already in use: something else is listening there, so a second program cannot. The lines under the first error are code locations. You can skip them.',
+ curl:'The program on 8080 answers with version 1.4.2. You are deploying 2.0.0, so an old copy of the app is the one answering.',
+ curl_s:'The program on 8080 answers with version 1.4.2. You are deploying 2.0.0, so an old copy of the app is the one answering.',
+ pgrep:'pgrep lists processes by name. One node program is running, process ID '+NP+'. It does not show the port or the folder.',
+ ps_node:'Process '+NP+' runs node server.js as root. ps does not show which folder it started in.',
+ ps_py:'Process '+PP+' is a different program: python3 serving /srv/reports on port 8081. It is not your app.',
+ pwdx_node:'pwdx prints the folder a process started from: /srv/shop-old. Your new version lives in /srv/shop, so this is an old copy.',
+ pwdx_py:'Process '+PP+' started in /srv/reports. It is the reports server, not part of shop-api.',
+ readlink_node:'This prints the folder the process started from: /srv/shop-old. Your new version lives in /srv/shop, so this is an old copy.',
+ curl_8081:'Port 8081 serves the monthly sales report. Someone needs it. Leave it alone.'},
+ S1:{ss_all:'Only 8081 is left. Port 8080 is free.',
+ ss_8080:'No output and exit code 1: grep found no line for 8080. For this check that is the good result: nothing listens on 8080.',
+ ss_8081:'The reports server is still up.',
+ curl:'Connection refused: nothing answers on 8080 now.',
+ curl_s:'-s hides the error message, so nothing is printed. Only the exit code, 7, tells you it failed.',
+ pgrep:'No node programs are running. Exit code 1 means no match.',
+ start:'The new version starts: shop-api v2.0.0 listening on port 8080. In a real terminal this window would now be the running app, so you would open a second window to keep checking. Here it was started in the background so the recording could continue.',
+ curl_8081:'The reports server still answers.'},
+ S2:{ss_all:'Both ports are listening. 8080 is now a new node process, process ID '+NEW+', and 8081 is still the python3 reports server, process ID '+PP+'.',
+ ss_8080:'Port 8080 is held by node again, with a new process ID: '+NEW+'. The old '+NP+' is gone.',
+ ss_8081:'The reports server is still up, same process ID '+PP+' as before.',
+ lsof_t:'The owner of 8080 is now process '+NEW+', the new app.',
+ fuser:'The owner of 8080 is now process '+NEW+', the new app.',
+ curl:'The answer now says version 2.0.0. The new app is serving.',
+ curl_s:'The answer now says version 2.0.0. The new app is serving.',
+ pgrep:'One node program: process ID '+NEW+', the new app. The old process '+NP+' is gone.',
+ curl_8081:'The reports server still answers.'}};
+function clueFor(st,k){if(st!=='S0')return;
+ if(['ss_all','ss_8080','lsof_t','fuser'].includes(k))clues.owner=true;
+ if(['pwdx_node','readlink_node'].includes(k))clues.folder=true;
+ if(['curl','curl_s'].includes(k))clues.version=true;
+ if(['ps_py','pwdx_py','curl_8081','ss_8081'].includes(k))clues.other=true;}
+function checkClose(){if(state==='S2'&&!closed){}}
+function runCmd(raw){if(anim)anim();const p=parse(raw);hist.push(raw);hpos=hist.length;
+ if(p.t==='empty')return;
+ if(p.t==='clear'){$('log').innerHTML='';return;}
+ const e=addEntry(raw);
+ if(p.t==='help'){e.appendChild(note('lesson','<b>Recorded commands in this case:</b> ss -ltnp, ss -ltnp | grep :8080, lsof -t -i :8080, fuser 8080/tcp, pgrep -a node, ps -p PID -o pid,ppid,user,args, pwdx PID, curl -s localhost:8080, curl localhost:8081, node server.js, kill PID. Words like hint and clear also work. Open the command pad for tap-to-type.'));return;}
+ if(p.t==='hint'){doHint(e);return;}
+ cmds++;
+ if(p.t==='unknown'){e.appendChild(note('','<b>Game note:</b> that command is not in this recording, so there is no real output to show. Type help to see the recorded ones, or tap Hint.'));upd();return;}
+ if(p.t==='norec'){e.appendChild(note('','<b>Game note:</b> '+p.why));upd();return;}
+ if(p.t==='wrong'){wrong++;e.appendChild(note('bad','<b>Wrong move:</b> '+p.why));upd();return;}
+ if(p.t==='kill'){
+  if(state!=='S0'){e.appendChild(note('','<b>Game note:</b> process '+NP+' is already gone, and a second kill was not recorded.'));upd();return;}
+  if(!(clues.owner&&(clues.folder||clues.version))){wrong++;e.appendChild(note('bad','<b>Stopped before running:</b> you have not checked what process '+NP+' is yet, so you would be stopping a program blind. Find out which program holds port 8080, then what it is and where it came from. Then decide.'));upd();return;}
+  const r=REC.S0.KILL;showOut(e,r.o,r.e,en=>{en.appendChild(note('lesson','<b>Why:</b> '+(p.hard?'-9 sends SIGKILL, which the program cannot catch, so it gets no chance to clean up. Plain kill asks politely first (SIGTERM). Prefer plain kill, and use -9 only if it will not stop. No output means it worked. Only process '+NP+' was stopped.':'No output means it worked. kill asked process '+NP+' to stop, and only that one program.')));state='S1';upd();});return;}
+ // recorded
+ const st=state;let k=p.k;const r=REC[st]&&REC[st][k];
+ if(st==='S0'&&k==='start'){}
+ if(!r){e.appendChild(note('','<b>Game note:</b> that command is valid, but it was not recorded for this point in the case. Type help to see the recorded ones.'));upd();return;}
+ if(st==='S1'&&k==='start'){showOut(e,r.o,r.e,en=>{en.appendChild(note('lesson','<b>Why:</b> '+LESSON.S1.start));state='S2';upd();});return;}
+ showOut(e,r.o,r.e,en=>{const t=LESSON[st]&&LESSON[st][k];if(t)en.appendChild(note('lesson','<b>Why:</b> '+t));clueFor(st,k);
+  if(st==='S2'){if(['curl','curl_s'].includes(k))verifiedNew=true;if(['ss_all','ss_8081','curl_8081'].includes(k))verifiedRep=true;}
+  upd();});}
+function doHint(e){hints++;const s=stage();const key=state+s;hl[key]=Math.min(3,(hl[key]||0)+1);const L=hl[key];
+ const H={S01:['Port 8080 has an owner. Which tool lists which program listens on which port?','ss lists sockets. Ask it for listening TCP ports with the program names.','Type: ss -ltnp'],
+ S02:['You know a process ID. Before you stop anything, find out what it is and where it came from.','pwdx shows the folder a process started from. curl shows what a port answers.','Type: pwdx '+NP],
+ S03:['You know what it is: an old copy of the app. Stop that one program, not everything named node.','kill takes a process ID. pkill node would stop every node program.','Type: kill '+NP],
+ S13:['Port 8080 is free now. Start the new version in /srv/shop.','The deploy used node server.js.','Type: node server.js'],
+ S24:['Check two things: the new version answers on 8080, and nothing else broke.','curl shows what 8080 answers. ss shows what is still listening.','Type: curl -s localhost:8080 and then: ss -ltnp']};
+ const txt=(H[key]||H['S0'+s]||['Look at the clue board.','',''])[L-1];e.appendChild(note('','<b>Hint '+L+' of 3:</b> '+esc(txt)));upd();}
+function upd(){renderClues();renderStages();setTimeout(()=>window.dispatchEvent(new Event('resize')),50);$('status').textContent='Commands: '+cmds+' · Hints: '+hints+' · Wrong moves: '+wrong;
+ if(state==='S2'&&verifiedNew&&verifiedRep&&!closed){closed=true;renderStages();debrief();}}
+function debrief(){const d=$('debrief');d.hidden=false;d.innerHTML='<div class="case"><h2 style="margin-top:0">Case closed</h2><p>Commands run: '+cmds+'. Hints used: '+hints+'. Wrong moves: '+wrong+'.</p></div>'+
+ '<h2>What happened</h2><p>An old copy of shop-api (version 1.4.2, started from /srv/shop-old) was still running and held port 8080. Only one program can listen on a port, so the new version (2.0.0, in /srv/shop) could not start. You found the owner, checked what it was, stopped only that process, started the new version, and checked that the reports server on 8081 was untouched.</p>'+
+ '<h2>Use these next time</h2><table><tr><th>Command</th><th>What it tells you</th></tr>'+
+ '<tr><td>ss -ltnp</td><td>Which program listens on which port</td></tr><tr><td>ss -ltnp | grep :8080</td><td>Only the line for one port</td></tr><tr><td>pwdx PID</td><td>The folder a process started from</td></tr><tr><td>curl -s localhost:8080</td><td>What the program on that port answers</td></tr><tr><td>kill PID</td><td>Asks one process to stop</td></tr></table>'+
+ '<h2>What this does not prove</h2><p>This is one small lab machine. On a real server the old copy may be started by a service manager or a container that brings it back after you stop it, so check how it was started. You may need sudo, and the lists will show more programs. Output looks different on other Linux versions and tool versions. Knowing the commands does not tell you whether it is safe to stop a program on a system you do not know.</p>';
+ d.scrollIntoView({block:'start'});}
+$('run').onclick=()=>{const v=$('cmd').value;$('cmd').value='';runCmd(v);};
+$('cmd').onkeydown=e=>{if(e.key==='Enter'){e.preventDefault();$('run').onclick();}else if(e.key==='ArrowUp'&&hist.length){e.preventDefault();hpos=Math.max(0,hpos-1);$('cmd').value=hist[hpos]||'';}else if(e.key==='ArrowDown'){e.preventDefault();hpos=Math.min(hist.length,hpos+1);$('cmd').value=hist[hpos]||'';}};
+$('hint').onclick=()=>{const e=addEntry('hint');doHint(e);e.scrollIntoView({block:'nearest'});};
+buildPad();upd();
+</script></body></html>
