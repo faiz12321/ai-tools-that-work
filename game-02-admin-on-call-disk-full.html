@@ -1,0 +1,190 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="color-scheme" content="dark"><title>Admin on call 2: "No space left on device" | AI Tools That Work</title><meta name="description" content="A hands-on Linux practice game: find what is filling a full disk, free space safely and verify. Real recorded command output from a practice lab."><link rel="canonical" href="https://faiz12321.github.io/ai-tools-that-work/game-02-admin-on-call-disk-full.html"><style>
+*{box-sizing:border-box}html,body{margin:0;background:#0a0706}
+body{font:18px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;color:#f3e8d8}
+main{max-width:880px;margin:0 auto;padding:22px 16px 56px}
+.brand{color:#ffb347;font-size:14px;letter-spacing:.1em;font-weight:700;margin-bottom:10px}
+h1{font:800 34px/1.15 "Courier New",ui-monospace,Menlo,monospace;margin:0 0 14px;color:#fff5e8}
+h2{font:700 24px/1.25 "Courier New",ui-monospace,Menlo,monospace;margin:26px 0 10px;color:#fff5e8}
+p{margin:0 0 14px}
+.alert{border:2px solid #ff7a6b;border-radius:10px;background:#2a0e0b;padding:16px;margin:16px 0}
+.alert b{color:#ff7a6b}.alert .tag{display:inline-block;background:#ff7a6b;color:#2a0e0b;font-weight:800;padding:2px 10px;border-radius:6px;font-size:15px;margin-bottom:8px;letter-spacing:.06em}
+.notice{border-left:5px solid #4fb3ff;background:#0b1622;padding:12px 16px;border-radius:0 8px 8px 0;margin:14px 0;font-size:17px}
+.stages{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0}
+.stages span{border:1px solid #5a3c1c;border-radius:999px;padding:6px 14px;font-size:16px;color:#d2bb98}
+.stages span.on{border-color:#ffb347;color:#fff5e8;background:#2a1a0a}
+.stages span.done{background:#4a2a10;color:#eaffea;border-color:#ffb347}
+.term{background:#050302;border:2px solid #5a3c1c;border-radius:10px;padding:14px;margin:12px 0}
+.termhead{color:#d2bb98;font-size:15px;margin-bottom:8px}
+.entry{margin:0 0 16px}
+.cmdline{font:17px/1.5 ui-monospace,Menlo,Consolas,monospace;color:#fff5e8;overflow-wrap:anywhere}
+.prompt{color:#ffb347}
+pre{font:16px/1.5 ui-monospace,Menlo,Consolas,monospace;margin:6px 0;white-space:pre;overflow-x:auto;overflow-wrap:normal;max-width:100%;color:#ffd9a8;background:#120a04;border:1px solid #4a3015;border-radius:8px;padding:12px}
+.meta{font-size:15px;color:#d2bb98}
+.label{font-size:14px;color:#d2bb98;letter-spacing:.05em;text-transform:uppercase}
+.gm{border-left:5px solid #ffb347;background:#1f1407;color:#ffe9c8;padding:10px 14px;border-radius:0 8px 8px 0;margin:8px 0;font-size:17px}
+.gm.bad{border-color:#ff8a80;background:#2a0f0d;color:#ffd6d2}
+.gm.lesson{border-color:#4fb3ff;background:#0b1622;color:#cfe8ff}
+.inputrow{display:flex;flex-direction:column;gap:10px;margin-top:8px}
+.inputwrap{display:flex;align-items:center;gap:8px;background:#050302;border:2px solid #ffb347;border-radius:8px;padding:6px 10px}
+.inputwrap .prompt{font:16px ui-monospace,Menlo,monospace;white-space:nowrap}
+label.sr{position:absolute;left:-9999px}
+input#cmd{flex:1;min-width:0;background:transparent;border:0;color:#fff5e8;font:18px ui-monospace,Menlo,Consolas,monospace;padding:10px 4px;outline:none}
+.row{display:flex;flex-wrap:wrap;gap:10px}
+button{font:700 18px/1.2 -apple-system,Helvetica,Arial,sans-serif;min-height:50px;padding:12px 18px;border-radius:8px;border:2px solid #ffb347;background:#ffb347;color:#1a0e02;cursor:pointer}
+button.ghost{background:transparent;color:#f3e0c8}
+button:focus-visible,input:focus-visible,summary:focus-visible,pre:focus-visible{outline:3px solid #ff7a6b;outline-offset:2px}
+details{margin:14px 0;border:1px solid #5a3c1c;border-radius:8px;padding:10px 14px;background:#140d06}
+summary{cursor:pointer;font-weight:700;min-height:44px;display:flex;align-items:center}
+.pad{display:flex;flex-direction:column;gap:8px;margin-top:8px}
+.pad button{text-align:left;font:16px ui-monospace,Menlo,Consolas,monospace;font-weight:400;background:#1a1008;color:#f3e8d8;border:1px solid #5a3c1c;overflow-wrap:anywhere;min-height:46px}
+.clues{list-style:none;padding:0;margin:8px 0}
+.clues li{border:1px solid #5a3c1c;border-radius:8px;padding:10px 14px;margin:8px 0;background:#140d06}
+.clues li.found{border-color:#ffb347;background:#2a1a0a}
+.clues .q{color:#d2bb98}
+.stats{color:#d2bb98;font-size:16px}
+table{border-collapse:collapse;width:100%;font-size:16px}
+td,th{border:1px solid #5a3c1c;padding:8px 10px;text-align:left;vertical-align:top}
+td:first-child{font-family:ui-monospace,Menlo,Consolas,monospace;overflow-wrap:anywhere}
+.case{border:2px solid #ffb347;border-radius:10px;background:#2a1a0a;padding:16px;margin:18px 0}
+footer{margin-top:36px;color:#d2bb98;font-size:16px;border-top:1px solid #4a3015;padding-top:16px}
+a{color:#7fc4ff}
+@media (max-width:480px){h1{font-size:28px}main{padding:18px 12px 48px}.term{padding:10px}}
+@media (prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}}
+</style></head><body>
+<main>
+<div class="brand">AI TOOLS THAT WORK &middot; ADMIN ON CALL 2</div>
+<h1>"No space left on device"</h1>
+<div class="alert" role="region" aria-label="Pager alert"><span class="tag">PAGER 03:41</span>
+<p><b>shop-01:</b> new orders are failing to save. The error in the app log says <b>No space left on device</b>.</p>
+<p>You are logged in to <b>shop-01</b> as <b>root</b>. The shop keeps its data on one disk, mounted at <b>/srv/data</b>. Your job: find out what is filling it, free space safely, and check that orders can be saved again. Do not delete anything the shop needs.</p></div>
+<div class="notice">Recorded simulation, not a live terminal. The machine, the shop and its files are made up. The output is real: every command below was run on a small Linux lab and its output was captured. Nothing you type runs on your device. Commands that are not in the recording get a game note instead of output.</div>
+<div class="stages" id="stages" aria-label="Progress"><span class="on" data-s="1">1 Measure</span><span data-s="2">2 Find the space hog</span><span data-s="3">3 Free space safely</span><span data-s="4">4 Verify</span></div>
+<h2>Terminal</h2>
+<div class="term" id="term"><div class="termhead">root@shop-01 &middot; type a command, press Enter or tap Run command</div><div id="log" aria-live="polite"></div>
+<div class="inputrow"><div class="inputwrap"><span class="prompt" id="prompt" aria-hidden="true">#</span><label class="sr" for="cmd">Your command</label><input id="cmd" type="text" autocomplete="off" autocapitalize="none" autocorrect="off" spellcheck="false" placeholder="type here"></div>
+<div class="row"><button type="button" id="run">Run command</button><button type="button" id="hint" class="ghost">Hint</button></div></div>
+<p id="status" role="status" class="stats">Commands: 0 · Hints: 0 · Wrong moves: 0</p></div>
+<details id="padbox"><summary>Command pad: tap to type (phone friendly)</summary><div class="pad" id="pad"><button type="button" data-i="0">df -h /srv/data</button><button type="button" data-i="1">du -h --max-depth=1 /srv/data</button><button type="button" data-i="2">du -ah /srv/data | sort -rh | head -5</button><button type="button" data-i="3">find /srv/data -type f -size +5M</button><button type="button" data-i="4">wc -l /srv/data/logs/app.log</button><button type="button" data-i="5">head -n 3 /srv/data/logs/app.log</button><button type="button" data-i="6">tail -n 3 /srv/data/logs/app.log</button><button type="button" data-i="7">cp /srv/incoming-orders.csv /srv/data/orders.csv</button><button type="button" data-i="8">truncate -s 0 /srv/data/logs/app.log</button><button type="button" data-i="9">rm -rf /srv/data/*</button><button type="button" data-i="10">rm /srv/data/backups/db-backup.tar</button></div></details>
+<h2>Clue board</h2>
+<ul class="clues" id="clues"><li><span class="q">?</span> How full is the disk?</li><li><span class="q">?</span> Which folder is using the space?</li><li><span class="q">?</span> Which file is the biggest?</li><li><span class="q">?</span> What is in that file?</li></ul>
+<div id="debrief" hidden></div>
+<h2>Before you practice</h2>
+<div class="notice">This game only reveals recorded results. No commands run on your device. Deleting or emptying files cannot be undone. Only do this on a computer you own or have permission to use, and only to files you have checked.</div>
+<div class="notice">No warranty: provided as is, without a promise of completeness, accuracy or suitability for your system. This page is general learning material, not professional advice. No signup, analytics or tracking code is added. Progress stays in this tab and resets when you reload.</div>
+<details><summary>About the recording</summary>
+<p>The commands were run on a small Linux lab (Ubuntu 22.04, GNU coreutils and findutils, df and du from the same system) in its own process and mount space. The shop's data disk is a 40 MB lab disk mounted at /srv/data, filled by a script until writes failed. A script ran every command in order for each game state and captured its output and exit code. The whole recording was run twice from scratch and the two runs matched exactly. The plain df -h command is not offered, because on the lab it would list the lab host's own disks.</p>
+<p>The shop, its folders and the log lines are made up for this lesson. Sizes are as recorded on a lab disk. Game notes (yellow, blue and red boxes) are authored text, not captured output. Tested only in Chrome.</p></details>
+<footer>Educational practice only. Made with AI Tools That Work.</footer>
+</main>
+<script>
+const D={"rec": {"S0": {"df": {"o": "Filesystem      Size  Used Avail Use% Mounted on\ntmpfs            40M   40M     0 100% /srv/data", "e": 0}, "du1": {"o": "3.0M\t/srv/data/uploads\n6.0M\t/srv/data/backups\n31M\t/srv/data/logs\n40M\t/srv/data", "e": 0}, "cp": {"o": "cp: error writing '/srv/data/orders.csv': No space left on device", "e": 1}, "find": {"o": "/srv/data/backups/db-backup.tar\n/srv/data/logs/app.log", "e": 0}, "head": {"o": "INFO shop-api started on port 8080\nDEBUG payment-gateway retry attempt 1 (timeout after 3s)\nDEBUG payment-gateway retry attempt 2 (timeout after 3s)", "e": 0}, "tail": {"o": "DEBUG payment-gateway retry attempt 496547 (timeout after 3s)\nDEBUG payment-gateway retry attempt 496548 (timeout after 3s)\nDEBUG payment-gateway retry attempt 49", "e": 0}, "wc": {"o": "496549 /srv/data/logs/app.log", "e": 0}, "du_logs": {"o": "30M\t/srv/data/logs/app.log\n1.8M\t/srv/data/logs/app.log.1", "e": 0}, "du_top": {"o": "40M\t/srv/data\n31M\t/srv/data/logs\n30M\t/srv/data/logs/app.log\n6.0M\t/srv/data/backups/db-backup.tar\n6.0M\t/srv/data/backups", "e": 0}, "TRUNC": {"o": "", "e": 0}}, "S1": {"wc": {"o": "0 /srv/data/logs/app.log", "e": 0}, "cp": {"o": "", "e": 0}, "df": {"o": "Filesystem      Size  Used Avail Use% Mounted on\ntmpfs            40M   11M   30M  27% /srv/data", "e": 0}, "du1": {"o": "3.0M\t/srv/data/uploads\n6.0M\t/srv/data/backups\n1.8M\t/srv/data/logs\n11M\t/srv/data", "e": 0}, "du_top": {"o": "11M\t/srv/data\n6.0M\t/srv/data/backups/db-backup.tar\n6.0M\t/srv/data/backups\n3.0M\t/srv/data/uploads/photos.bin\n3.0M\t/srv/data/uploads", "e": 0}, "ls_orders": {"o": "backups\nlogs\norders.csv\nuploads", "e": 0}, "find": {"o": "/srv/data/backups/db-backup.tar", "e": 0}, "du_logs": {"o": "0\t/srv/data/logs/app.log\n1.8M\t/srv/data/logs/app.log.1", "e": 0}, "tail": {"o": "", "e": 0}}}};const REC=D.rec;
+const $=id=>document.getElementById(id);
+let state='S0',clues={},cmds=0,hints=0,wrong=0,hl={},hist=[],hpos=0,anim=null,closed=false,okcp=false,okdf=false;
+const CLUES=[
+ ['full','How full is the disk?','The data disk is 100% full: 40M used of 40M, 0 available.'],
+ ['folder','Which folder is using the space?','/srv/data/logs holds 31M of the 40M.'],
+ ['file','Which file is the biggest?','/srv/data/logs/app.log is 30M, far larger than any other file.'],
+ ['content','What is in that file?','496,549 lines, almost all the same DEBUG line: payment-gateway retry attempt N. A retry loop has been logging nonstop.']
+];
+function renderClues(){$('clues').innerHTML=CLUES.map(c=>clues[c[0]]?'<li class="found"><b>Found:</b> '+c[2]+'</li>':'<li><span class="q">?</span> '+c[1]+'</li>').join('');}
+function stage(){if(state==='S1')return 4;if(!clues.full)return 1;if(!clues.file)return 2;return 3;}
+function renderStages(){const cur=stage();document.querySelectorAll('#stages span').forEach(s=>{const n=+s.dataset.s;s.className=closed||n<cur?'done':(n===cur?'on':'');});}
+const PAD=["df -h /srv/data", "du -h --max-depth=1 /srv/data", "du -ah /srv/data | sort -rh | head -5", "find /srv/data -type f -size +5M", "wc -l /srv/data/logs/app.log", "head -n 3 /srv/data/logs/app.log", "tail -n 3 /srv/data/logs/app.log", "cp /srv/incoming-orders.csv /srv/data/orders.csv", "truncate -s 0 /srv/data/logs/app.log", "rm -rf /srv/data/*", "rm /srv/data/backups/db-backup.tar"];
+function buildPad(){$('pad').querySelectorAll('button').forEach(b=>b.onclick=()=>typeInto(PAD[+b.dataset.i]));}
+function typeInto(t){const inp=$('cmd');inp.value='';let i=0;const iv=setInterval(()=>{inp.value=t.slice(0,++i);if(i>=t.length)clearInterval(iv);},12);}
+function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+const D1='/srv/data';
+function p(path){return path.replace(/\/+$/,'');}
+function parse(raw){let c=raw.trim().replace(/\s+/g,' ').replace(/^sudo /,'');let m;
+ if(!c)return{t:'empty'};
+ if(c==='help')return{t:'help'};if(c==='clear')return{t:'clear'};if(c==='hint')return{t:'hint'};
+ if(/^df( -h)?( \/srv\/data\/?)?$/.test(c)&&c.includes('/srv/data')&&/^df -h/.test(c))return{t:'rec',k:'df'};
+ if(/^df -h \/srv\/data\/?$/.test(c))return{t:'rec',k:'df'};
+ if(/^df( -h)?$/.test(c))return{t:'norec',why:'On a real server df -h lists every disk. In this lab it would list the lab host\u2019s own disks, so it is not recorded. Name the disk instead: df -h /srv/data'};
+ if(/^du -h --max-depth=1 \/srv\/data\/?$/.test(c)||/^du -h -d ?1 \/srv\/data\/?$/.test(c))return{t:'rec',k:'du1'};
+ if(/^du -ah \/srv\/data \| sort -rh \| head -5$/.test(c)||/^du -ah \/srv\/data \| sort -hr \| head -5$/.test(c))return{t:'rec',k:'du_top'};
+ if(/^du -h \/srv\/data\/logs\/\*$/.test(c))return{t:'rec',k:'du_logs'};
+ if(/^find \/srv\/data -type f -size \+5M$/.test(c)||/^find \/srv\/data -size \+5M -type f$/.test(c))return{t:'rec',k:'find'};
+ if(/^wc -l \/srv\/data\/logs\/app\.log$/.test(c))return{t:'rec',k:'wc'};
+ if(/^head -n ?3 \/srv\/data\/logs\/app\.log$/.test(c)||c==='head -3 /srv/data/logs/app.log')return{t:'rec',k:'head'};
+ if(/^tail -n ?3 \/srv\/data\/logs\/app\.log$/.test(c)||c==='tail -3 /srv/data/logs/app.log')return{t:'rec',k:'tail'};
+ if(/^cp \/srv\/incoming-orders\.csv \/srv\/data\/orders\.csv$/.test(c))return{t:'rec',k:'cp'};
+ if(c==='ls /srv/data'||c==='ls /srv/data/')return{t:'rec',k:'ls_orders'};
+ if(/^(rm -rf|rm -r|rm -fr) \/srv\/data\/?\*?$/.test(c)||/^(rm -rf|rm -r) \/srv\/data\/(logs|backups|uploads)\/?\*?$/.test(c)&&!/logs/.test(c))return{t:'wrong',why:'Stopped before running, nothing was executed. That deletes the backups and the customers\u2019 uploads too, and none of it can be undone. Only one file is the problem. Find it, and deal with that one.'};
+ if(/^rm( -f| -rf| -r)* \/srv\/data\/(backups|uploads)\/?\S*$/.test(c))return{t:'wrong',why:'Stopped before running, nothing was executed. That file is not what filled the disk. A backup or a customer upload is exactly what you do not want to delete to make room. Look at which file is actually growing.'};
+ if(/^rm( -f| -rf| -r)* \/srv\/data\/logs\/?\*?$/.test(c)||/^rm( -rf| -r)* \/srv\/data\/logs\/app\.log\.1$/.test(c))return{t:'wrong',why:'Stopped before running, nothing was executed. That deletes the log files wholesale, including the older log that might be needed to see what went wrong. The space is taken by one file, app.log (30M). The 1.8M older log barely matters.'};
+ if(/^rm( -f)? \/srv\/data\/logs\/app\.log$/.test(c))return{t:'norec',why:'That command is not in this recording. Deleting a log file that a running program has open does not free the space until the program lets go, and the program may not recreate the file. Emptying the file with truncate keeps the same file, which is why it is the usual choice for a log a program is writing to, but how a program reacts depends on the program. Try truncate -s 0 /srv/data/logs/app.log'};
+ if(/^(truncate -s ?0|truncate --size=0|truncate -s ?0 -) \/srv\/data\/logs\/app\.log$/.test(c)||/^(:|true)? ?> \/srv\/data\/logs\/app\.log$/.test(c))return{t:'trunc'};
+ return{t:'unknown'};}
+function note(cls,txt){const d=document.createElement('div');d.className='gm '+cls;d.innerHTML=txt;return d;}
+function addEntry(cmd){const e=document.createElement('div');e.className='entry';e.innerHTML='<div class="cmdline"><span class="prompt">root@shop-01:/srv/data#</span> '+esc(cmd)+'</div>';$('log').appendChild(e);return e;}
+function showOut(e,o,exit,after){const lab=document.createElement('div');lab.className='label';lab.textContent='Recorded output';e.appendChild(lab);const pre=document.createElement('pre');pre.tabIndex=0;pre.setAttribute('aria-label','Recorded output, scrolls sideways');e.appendChild(pre);
+ const lines=o===''?[]:o.split('\n');const meta=document.createElement('div');meta.className='meta';meta.textContent=(o===''?'(no output) ':'')+'exit code '+exit;
+ const finish=()=>{pre.textContent=lines.join('\n');if(o==='')pre.hidden=true;e.appendChild(meta);if(after)after(e);anim=null;e.scrollIntoView({block:'nearest'});};
+ const reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+ if(reduce||lines.length<2){finish();return;}
+ let i=0;const step=Math.max(1,Math.ceil(lines.length/14));const iv=setInterval(()=>{i+=step;pre.textContent=lines.slice(0,i).join('\n');if(i>=lines.length){clearInterval(iv);finish();}},35);
+ anim=()=>{clearInterval(iv);finish();};}
+const LESSON={
+ S0:{df:'df shows disk space. -h means human-readable sizes. The disk mounted at /srv/data is 40M in size, 40M used, 0 available, 100% full. That is why writes fail.',
+ du1:'du adds up the space used by each folder. --max-depth=1 shows only the first level. The logs folder is the biggest: 31M of 40M. Backups (6.0M) and uploads (3.0M) are small.',
+ du_top:'This sorts everything by size, biggest first (sort -rh), and keeps the top 5. Each line counts a folder or a file, so a folder also shows its total. The biggest single file is /srv/data/logs/app.log at 30M.',
+ du_logs:'Inside logs, app.log is 30M and app.log.1 is 1.8M. One file is the problem.',
+ find:'find lists files over 5M. Two files: the 30M log and a 6M backup. The backup is not growing and the shop needs it. The log is the suspect.',
+ wc:'wc -l counts lines: 496549. A 30M text file with half a million lines is unusual for a shop that logs orders.',
+ head:'The first line is a normal start-up message. The next lines are DEBUG messages: payment-gateway retry attempt 1, 2, ... The same message over and over.',
+ tail:'The newest lines are the same message, retry attempt 496547, 496548. The last line is cut off in the middle: the disk filled up while it was being written. The app is retrying nonstop and logging every try.',
+ cp:'This is the failing write the shop sees: copying a 0.9M orders file onto the full disk. The error is No space left on device, and the exit code is 1.',
+ du_logs2:''},
+ S1:{df:'The disk is now 27% used: 11M used, 30M available. The 30M of log is gone.',
+ du1:'logs is now 1.8M. The disk total is 11M.',
+ du_top:'The biggest files are now the 6M backup and the 3M uploads file. app.log is no longer in the top 5.',
+ du_logs:'app.log shows 0 bytes. app.log.1 (1.8M) is untouched.',
+ find:'Only the backup is over 5M now. The big log file is gone from the list, and the backup is still there.',
+ wc:'0 lines: the file still exists but is empty. The program that writes to it can keep writing.',
+ tail:'No output: the file is empty.',
+ cp:'The copy works this time: no output and exit code 0. Orders can be saved again.',
+ ls_orders:'orders.csv is there next to backups, logs and uploads. Nothing was deleted; the backups and uploads are intact.'}};
+function clueFor(st,k){if(st!=='S0')return;
+ if(k==='df')clues.full=true;
+ if(['du1','du_logs'].includes(k)){clues.folder=true;}
+ if(['du_top','find','du_logs'].includes(k)){clues.folder=true;clues.file=true;}
+ if(['head','tail','wc'].includes(k))clues.content=true;}
+function runCmd(raw){if(anim)anim();const q=parse(raw);hist.push(raw);hpos=hist.length;
+ if(q.t==='empty')return;
+ if(q.t==='clear'){$('log').innerHTML='';return;}
+ const e=addEntry(raw);
+ if(q.t==='help'){e.appendChild(note('lesson','<b>Recorded commands in this case:</b> df -h /srv/data, du -h --max-depth=1 /srv/data, du -ah /srv/data | sort -rh | head -5, du -h /srv/data/logs/*, find /srv/data -type f -size +5M, wc -l, head -n 3 and tail -n 3 on /srv/data/logs/app.log, cp /srv/incoming-orders.csv /srv/data/orders.csv, truncate -s 0 FILE, ls /srv/data. Words like hint and clear also work. Open the command pad for tap-to-type.'));return;}
+ if(q.t==='hint'){doHint(e);return;}
+ cmds++;
+ if(q.t==='unknown'){e.appendChild(note('','<b>Game note:</b> that command is not in this recording, so there is no real output to show. Type help to see the recorded ones, or tap Hint.'));upd();return;}
+ if(q.t==='norec'){e.appendChild(note('','<b>Game note:</b> '+q.why));upd();return;}
+ if(q.t==='wrong'){wrong++;e.appendChild(note('bad','<b>Wrong move:</b> '+q.why));upd();return;}
+ if(q.t==='trunc'){
+  if(state!=='S0'){e.appendChild(note('','<b>Game note:</b> app.log is already empty. A second run was not recorded.'));upd();return;}
+  if(!(clues.full&&clues.file&&clues.content)){wrong++;e.appendChild(note('bad','<b>Stopped before running:</b> you have not yet checked how full the disk is, which file is the biggest, and what is inside it. Emptying a file cannot be undone, so look first.'));upd();return;}
+  const r=REC.S0.TRUNC;showOut(e,r.o,r.e,en=>{en.appendChild(note('lesson','<b>Why:</b> truncate -s 0 sets the file size to zero. In this lab the file stays, with the same name and permissions. In this recorded run, exit code 0 reported success; the next disk check and save test verify the result. This is a disposable practice log. On a real server, truncate permanently destroys the contents, so check it is safe to lose first. Only app.log was emptied. The 1.8M older log, the backup and the uploads were not touched.'));state='S1';upd();});return;}
+ const st=state;const r=REC[st]&&REC[st][q.k];
+ if(!r){e.appendChild(note('','<b>Game note:</b> that command is valid, but it was not recorded for this point in the case. Type help to see the recorded ones.'));upd();return;}
+ showOut(e,r.o,r.e,en=>{const t=LESSON[st]&&LESSON[st][q.k];if(t)en.appendChild(note('lesson','<b>Why:</b> '+t));clueFor(st,q.k);
+  if(st==='S1'){if(q.k==='cp')okcp=true;if(q.k==='df')okdf=true;}
+  upd();});}
+function doHint(e){hints++;const s=stage();const key=state+s;hl[key]=Math.min(3,(hl[key]||0)+1);const L=hl[key];
+ const H={S01:['Before fixing anything, measure. Which command shows how full a disk is?','df shows disk space, and -h makes the sizes readable. Name the disk: /srv/data.','Type: df -h /srv/data'],
+ S02:['The disk is full. Which folder, and then which file, is using the space?','du adds up folder sizes. Sorting by size puts the biggest first.','Type: du -ah /srv/data | sort -rh | head -5'],
+ S03:['You found the biggest file. Before you change it, look inside to see why it is so big.','tail shows the last lines of a file, and wc -l counts lines.','Type: tail -n 3 /srv/data/logs/app.log'],
+ S14:['Check two things: the disk has free space, and the failing write now works.','df shows the free space. Run the same cp that failed before.','Type: df -h /srv/data and then: cp /srv/incoming-orders.csv /srv/data/orders.csv']};
+ const txt=(H[key]||['Look at the clue board.','',''])[L-1];e.appendChild(note('','<b>Hint '+L+' of 3:</b> '+esc(txt)));upd();}
+function upd(){renderClues();renderStages();setTimeout(()=>window.dispatchEvent(new Event('resize')),50);$('status').textContent='Commands: '+cmds+' · Hints: '+hints+' · Wrong moves: '+wrong;
+ if(state==='S1'&&okcp&&okdf&&!closed){closed=true;renderStages();debrief();}}
+function debrief(){const d=$('debrief');d.hidden=false;d.innerHTML='<div class="case"><h2 style="margin-top:0">Case closed</h2><p>Commands run: '+cmds+'. Hints used: '+hints+'. Wrong moves: '+wrong+'.</p></div>'+
+ '<h2>What happened</h2><p>The shop\u2019s data disk filled up because one log file, app.log, grew to 30M. A retry loop kept logging the same DEBUG message nearly half a million times. When the disk hit 100%, writes failed with No space left on device, so new orders could not be saved. You measured the disk, found the folder and then the file, looked inside it, emptied only that file, and checked that the disk had space and the write worked.</p>'+
+ '<h2>Use these next time</h2><table><tr><th>Command</th><th>What it tells you</th></tr>'+
+ '<tr><td>df -h /srv/data</td><td>How full a disk is</td></tr><tr><td>du -h --max-depth=1 /srv/data</td><td>Which folder uses the space</td></tr><tr><td>du -ah /srv/data | sort -rh | head -5</td><td>The biggest files and folders</td></tr><tr><td>tail -n 3 FILE</td><td>What the newest lines say</td></tr><tr><td>truncate -s 0 FILE</td><td>Empties one file but keeps it</td></tr></table>'+
+ '<h2>What this does not prove</h2><p>This only freed space; it did not fix the cause. The retry loop is still running and will fill the disk again, so the next step is to find out why the payment gateway keeps failing and to set up log rotation. A 40M lab disk is much smaller than a real server\u2019s. On a real server, files deleted while a program holds them open can still use space (df and du can disagree), a different disk or a full inode table can cause the same error, and you may need sudo. </p><h2>Do not copy this on a real server</h2><p>The app.log here is a disposable, made-up file in a practice lab. Nothing in it matters. Real production logs are different. truncate -s 0 destroys the contents permanently, with no undo and no recycle bin. Those lines may be the only record of what went wrong, and they may be needed for debugging, security checks or audit rules. Emptying a log is not a universal fix for a full disk. On a real system, first ask who owns the log and whether it must be kept. Copy or compress what you need, or let log rotation do it, and ask the owner if you are not sure.</p>';
+ d.scrollIntoView({block:'start'});}
+$('run').onclick=()=>{const v=$('cmd').value;$('cmd').value='';runCmd(v);};
+$('cmd').onkeydown=e=>{if(e.key==='Enter'){e.preventDefault();$('run').onclick();}else if(e.key==='ArrowUp'&&hist.length){e.preventDefault();hpos=Math.max(0,hpos-1);$('cmd').value=hist[hpos]||'';}else if(e.key==='ArrowDown'){e.preventDefault();hpos=Math.min(hist.length,hpos+1);$('cmd').value=hist[hpos]||'';}};
+$('hint').onclick=()=>{const e=addEntry('hint');doHint(e);e.scrollIntoView({block:'nearest'});};
+buildPad();upd();
+</script></body></html>
