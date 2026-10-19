@@ -1,0 +1,99 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="canonical" href="https://faiz12321.github.io/ai-tools-that-work/scenario-10-python-command-not-found.html"><meta name="color-scheme" content="dark"><title>python: command not found. How do I fix it? | AI Tools That Work</title><meta name="description" content="Fix python: command not found on Linux: check what is installed with command -v, read exit status 127 and run the script with python3. An 8-step practice with real recorded Linux output."><script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Why does Ubuntu have python3 but no python?", "acceptedAnswer": {"@type": "Answer", "text": "Since Ubuntu 20.04 the plain name python is not installed by default; Python 3 comes as python3. On your own machine, the python-is-python3 package makes python point at python3."}}, {"@type": "Question", "name": "What does exit status 127 mean?", "acceptedAnswer": {"@type": "Answer", "text": "The command was not found: the shell searched its known locations and no program by that name exists. Compare 126: found, but it could not be run."}}, {"@type": "Question", "name": "What does command -v do?", "acceptedAnswer": {"@type": "Answer", "text": "It prints how the shell would resolve a name: a path, an alias or a builtin. It prints nothing and fails when the name does not exist. which is similar; command -v is a shell builtin."}}, {"@type": "Question", "name": "Is it safe to make python point to python3?", "acceptedAnswer": {"@type": "Answer", "text": "On your own machine, the python-is-python3 package exists for exactly this, but it changes what every program that says python receives. On shared or work machines, prefer typing python3."}}, {"@type": "Question", "name": "The guide's first line says #!/usr/bin/env python. Same fix?", "acceptedAnswer": {"@type": "Answer", "text": "Run it as python3 script.py, or change that first line to python3 if the script is yours. The first line only matters when you run the script directly with ./script.py."}}, {"@type": "Question", "name": "python3 is also missing. Now what?", "acceptedAnswer": {"@type": "Answer", "text": "Then Python really is not installed. On Ubuntu, sudo apt install python3 installs it. Only install packages on a machine you own or have permission to change."}}]}</script><style>
+
+
+html,body{margin:0;background:#0c1811}*{box-sizing:border-box}
+body{font:18px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;color:#eaf4ec}
+.app{background:#0c1811}
+main{max-width:860px;margin:0 auto;padding:24px 18px 48px}
+.brand{color:#8fd694;font-size:14px;letter-spacing:.14em;font-weight:700;margin-bottom:14px;text-transform:uppercase}
+h1{font:700 36px/1.18 "Trebuchet MS","Segoe UI",sans-serif;margin:0 0 12px;color:#fff}
+.sub{color:#a9c2ae;margin:0 0 22px}
+.ticket{background:#122117;border:1px solid #3a5c40;border-left:6px solid #8fd694;border-radius:4px;padding:16px 18px;margin:20px 0;font-size:17px}
+.ticket b{color:#8fd694}
+.answer{border:2px solid #8fd694;background:#122117;border-radius:4px;padding:6px 18px;margin:18px 0;font-size:19px}.answer strong{color:#8fd694}.answer code,.sec+ol code{font:16px ui-monospace,Menlo,Consolas,monospace;background:#0a140d;color:#e0f0e2;padding:2px 6px;border-radius:4px;overflow-wrap:anywhere;word-break:break-word}.shell{color:#ffc46b;margin-bottom:0}.sec{font-size:24px;margin:34px 0 10px;font-family:"Trebuchet MS","Segoe UI",sans-serif}ol{padding-left:22px}li{margin:10px 0}.notice{border-left:4px solid #ffc46b;background:#132419;padding:12px 16px;font-size:16px;margin:22px 0}
+.progress{display:flex;justify-content:space-between;gap:12px;font-size:15px;color:#8fd694;margin-top:26px}
+progress{width:100%;height:8px;accent-color:#8fd694;margin:8px 0 22px}
+progress::-webkit-progress-bar{background:#1e3325;border-radius:4px}progress::-webkit-progress-value{background:#8fd694;border-radius:4px}progress::-moz-progress-bar{background:#8fd694}
+.stage{background:#101f15;padding:22px;border-radius:6px;border:1px solid #3a5c40}
+h2{font-size:26px;line-height:1.25;margin:0 0 16px;font-family:"Trebuchet MS","Segoe UI",sans-serif}
+p{margin:12px 0}
+pre{white-space:pre-wrap;overflow-wrap:anywhere;word-break:break-word;font:16px/1.55 ui-monospace,Menlo,Consolas,monospace;margin:14px 0;padding:16px;border-radius:6px}
+.command{background:#0a140d;color:#e0f0e2;border:1px solid #3a5c40}
+.output{background:#0f2616;color:#a8e6ad;border:1px solid #336a3c}
+.output-label{font-size:15px;color:#a8e6ad;margin-top:22px}
+label{display:block;font-size:16px;margin-bottom:8px}
+textarea{display:block;width:100%;background:#0a140d;color:#fff;border:1px solid #8fd694;border-radius:6px;padding:14px;font:16px/1.55 ui-monospace,Menlo,Consolas,monospace;resize:vertical}
+.buttons{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+button{cursor:pointer;border-radius:6px;padding:12px 16px;line-height:1.4;min-height:48px;font-size:17px;font-weight:600;background:#8fd694;color:#0c2011;border:1px solid #8fd694;max-width:100%;white-space:normal}
+button:disabled{background:#1e3325;color:#9fbca4;border-color:#46714e;cursor:default}
+.buttons>button{flex:1 1 120px}
+.lesson{border-left:3px solid #ffc46b;padding:12px 16px;background:#182b1e;border-radius:4px}
+.hint{padding:12px 16px;background:#33300f;border-radius:4px}
+.error{color:#ffb4b4}
+.choices{display:grid;gap:12px}
+.choices button{display:flex;gap:12px;text-align:left;background:#17281d;color:#f0f8f1;border:1px solid #4f8a58;padding:16px;border-radius:6px;font-weight:500}
+.choices button span{color:#8fd694;font-weight:700}
+.choices .chosen{border-color:#8fd694;background:#1d3a24}
+.navigation{display:flex;justify-content:space-between;gap:12px;margin:22px 0}
+.small{font-size:15px;color:#a9c2ae}
+.restored{display:inline-block;color:#a8e6ad;border:1px solid #ffc46b;padding:8px 12px;margin-bottom:12px;border-radius:6px}
+details{border-top:1px solid #3a5c40;padding:18px 0;font-size:16px}
+summary{cursor:pointer;min-height:44px}
+*:focus-visible{outline:3px solid #8fd694;outline-offset:3px}
+footer{color:#a9c2ae;border-top:1px solid #3a5c40;padding-top:16px;font-size:16px}
+@media(max-width:480px){h1{font-size:30px}.stage{padding:16px 13px}pre{padding:12px;font-size:15px}}
+</style></head><body><div class="app"><main>
+<div class="brand">AI Tools That Work / Scenario 10</div>
+<h1>python: command not found. How do I fix it?</h1>
+<div class="answer"><strong>Short answer</strong>
+<p>command not found means no program by that name exists on this machine. On Ubuntu, Python 3 is usually installed as <code>python3</code>, not <code>python</code>. Check with <code>command -v python3</code>, then run the same command with <code>python3</code>. If python3 is also missing, install it with <code>sudo apt install python3</code>.</p></div>
+<p class="sub">Below is a hands-on practice run with real Linux output. You follow one realistic problem from the error to the fix.</p>
+<div class="ticket"><b>The situation</b><br>You are following a guide. It tells you to run a small script with python hello.py. You type it exactly and bash answers python: command not found. Work out why, decide, fix it.</div>
+<div class="notice">Recorded simulation, not a live terminal. Nothing on this page runs on your device. The output is real: it was recorded on a small Linux lab (details below). The guide and its hello.py are made up for this lesson.</div>
+<div class="notice"><strong>Safety:</strong> installing packages and linking names changes the whole system. Do it only on a machine you own or have permission to change. The recorded fix changes no system settings: it runs the same file with python3.</div>
+<div class="progress" id="progress"></div>
+<progress max="8" value="1" aria-label="Session progress"></progress>
+<section class="stage" id="stage" aria-live="polite"></section>
+<div class="navigation"><button id="back">Back</button><button id="next">Next step</button></div>
+<h2 class="sec">Common mistakes with command not found</h2>
+<ol><li><strong>Reinstalling before checking.</strong> A second Python can shadow or conflict with the one already there. This machine already had Python 3, under the name python3.</li><li><strong>Editing PATH or adding aliases from a forum without reading them.</strong> One wrong line in .bashrc can break every new terminal you open.</li><li><strong>Assuming the script is broken.</strong> command not found is about the program name, so the file was never even read.</li><li><strong>Renaming or moving the script.</strong> Its name and place were never the problem.</li><li><strong>Linking python to python3 on a shared machine.</strong> python-is-python3 exists for your own machine, but it changes what every program that says python receives.</li></ol>
+<h2 class="sec">Frequently asked questions</h2>
+<details><summary>Why does Ubuntu have python3 but no python?</summary><p>Since Ubuntu 20.04 the plain name python is not installed by default; Python 3 comes as python3. On your own machine, the python-is-python3 package makes python point at python3.</p></details><details><summary>What does exit status 127 mean?</summary><p>The command was not found: the shell searched its known locations and no program by that name exists. Compare 126: found, but it could not be run.</p></details><details><summary>What does command -v do?</summary><p>It prints how the shell would resolve a name: a path, an alias or a builtin. It prints nothing and fails when the name does not exist. which is similar; command -v is a shell builtin.</p></details><details><summary>Is it safe to make python point to python3?</summary><p>On your own machine, the python-is-python3 package exists for exactly this, but it changes what every program that says python receives. On shared or work machines, prefer typing python3.</p></details><details><summary>The guide's first line says #!/usr/bin/env python. Same fix?</summary><p>Run it as python3 script.py, or change that first line to python3 if the script is yours. The first line only matters when you run the script directly with ./script.py.</p></details><details><summary>python3 is also missing. Now what?</summary><p>Then Python really is not installed. On Ubuntu, sudo apt install python3 installs it. Only install packages on a machine you own or have permission to change.</p></details>
+<div class="notice"><strong>Before you practice</strong>
+<p>This fixed lesson only reveals recorded results. No commands run on your device. Installing packages changes a system; do it only on a computer you own or have permission to use.</p>
+<p>No warranty: provided as is, without a promise of completeness, accuracy or suitability for your system. This page is general learning material, not professional advice.</p>
+<p>No signup, analytics or tracking code is added. Progress stays in this tab and resets when you reload.</p></div>
+<details><summary>About the recording</summary>
+<p>Recorded on 19 October 2026 on a small Linux lab (Ubuntu 22.04, kernel 6.1) with bash 5.1 and Python 3.10.12, in an empty throw-away folder with no network. A script ran each command in one interactive bash session and captured its output. The whole recording was run twice from scratch, and the two runs matched exactly. No text was replaced or removed in this recording.</p>
+<p>Your system may word things differently, and the exact message can differ between shells and versions. This was tested only in this lab and in Chrome.</p>
+<p>The decisions' feedback is authored guidance, not captured output. Related questions this page draws on: Ask Ubuntu, "python installed in ubuntu but python command not found", and Stack Overflow, "Command 'python' not found". Nothing you type is sent anywhere.</p></details>
+<footer>5 recorded commands &middot; 2 decisions &middot; 1 debrief. Educational practice only.</footer>
+</main></div>
+
+
+<script>
+const stages=[{"kind": "command", "title": "Hit the error", "command": "python hello.py", "output": "bash: python: command not found", "shell": "Terminal", "hint": "Type the command from the guide exactly as given.", "lesson": "command not found means the shell looked everywhere it knows and found no program called python. It says nothing about hello.py: the file was never reached."}, {"kind": "decision", "title": "Decide: the first move", "question": "bash cannot find python. What do you check first?", "choices": ["Reinstall Python from the first download link you find", "Check what Python the machine already has", "Rename hello.py to hello.py3"], "correct": 1, "feedback": ["Installing blindly can add a second, conflicting Python. Check what is already there first.", "Yes. Many Linux systems ship Python 3 as python3, with no plain python. One check answers it.", "The file name is not the problem; the shell never got that far."]}, {"kind": "command", "title": "Read the exit status", "command": "python hello.py 2>/dev/null; echo $?", "output": "127", "shell": "Terminal", "hint": "Run it with the error hidden, then print the exit status with echo $?. The ; joins two commands on one line.", "lesson": "127 means: command not found. Scripts and test suites see this number even when nobody reads the message. Compare 126: the command was found but could not be run."}, {"kind": "command", "title": "Check what is installed", "command": "command -v python; command -v python3", "output": "/usr/bin/python3", "shell": "Terminal", "hint": "command -v prints where a command lives, and prints nothing when it does not exist.", "lesson": "python prints nothing: it does not exist here. python3 lives at /usr/bin/python3. The machine has Python 3, just under a different name."}, {"kind": "command", "title": "Confirm the version", "command": "python3 --version", "output": "Python 3.10.12", "shell": "Terminal", "hint": "--version asks a program to name itself.", "lesson": "Python 3.10.12 answers. Newer Ubuntus ship Python 3 as python3 only; the plain name python is left out on purpose."}, {"kind": "decision", "title": "Decide: the fix", "question": "Python 3 is installed as python3, but the guide says python. What do you do?", "choices": ["Run the same script with python3", "Point the name python somewhere system-wide, right away", "Give up on the guide"], "correct": 0, "feedback": ["Yes. The script is fine; the command name is the whole problem. python3 hello.py runs it.", "The python-is-python3 package exists, but it changes every program that says python. Try python3 first; decide about the link later.", "Nothing is broken. One word in the command needs to change."]}, {"kind": "command", "title": "Run it with python3", "command": "python3 hello.py", "output": "hello from the guide", "shell": "Terminal", "hint": "Same script, one word different.", "lesson": "It runs. Nothing about the file, its folder or its permissions was ever wrong."}, {"kind": "debrief", "title": "Debrief: Python was there under another name"}];
+const RECAP="<div class=\"restored\">Script runs</div><p><strong>Problem:</strong> bash said python: command not found, although Python was installed.</p><p><strong>What you did:</strong> You read exit status 127, checked with command -v, confirmed Python 3.10.12 under the name python3, and ran the same script with python3.</p><p><strong>Evidence:</strong> Before: command not found and 127. After: hello from the guide.</p><p><strong>What this does not prove:</strong> That python3 exists on every machine, or that plain python always means Python 3. This was recorded in one throw-away lab folder, not on your system.</p><p class=\"lesson\">The habit to keep: read the error literally; check what is installed before installing anything.</p>";
+const LAST=stages.length-1;
+let index=0, ran=false, chosen=null;
+const $=id=>document.getElementById(id);
+function esc(x){return String(x).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+function updateNext(){ const s=stages[index]; $('next').disabled=s.kind==='command'?!ran:s.kind==='decision'?chosen!==s.correct:false; }
+function render(){ const s=stages[index];ran=false;chosen=null;
+$('progress').innerHTML='<span>Step '+(index+1)+' of '+stages.length+'</span><span>'+(s.kind==='command'?'Recorded command':s.kind==='decision'?'Decision':'Debrief')+'</span>';
+document.querySelector('progress').value=index+1;$('back').disabled=index===0;$('next').textContent=index===LAST?'Try again':'Next step';
+let html='<h2>'+esc(s.title)+'</h2>';
+if(s.kind==='command'){html+='<p class="shell">Open <strong>'+esc(s.shell)+'</strong>.</p><p>Type this command, or tap to fill it. Run reveals its recorded result.</p><pre class="command"><code>'+esc(s.command)+'</code></pre><form id="command-form"><label for="command">Your command</label><textarea id="command" rows="3" autocapitalize="none" autocorrect="off" spellcheck="false"></textarea><div class="buttons"><button type="button" id="use">Use command</button><button type="button" id="run">Run command</button><button type="button" id="hint-button">Hint</button></div></form><p id="hint" class="hint" hidden>'+esc(s.hint)+'</p><p id="error" class="error" role="alert" hidden></p><div id="result" role="status" hidden><div class="output-label">Captured output</div><pre class="output"><code>'+esc(s.output||'(no output)')+'</code></pre><p class="lesson">'+esc(s.lesson)+'</p></div>';}
+else if(s.kind==='decision'){html+='<p>'+esc(s.question)+'</p><div class="choices">'+s.choices.map((c,i)=>'<button type="button" data-choice="'+i+'"><span>'+(i+1)+'</span>'+esc(c)+'</button>').join('')+'</div><p id="feedback" role="status" hidden></p>';}
+else{html+=RECAP;}
+$('stage').innerHTML=html;
+if(s.kind==='command'){
+$('use').onclick=()=>{$('command').value=s.command;$('error').hidden=true;};
+const run=()=>{if($('command').value.trim()===s.command.trim()){ran=true;$('result').hidden=false;$('error').hidden=true;updateNext();}else{$('error').hidden=false;$('error').textContent='That command is not in this recording. Use the shown command or tap "Use command". Nothing was executed.';}};
+$('run').onclick=run;$('command-form').onsubmit=e=>{e.preventDefault();run();};$('command').onkeydown=e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();run();}};
+$('hint-button').onclick=()=>{$('hint').hidden=!$('hint').hidden;$('hint-button').textContent=$('hint').hidden?'Hint':'Hide hint';};
+}else if(s.kind==='decision'){document.querySelectorAll('[data-choice]').forEach(b=>b.onclick=()=>{chosen=Number(b.dataset.choice);document.querySelectorAll('[data-choice]').forEach(x=>x.classList.toggle('chosen',x===b));$('feedback').hidden=false;$('feedback').className=chosen===s.correct?'lesson':'hint';$('feedback').textContent=s.feedback[chosen]+(chosen!==s.correct?' You can choose again.':'');updateNext();});}
+updateNext();}
+$('back').onclick=()=>{if(index>0){index--;render();$('stage').scrollIntoView({block:'start'});}};
+$('next').onclick=()=>{index=index===LAST?0:index+1;render();$('stage').scrollIntoView({block:'start'});};render();
+</script></body></html>
