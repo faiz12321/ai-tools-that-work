@@ -1,0 +1,98 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="canonical" href="https://faiz12321.github.io/ai-tools-that-work/scenario-11-cd-too-many-arguments.html"><meta name="color-scheme" content="dark"><title>bash: cd: too many arguments. How do I fix it? | AI Tools That Work</title><meta name="description" content="Fix bash: cd: too many arguments on Linux: quote folder names that contain spaces and verify with pwd. An 8-step practice with real recorded Linux output."><script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Why does cd say too many arguments?", "acceptedAnswer": {"@type": "Answer", "text": "bash splits what you type at the spaces, so cd My Documents arrives as cd with two words, My and Documents. cd takes at most one folder name, so two words is one too many."}}, {"@type": "Question", "name": "Quote or backslash?", "acceptedAnswer": {"@type": "Answer", "text": "cd \"My Documents\", cd 'My Documents' and cd My\\ Documents all work. Pressing Tab after part of the name lets the shell finish and escape it for you."}}, {"@type": "Question", "name": "Does the space break other commands too?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. ls My Documents looks for two things, and rm with an unquoted spaced name can remove the wrong files. Quote wherever a name has a space."}}, {"@type": "Question", "name": "Why did cd print nothing?", "acceptedAnswer": {"@type": "Answer", "text": "cd is quiet when it moves. pwd prints where you are, so you can check instead of guessing."}}, {"@type": "Question", "name": "What exit status does a failed cd give?", "acceptedAnswer": {"@type": "Answer", "text": "1 here, and scripts see that number. 0 means the move happened. Check with echo $? right after the command."}}, {"@type": "Question", "name": "What about a folder with quote marks in its name?", "acceptedAnswer": {"@type": "Answer", "text": "Use the other quote style around the name: cd \"it's\" or cd 'say \"hi\"'."}}]}</script><style>
+
+
+
+html,body{margin:0;background:#1a1014}*{box-sizing:border-box}
+body{font:18px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;color:#f7ecef}
+.app{background:#1a1014}
+main{max-width:860px;margin:0 auto;padding:24px 18px 48px}
+.brand{color:#ff9eb0;font-size:14px;letter-spacing:.14em;font-weight:700;margin-bottom:14px;text-transform:uppercase}
+h1{font:700 36px/1.18 "Trebuchet MS","Segoe UI",sans-serif;margin:0 0 12px;color:#fff}
+.sub{color:#c9a9b1;margin:0 0 22px}
+.ticket{background:#271218;border:1px solid #63323f;border-left:6px solid #ff9eb0;border-radius:4px;padding:16px 18px;margin:20px 0;font-size:17px}
+.ticket b{color:#ff9eb0}
+.answer{border:2px solid #ff9eb0;background:#271218;border-radius:4px;padding:6px 18px;margin:18px 0;font-size:19px}.answer strong{color:#ff9eb0}.answer code,.sec+ol code{font:16px ui-monospace,Menlo,Consolas,monospace;background:#170b0f;color:#f6e2e7;padding:2px 6px;border-radius:4px;overflow-wrap:anywhere;word-break:break-word}.shell{color:#ffc46b;margin-bottom:0}.sec{font-size:24px;margin:34px 0 10px;font-family:"Trebuchet MS","Segoe UI",sans-serif}ol{padding-left:22px}li{margin:10px 0}.notice{border-left:4px solid #ffc46b;background:#2a121a;padding:12px 16px;font-size:16px;margin:22px 0}
+.progress{display:flex;justify-content:space-between;gap:12px;font-size:15px;color:#ff9eb0;margin-top:26px}
+progress{width:100%;height:8px;accent-color:#ff9eb0;margin:8px 0 22px}
+progress::-webkit-progress-bar{background:#3a1e27;border-radius:4px}progress::-webkit-progress-value{background:#ff9eb0;border-radius:4px}progress::-moz-progress-bar{background:#ff9eb0}
+.stage{background:#241117;padding:22px;border-radius:6px;border:1px solid #63323f}
+h2{font-size:26px;line-height:1.25;margin:0 0 16px;font-family:"Trebuchet MS","Segoe UI",sans-serif}
+p{margin:12px 0}
+pre{white-space:pre-wrap;overflow-wrap:anywhere;word-break:break-word;font:16px/1.55 ui-monospace,Menlo,Consolas,monospace;margin:14px 0;padding:16px;border-radius:6px}
+.command{background:#170b0f;color:#f6e2e7;border:1px solid #63323f}
+.output{background:#2e0f1a;color:#ffc2cd;border:1px solid #7c2f43}
+.output-label{font-size:15px;color:#ffc2cd;margin-top:22px}
+label{display:block;font-size:16px;margin-bottom:8px}
+textarea{display:block;width:100%;background:#170b0f;color:#fff;border:1px solid #ff9eb0;border-radius:6px;padding:14px;font:16px/1.55 ui-monospace,Menlo,Consolas,monospace;resize:vertical}
+.buttons{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+button{cursor:pointer;border-radius:6px;padding:12px 16px;line-height:1.4;min-height:48px;font-size:17px;font-weight:600;background:#ff9eb0;color:#260b14;border:1px solid #ff9eb0;max-width:100%;white-space:normal}
+button:disabled{background:#3a1e27;color:#c29faa;border-color:#8a3d50;cursor:default}
+.buttons>button{flex:1 1 120px}
+.lesson{border-left:3px solid #ffc46b;padding:12px 16px;background:#331720;border-radius:4px}
+.hint{padding:12px 16px;background:#33300f;border-radius:4px}
+.error{color:#ffb4b4}
+.choices{display:grid;gap:12px}
+.choices button{display:flex;gap:12px;text-align:left;background:#2b151d;color:#fdf2f4;border:1px solid #a34a5f;padding:16px;border-radius:6px;font-weight:500}
+.choices button span{color:#ff9eb0;font-weight:700}
+.choices .chosen{border-color:#ff9eb0;background:#401c28}
+.navigation{display:flex;justify-content:space-between;gap:12px;margin:22px 0}
+.small{font-size:15px;color:#c9a9b1}
+.restored{display:inline-block;color:#ffc2cd;border:1px solid #ffc46b;padding:8px 12px;margin-bottom:12px;border-radius:6px}
+details{border-top:1px solid #63323f;padding:18px 0;font-size:16px}
+summary{cursor:pointer;min-height:44px}
+*:focus-visible{outline:3px solid #ff9eb0;outline-offset:3px}
+footer{color:#c9a9b1;border-top:1px solid #63323f;padding-top:16px;font-size:16px}
+@media(max-width:480px){h1{font-size:30px}.stage{padding:16px 13px}pre{padding:12px;font-size:15px}}
+</style></head><body><div class="app"><main>
+<div class="brand">AI Tools That Work / Scenario 11</div>
+<h1>bash: cd: too many arguments. How do I fix it?</h1>
+<div class="answer"><strong>Short answer</strong>
+<p>bash splits what you type at the spaces, so <code>cd My Documents</code> reaches cd as two words. Put the name in quotes: <code>cd "My Documents"</code>, or escape the space: <code>cd My\ Documents</code>. Tab completion writes the escaped name for you. Then check where you are with <code>pwd</code>.</p></div>
+<p class="sub">Below is a hands-on practice run with real Linux output. You follow one realistic problem from the error to the fix.</p>
+<div class="ticket"><b>The situation</b><br>A folder called My Documents sits in your practice folder. You type cd My Documents and bash answers too many arguments. Work out why, decide, fix it.</div>
+<div class="notice">Recorded simulation, not a live terminal. Nothing on this page runs on your device. The output is real: it was recorded on a small Linux lab (details below). The folder and its name are made up for this lesson.</div>
+<div class="notice"><strong>Safety:</strong> renaming folders and removing files changes real data; do it only in folders you own. The recorded fix changes nothing on disk: it quotes a name.</div>
+<div class="progress" id="progress"></div>
+<progress max="8" value="1" aria-label="Session progress"></progress>
+<section class="stage" id="stage" aria-live="polite"></section>
+<div class="navigation"><button id="back">Back</button><button id="next">Next step</button></div>
+<h2 class="sec">Common mistakes with spaces in names</h2>
+<ol><li><strong>Renaming the folder to remove the space.</strong> It works, but everything pointing at the old name breaks. Quoting changes nothing on disk.</li><li><strong>Retyping the same command.</strong> The shell splits on spaces every time, however carefully you type.</li><li><strong>Assuming the folder is missing.</strong> too many arguments is about word count, not existence. No such file or directory is the missing-folder message.</li><li><strong>Forgetting that every command splits on spaces.</strong> ls My Documents looks for two things, My and Documents. Quote anywhere a name has a space.</li><li><strong>Quoting only part of the name.</strong> cd "My"Documents becomes one wrong name, MyDocuments. The whole name goes inside the quotes.</li></ol>
+<h2 class="sec">Frequently asked questions</h2>
+<details><summary>Why does cd say too many arguments?</summary><p>bash splits what you type at the spaces, so cd My Documents arrives as cd with two words, My and Documents. cd takes at most one folder name, so two words is one too many.</p></details><details><summary>Quote or backslash?</summary><p>cd "My Documents", cd 'My Documents' and cd My\ Documents all work. Pressing Tab after part of the name lets the shell finish and escape it for you.</p></details><details><summary>Does the space break other commands too?</summary><p>Yes. ls My Documents looks for two things, and rm with an unquoted spaced name can remove the wrong files. Quote wherever a name has a space.</p></details><details><summary>Why did cd print nothing?</summary><p>cd is quiet when it moves. pwd prints where you are, so you can check instead of guessing.</p></details><details><summary>What exit status does a failed cd give?</summary><p>1 here, and scripts see that number. 0 means the move happened. Check with echo $? right after the command.</p></details><details><summary>What about a folder with quote marks in its name?</summary><p>Use the other quote style around the name: cd "it's" or cd 'say "hi"'.</p></details>
+<div class="notice"><strong>Before you practice</strong>
+<p>This fixed lesson only reveals recorded results. No commands run on your device. Renaming or deleting changes real data; do it only on a computer you own or have permission to use.</p>
+<p>No warranty: provided as is, without a promise of completeness, accuracy or suitability for your system. This page is general learning material, not professional advice.</p>
+<p>No signup, analytics or tracking code is added. Progress stays in this tab and resets when you reload.</p></div>
+<details><summary>About the recording</summary>
+<p>Recorded on 20 October 2026 on a small Linux lab (Ubuntu 22.04, kernel 6.1) with bash 5.1, in a fixed throw-away folder, /tmp/practice-lab, with no network. A script ran each command in one interactive bash session and captured its output. The whole recording was run twice from scratch, and the two runs matched exactly. No text was replaced or removed in this recording.</p>
+<p>Your system may word things differently, and the exact message can differ between shells and versions. This was tested only in this lab and in Chrome.</p>
+<p>The decisions' feedback is authored guidance, not captured output. Related questions this page draws on: Stack Overflow, "bash : cd : too many arguments", and Unix &amp; Linux Stack Exchange, "bash cd issue with path containing spaces: too many arguments". Nothing you type is sent anywhere.</p></details>
+<footer>5 recorded commands &middot; 2 decisions &middot; 1 debrief. Educational practice only.</footer>
+</main></div>
+<script>
+const stages=[{"kind": "command", "title": "Hit the error", "command": "cd My Documents", "output": "bash: cd: too many arguments", "shell": "Terminal", "hint": "Type the command exactly as you would from memory.", "lesson": "Read the message literally: it does not say the folder is missing. It says cd got too many words. bash splits what you type at the spaces, so My Documents arrived as two words: My and Documents."}, {"kind": "decision", "title": "Decide: the first move", "question": "bash says too many arguments. What do you check first?", "choices": ["Create the folder again with mkdir", "Look at the real folder names with ls", "Type the same command again, slower"], "correct": 1, "feedback": ["The error never said the folder is missing; making it again can create a second, wrong-named folder.", "Yes. ls shows the names exactly as the shell sees them, spaces included.", "Slower typing changes nothing; the shell still splits at the space."]}, {"kind": "command", "title": "Read the exit status", "command": "cd My Documents 2>/dev/null; echo $?", "output": "1", "shell": "Terminal", "hint": "Run it with the error hidden, then print the exit status with echo $?.", "lesson": "1 means the move failed, and scripts see this number even when nobody reads the message. 0 would mean the move happened."}, {"kind": "command", "title": "See the real names", "command": "ls", "output": "My Documents", "shell": "Terminal", "hint": "ls lists the names in the current folder exactly as the shell sees them.", "lesson": "The folder is right there: one name with a space in it. Nothing is missing; the name itself is the trap."}, {"kind": "decision", "title": "Decide: the fix", "question": "The folder is one name with a space. How do you enter it?", "choices": ["Quote it: cd \"My Documents\"", "Rename the folder to remove the space", "Ask bash to ignore spaces with cd --ignore-spaces"], "correct": 0, "feedback": ["Yes. Quotes keep the whole name as one word. A backslash before the space works too, and Tab completion writes it for you.", "That changes the folder for everything that points at it. Quoting changes nothing but your command.", "That option does not exist; spaces are handled by quoting, not flags."]}, {"kind": "command", "title": "Enter with quotes", "command": "cd \"My Documents\"", "output": "", "shell": "Terminal", "hint": "The whole name goes inside the quotes.", "lesson": "cd printed nothing, so do not guess whether it worked. The next step checks where you actually are."}, {"kind": "command", "title": "Verify where you are", "command": "pwd", "output": "/tmp/practice-lab/My Documents", "shell": "Terminal", "hint": "pwd prints the folder you are in.", "lesson": "pwd confirms it: you landed inside My Documents. The space stopped mattering once the name reached bash as one word."}, {"kind": "debrief", "title": "Debrief: one name, two words"}];
+const RECAP="<div class=\"restored\">Inside the folder</div><p><strong>Problem:</strong> bash answered cd: too many arguments for a folder whose name has a space.</p><p><strong>What you did:</strong> You read the exit status (1), saw the real name with ls, entered it with quotes, and verified where you are with pwd.</p><p><strong>Evidence:</strong> Before: too many arguments and exit status 1. After: pwd shows /tmp/practice-lab/My Documents.</p><p><strong>What this does not prove:</strong> That quoting fixes every cd problem: a missing folder gives No such file or directory instead. This was recorded in one throw-away lab folder, not on your system.</p><p class=\"lesson\">The habit to keep: when a command gets a name with a space, quote the name.</p>";
+const LAST=stages.length-1;
+let index=0, ran=false, chosen=null;
+const $=id=>document.getElementById(id);
+function esc(x){return String(x).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+function updateNext(){ const s=stages[index]; $('next').disabled=s.kind==='command'?!ran:s.kind==='decision'?chosen!==s.correct:false; }
+function render(){ const s=stages[index];ran=false;chosen=null;
+$('progress').innerHTML='<span>Step '+(index+1)+' of '+stages.length+'</span><span>'+(s.kind==='command'?'Recorded command':s.kind==='decision'?'Decision':'Debrief')+'</span>';
+document.querySelector('progress').value=index+1;$('back').disabled=index===0;$('next').textContent=index===LAST?'Try again':'Next step';
+let html='<h2>'+esc(s.title)+'</h2>';
+if(s.kind==='command'){html+='<p class="shell">Open <strong>'+esc(s.shell)+'</strong>.</p><p>Type this command, or tap to fill it. Run reveals its recorded result.</p><pre class="command"><code>'+esc(s.command)+'</code></pre><form id="command-form"><label for="command">Your command</label><textarea id="command" rows="3" autocapitalize="none" autocorrect="off" spellcheck="false"></textarea><div class="buttons"><button type="button" id="use">Use command</button><button type="button" id="run">Run command</button><button type="button" id="hint-button">Hint</button></div></form><p id="hint" class="hint" hidden>'+esc(s.hint)+'</p><p id="error" class="error" role="alert" hidden></p><div id="result" role="status" hidden><div class="output-label">Captured output</div><pre class="output"><code>'+esc(s.output||'(no output)')+'</code></pre><p class="lesson">'+esc(s.lesson)+'</p></div>';}
+else if(s.kind==='decision'){html+='<p>'+esc(s.question)+'</p><div class="choices">'+s.choices.map((c,i)=>'<button type="button" data-choice="'+i+'"><span>'+(i+1)+'</span>'+esc(c)+'</button>').join('')+'</div><p id="feedback" role="status" hidden></p>';}
+else{html+=RECAP;}
+$('stage').innerHTML=html;
+if(s.kind==='command'){
+$('use').onclick=()=>{$('command').value=s.command;$('error').hidden=true;};
+const run=()=>{if($('command').value.trim()===s.command.trim()){ran=true;$('result').hidden=false;$('error').hidden=true;updateNext();}else{$('error').hidden=false;$('error').textContent='That command is not in this recording. Use the shown command or tap "Use command". Nothing was executed.';}};
+$('run').onclick=run;$('command-form').onsubmit=e=>{e.preventDefault();run();};$('command').onkeydown=e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();run();}};
+$('hint-button').onclick=()=>{$('hint').hidden=!$('hint').hidden;$('hint-button').textContent=$('hint').hidden?'Hint':'Hide hint';};
+}else if(s.kind==='decision'){document.querySelectorAll('[data-choice]').forEach(b=>b.onclick=()=>{chosen=Number(b.dataset.choice);document.querySelectorAll('[data-choice]').forEach(x=>x.classList.toggle('chosen',x===b));$('feedback').hidden=false;$('feedback').className=chosen===s.correct?'lesson':'hint';$('feedback').textContent=s.feedback[chosen]+(chosen!==s.correct?' You can choose again.':'');updateNext();});}
+updateNext();}
+$('back').onclick=()=>{if(index>0){index--;render();$('stage').scrollIntoView({block:'start'});}};
+$('next').onclick=()=>{index=index===LAST?0:index+1;render();$('stage').scrollIntoView({block:'start'});};render();
+</script></body></html>
