@@ -1,0 +1,99 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="canonical" href="https://faiz12321.github.io/ai-tools-that-work/github-lesson-14-commit-amend.html"><meta name="color-scheme" content="dark"><title>git: how do I fix the last commit? (git commit --amend) | AI Tools That Work</title><meta name="description" content="git commit --amend -m fixes the last message; stage a forgotten file and amend --no-edit folds it in. Only safe on commits nobody else has. An 8-step practice with real recorded output."><script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "How do I fix the last commit message?", "acceptedAnswer": {"@type": "Answer", "text": "Run git commit --amend -m 'new message'. git replaces the last commit with a corrected one. The commit gets a new hash because it is a new commit, not an edit of the old one."}}, {"@type": "Question", "name": "How do I add a forgotten file to the last commit?", "acceptedAnswer": {"@type": "Answer", "text": "Stage the file with git add, then run git commit --amend --no-edit. The last commit is rebuilt with the file included and the message unchanged."}}, {"@type": "Question", "name": "Why did the commit hash change after amend?", "acceptedAnswer": {"@type": "Answer", "text": "Amend does not edit a commit; it creates a replacement commit with a new hash and moves the branch to it. The old commit is left behind."}}, {"@type": "Question", "name": "When must I NOT amend?", "acceptedAnswer": {"@type": "Answer", "text": "Never amend a commit you have pushed or shared. Other people may have built on the old hash; replacing it strands their work and forces an ugly force-push."}}, {"@type": "Question", "name": "Can amend fix an older commit, not the last one?", "acceptedAnswer": {"@type": "Answer", "text": "No, plain amend only touches the most recent commit. Older commits need interactive rebase, which is a bigger tool for another lesson."}}, {"@type": "Question", "name": "What if I amend by mistake?", "acceptedAnswer": {"@type": "Answer", "text": "The old commit still exists for a while and the reflog knows it: git reflog shows where the branch pointed, and you can reset back to the old hash."}}]}</script><style>
+
+
+
+
+html,body{margin:0;background:#161008}*{box-sizing:border-box}
+body{font:18px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;color:#f9f2e8}
+.app{background:#161008}
+main{max-width:860px;margin:0 auto;padding:24px 18px 48px}
+.brand{color:#d29a5c;font-size:14px;letter-spacing:.14em;font-weight:700;margin-bottom:14px;text-transform:uppercase}
+h1{font:700 36px/1.18 "Trebuchet MS","Segoe UI",sans-serif;margin:0 0 12px;color:#fff}
+.sub{color:#cbb59e;margin:0 0 22px}
+.ticket{background:#2b1f10;border:1px solid #6b4f2e;border-left:6px solid #d29a5c;border-radius:4px;padding:16px 18px;margin:20px 0;font-size:17px}
+.ticket b{color:#d29a5c}
+.answer{border:2px solid #d29a5c;background:#2b1f10;border-radius:4px;padding:6px 18px;margin:18px 0;font-size:19px}.answer strong{color:#d29a5c}.answer code,.sec+ol code{font:16px ui-monospace,Menlo,Consolas,monospace;background:#120c06;color:#f4e9db;padding:2px 6px;border-radius:4px;overflow-wrap:anywhere;word-break:break-word}.shell{color:#ffc46b;margin-bottom:0}.sec{font-size:24px;margin:34px 0 10px;font-family:"Trebuchet MS","Segoe UI",sans-serif}ol{padding-left:22px}li{margin:10px 0}.notice{border-left:4px solid #ffc46b;background:#352810;padding:12px 16px;font-size:16px;margin:22px 0}
+.progress{display:flex;justify-content:space-between;gap:12px;font-size:15px;color:#d29a5c;margin-top:26px}
+progress{width:100%;height:8px;accent-color:#d29a5c;margin:8px 0 22px}
+progress::-webkit-progress-bar{background:#3a2b18;border-radius:4px}progress::-webkit-progress-value{background:#d29a5c;border-radius:4px}progress::-moz-progress-bar{background:#d29a5c}
+.stage{background:#2e220e;padding:22px;border-radius:6px;border:1px solid #6b4f2e}
+h2{font-size:26px;line-height:1.25;margin:0 0 16px;font-family:"Trebuchet MS","Segoe UI",sans-serif}
+p{margin:12px 0}
+pre{white-space:pre-wrap;overflow-wrap:anywhere;word-break:break-word;font:16px/1.55 ui-monospace,Menlo,Consolas,monospace;margin:14px 0;padding:16px;border-radius:6px}
+.command{background:#120c06;color:#f4e9db;border:1px solid #6b4f2e}
+.output{background:#3e2f13;color:#e8bb8a;border:1px solid #7f5c2b}
+.output-label{font-size:15px;color:#e8bb8a;margin-top:22px}
+label{display:block;font-size:16px;margin-bottom:8px}
+textarea{display:block;width:100%;background:#120c06;color:#fff;border:1px solid #d29a5c;border-radius:6px;padding:14px;font:16px/1.55 ui-monospace,Menlo,Consolas,monospace;resize:vertical}
+.buttons{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+button{cursor:pointer;border-radius:6px;padding:12px 16px;line-height:1.4;min-height:48px;font-size:17px;font-weight:600;background:#d29a5c;color:#31250c;border:1px solid #d29a5c;max-width:100%;white-space:normal}
+button:disabled{background:#3a2b18;color:#c4a887;border-color:#8f6833;cursor:default}
+.buttons>button{flex:1 1 120px}
+.lesson{border-left:3px solid #ffc46b;padding:12px 16px;background:#443415;border-radius:4px}
+.hint{padding:12px 16px;background:#33300f;border-radius:4px}
+.error{color:#ffb4b4}
+.choices{display:grid;gap:12px}
+.choices button{display:flex;gap:12px;text-align:left;background:#3a2c11;color:#fcf6ee;border:1px solid #a87c3e;padding:16px;border-radius:6px;font-weight:500}
+.choices button span{color:#d29a5c;font-weight:700}
+.choices .chosen{border-color:#d29a5c;background:#54401c}
+.navigation{display:flex;justify-content:space-between;gap:12px;margin:22px 0}
+.small{font-size:15px;color:#cbb59e}
+.restored{display:inline-block;color:#e8bb8a;border:1px solid #ffc46b;padding:8px 12px;margin-bottom:12px;border-radius:6px}
+details{border-top:1px solid #6b4f2e;padding:18px 0;font-size:16px}
+summary{cursor:pointer;min-height:44px}
+*:focus-visible{outline:3px solid #d29a5c;outline-offset:3px}
+footer{color:#cbb59e;border-top:1px solid #6b4f2e;padding-top:16px;font-size:16px}
+@media(max-width:480px){h1{font-size:30px}.stage{padding:16px 13px}pre{padding:12px;font-size:15px}}
+</style></head><body><div class="app"><main>
+<div class="brand">AI Tools That Work / GitHub lesson 14</div>
+<h1>git: how do I fix the last commit? (git commit --amend)</h1>
+<div class="answer"><strong>Short answer</strong>
+<p><code>git commit --amend -m 'new message'</code> replaces the last commit with a corrected one. Stage a forgotten file first and use <code>--amend --no-edit</code> to fold it in. Either way the commit gets a new hash, so do this only on commits nobody else has - never after a push.</p></div>
+<p class="sub">Below is a hands-on practice run with real recorded output. You follow one realistic problem from a typo'd commit to a clean one.</p>
+<div class="ticket"><b>The situation</b><br>Your last commit message reads 'addd app', and feature.txt was supposed to be in that commit but you forgot to stage it. Nothing is pushed anywhere. Fix the message, fold in the file, and watch what amend really does to the commit hash.</div>
+<div class="notice">Recorded simulation, not a live terminal. Nothing on this page runs on your device. The output is real: it was recorded on a small Linux lab (details below). The files and commits are made up for this lesson.</div>
+<div class="notice"><strong>Safety:</strong> <code>--amend</code> rewrites the last commit: the old hash is abandoned. Safe on local, unpushed work. On a pushed or shared commit it strands anyone who pulled the old one, and fixing that means a force-push. Never amend public history.</div>
+<div class="progress" id="progress"></div>
+<progress max="8" value="1" aria-label="Session progress"></progress>
+<section class="stage" id="stage" aria-live="polite"></section>
+<div class="navigation"><button id="back">Back</button><button id="next">Next step</button></div>
+<h2 class="sec">Common mistakes with --amend</h2>
+<ol><li><strong>Amending a pushed commit.</strong> The old hash is what your teammates have. Replacing it forces a force-push and breaks their work. Amend is for local commits only.</li><li><strong>Making a second commit to fix a typo.</strong> 'fix typo' commits clutter history forever. Amend rewrites the last commit cleanly, before anyone sees it.</li><li><strong>Being surprised the hash changed.</strong> That is the mechanism, not a bug: amend creates a replacement commit. The old hash simply stops being on the branch.</li><li><strong>Trying to amend an older commit.</strong> Plain amend only touches the most recent one. Older fixes are interactive rebase territory.</li><li><strong>Panicking after a wrong amend.</strong> The old commit lingers in the reflog for a while; git reflog finds the old hash and you can reset back.</li></ol>
+<h2 class="sec">Frequently asked questions</h2>
+<details><summary>How do I fix the last commit message?</summary><p>Run git commit --amend -m 'new message'. git replaces the last commit with a corrected one. The commit gets a new hash because it is a new commit, not an edit of the old one.</p></details><details><summary>How do I add a forgotten file to the last commit?</summary><p>Stage the file with git add, then run git commit --amend --no-edit. The last commit is rebuilt with the file included and the message unchanged.</p></details><details><summary>Why did the commit hash change after amend?</summary><p>Amend does not edit a commit; it creates a replacement commit with a new hash and moves the branch to it. The old commit is left behind.</p></details><details><summary>When must I NOT amend?</summary><p>Never amend a commit you have pushed or shared. Other people may have built on the old hash; replacing it strands their work and forces an ugly force-push.</p></details><details><summary>Can amend fix an older commit, not the last one?</summary><p>No, plain amend only touches the most recent commit. Older commits need interactive rebase, which is a bigger tool for another lesson.</p></details><details><summary>What if I amend by mistake?</summary><p>The old commit still exists for a while and the reflog knows it: git reflog shows where the branch pointed, and you can reset back to the old hash.</p></details>
+<div class="notice"><strong>Before you practice</strong>
+<p>This fixed lesson only reveals recorded results. No commands run on your device. Amending rewrites a real repository's history; do it only on work you own or have permission to change.</p>
+<p>No warranty: provided as is, without a promise of completeness, accuracy or suitability for your system. This page is general learning material, not professional advice.</p>
+<p>No signup, analytics or tracking code is added. Progress stays in this tab and resets when you reload.</p></div>
+<details><summary>About the recording</summary>
+<p>Recorded on 20 October 2026 on a small Linux lab (Ubuntu 22.04, kernel 6.1) with git 2.34.1 and bash 5.1, in a fixed throw-away folder (/tmp/gl-lab14) with no network and no remote. The 'addd app' commit and the scripted staging of feature.txt happened between the shown steps. Committer names, emails and dates were pinned so the hashes are stable (df02e0f, 7882833, 042aef3). A script ran each command in one bash session and captured its standard output and standard error together; carriage-return control characters from the terminal echo were removed, and no wording was changed. The whole recording was run twice from scratch, and the two runs matched exactly.</p>
+<p>Your system may word things differently, and the exact output can differ between git versions. This was tested only in this lab and in Chrome.</p>
+<p>The decisions' feedback is authored guidance, not captured output. Related questions this page draws on: Stack Overflow, "How to modify existing, unpushed commit messages?", and "How can I add a file to the last commit in Git?". Nothing you type is sent anywhere.</p></details>
+<footer>5 recorded commands &middot; 2 decisions &middot; 1 debrief. Educational practice only.</footer>
+</main></div>
+<script>
+const stages=[{"kind": "command", "title": "Spot the typo", "command": "git log --oneline", "output": "df02e0f addd app", "shell": "Terminal", "hint": "Read the last commit.", "lesson": "df02e0f 'addd app'. A typo, frozen in history. Since nothing is pushed, it is still safe to rewrite."}, {"kind": "decision", "title": "Decide: fix the message", "question": "The last commit message has a typo and the commit is local and unpushed. What do you run?", "choices": ["git commit --amend -m 'add app'", "git commit -m 'fix typo'", "Leave it; messages cannot be changed"], "correct": 0, "feedback": ["Yes. Amend replaces the last commit with a corrected one while it is still private.", "That adds a 'fix typo' commit to history forever. The typo is in the last commit, so just rewrite it.", "They can, exactly once back: the last one, and only while nobody else has it."]}, {"kind": "command", "title": "Rewrite the message", "command": "git commit --amend -m 'add app'", "output": "[main 7882833] add app\n Date: Tue Oct 20 16:00:00 2026 +0000\n 1 file changed, 1 insertion(+)\n create mode 100644 app.txt", "shell": "Terminal", "hint": "Replace the last commit.", "lesson": "[main 7882833] add app. New hash: amend did not edit df02e0f, it replaced it. The original author date is kept."}, {"kind": "command", "title": "Confirm the replacement", "command": "git log --oneline", "output": "7882833 add app", "shell": "Terminal", "hint": "Read the log again.", "lesson": "7882833 'add app'. The typo is gone and the old hash is nowhere on this branch. Verify with the next command, always."}, {"kind": "decision", "title": "Decide: when is this allowed?", "question": "Which commit is safe to amend?", "choices": ["One nobody else has: local and unpushed", "One already pushed to the shared repo", "Any commit; amend is harmless"], "correct": 0, "feedback": ["Yes. Rewrite private history freely. Once a commit is pushed, its hash is a promise other people built on.", "Amending a pushed commit strands everyone who pulled it and demands a force-push. That is the one thing amend must never do.", "Amend abandons the old hash. Harmless locally, destructive once shared."]}, {"kind": "command", "title": "Fold in the forgotten file", "command": "git commit --amend --no-edit", "output": "[main 042aef3] add app\n Date: Tue Oct 20 16:00:00 2026 +0000\n 2 files changed, 2 insertions(+)\n create mode 100644 app.txt\n create mode 100644 feature.txt", "shell": "Terminal", "hint": "feature.txt was staged between steps; rebuild the commit with it.", "lesson": "042aef3, same message, now 2 files changed. --no-edit keeps the message; the staged file joined the commit. Another new hash, still safe: nothing is pushed."}, {"kind": "command", "title": "Prove the final shape", "command": "git show --stat HEAD", "output": "commit 042aef3246b541bb658f800ea0fe9fd267ffaa33\nAuthor: Ada Lovelace <ada@example.com>\nDate:   Tue Oct 20 16:00:00 2026 +0000\n\n    add app\n\n app.txt     | 1 +\n feature.txt | 1 +\n 2 files changed, 2 insertions(+)", "shell": "Terminal", "hint": "Inspect what the commit now holds.", "lesson": "One commit, 'add app', containing app.txt and feature.txt. The typo and the forgotten file both fixed, and history reads as if it was always right."}, {"kind": "debrief", "title": "Debrief: rewrite private, never public"}];
+const RECAP="<div class=\"restored\">Last commit corrected twice</div><p><strong>Problem:</strong> The last commit said 'addd app', and a file that belonged in it had been forgotten.</p><p><strong>What you did:</strong> You amended the message with -m, watched the hash change as proof the commit was replaced, then staged the forgotten file and folded it in with --amend --no-edit.</p><p><strong>Evidence:</strong> The log moved from df02e0f 'addd app' to 7882833 'add app', then to 042aef3 with the same message but 2 files changed. git show --stat HEAD lists app.txt and feature.txt in one commit.</p><p><strong>What this does not prove:</strong> That amending is always safe. Every amend replaces the commit hash; on a commit anyone else has pulled, that strands their work. All of this was local and unpushed. Recorded in one throw-away local lab with no remote.</p><p class=\"lesson\">The habit to keep: amend freely before you push, never after. The hash change is the warning.</p>";
+const LAST=stages.length-1;
+let index=0, ran=false, chosen=null;
+const $=id=>document.getElementById(id);
+function esc(x){return String(x).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+function updateNext(){ const s=stages[index]; $('next').disabled=s.kind==='command'?!ran:s.kind==='decision'?chosen!==s.correct:false; }
+function render(){ const s=stages[index];ran=false;chosen=null;
+$('progress').innerHTML='<span>Step '+(index+1)+' of '+stages.length+'</span><span>'+(s.kind==='command'?'Recorded command':s.kind==='decision'?'Decision':'Debrief')+'</span>';
+document.querySelector('progress').value=index+1;$('back').disabled=index===0;$('next').textContent=index===LAST?'Try again':'Next step';
+let html='<h2>'+esc(s.title)+'</h2>';
+if(s.kind==='command'){html+='<p class="shell">Open <strong>'+esc(s.shell)+'</strong>.</p><p>Type this command, or tap to fill it. Run reveals its recorded result.</p><pre class="command"><code>'+esc(s.command)+'</code></pre><form id="command-form"><label for="command">Your command</label><textarea id="command" rows="3" autocapitalize="none" autocorrect="off" spellcheck="false"></textarea><div class="buttons"><button type="button" id="use">Use command</button><button type="button" id="run">Run command</button><button type="button" id="hint-button">Hint</button></div></form><p id="hint" class="hint" hidden>'+esc(s.hint)+'</p><p id="error" class="error" role="alert" hidden></p><div id="result" role="status" hidden><div class="output-label">Captured output</div><pre class="output"><code>'+esc(s.output||'(no output)')+'</code></pre><p class="lesson">'+esc(s.lesson)+'</p></div>';}
+else if(s.kind==='decision'){html+='<p>'+esc(s.question)+'</p><div class="choices">'+s.choices.map((c,i)=>'<button type="button" data-choice="'+i+'"><span>'+(i+1)+'</span>'+esc(c)+'</button>').join('')+'</div><p id="feedback" role="status" hidden></p>';}
+else{html+=RECAP;}
+$('stage').innerHTML=html;
+if(s.kind==='command'){
+$('use').onclick=()=>{$('command').value=s.command;$('error').hidden=true;};
+const run=()=>{if($('command').value.trim()===s.command.trim()){ran=true;$('result').hidden=false;$('error').hidden=true;updateNext();}else{$('error').hidden=false;$('error').textContent='That command is not in this recording. Use the shown command or tap "Use command". Nothing was executed.';}};
+$('run').onclick=run;$('command-form').onsubmit=e=>{e.preventDefault();run();};$('command').onkeydown=e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();run();}};
+$('hint-button').onclick=()=>{$('hint').hidden=!$('hint').hidden;$('hint-button').textContent=$('hint').hidden?'Hint':'Hide hint';};
+}else if(s.kind==='decision'){document.querySelectorAll('[data-choice]').forEach(b=>b.onclick=()=>{chosen=Number(b.dataset.choice);document.querySelectorAll('[data-choice]').forEach(x=>x.classList.toggle('chosen',x===b));$('feedback').hidden=false;$('feedback').className=chosen===s.correct?'lesson':'hint';$('feedback').textContent=s.feedback[chosen]+(chosen!==s.correct?' You can choose again.':'');updateNext();});}
+updateNext();}
+$('back').onclick=()=>{if(index>0){index--;render();$('stage').scrollIntoView({block:'start'});}};
+$('next').onclick=()=>{index=index===LAST?0:index+1;render();$('stage').scrollIntoView({block:'start'});};render();
+</script></body></html>
