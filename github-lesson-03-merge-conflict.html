@@ -1,0 +1,99 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="canonical" href="https://faiz12321.github.io/ai-tools-that-work/github-lesson-03-merge-conflict.html"><meta name="color-scheme" content="dark"><title>git merge: CONFLICT (content). How do I fix it? | AI Tools That Work</title><meta name="description" content="Fix a git merge conflict: open the file, choose the final text between the markers, git add and git commit. An 8-step practice with real recorded output."><script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What is a merge conflict?", "acceptedAnswer": {"@type": "Answer", "text": "Both branches changed the same lines, so git cannot pick for you. It stops mid-merge, marks both versions inside the file, and waits for you to choose the final text."}}, {"@type": "Question", "name": "What do the markers mean?", "acceptedAnswer": {"@type": "Answer", "text": "<<<<<<< HEAD starts your branch's version, ======= separates it from the other branch's version, and >>>>>>> feature ends it. Delete the markers and keep the text you actually want."}}, {"@type": "Question", "name": "How do I finish the merge?", "acceptedAnswer": {"@type": "Answer", "text": "Edit each conflicted file to its final text, git add the files, then git commit. That commit is the merge commit."}}, {"@type": "Question", "name": "How do I back out instead?", "acceptedAnswer": {"@type": "Answer", "text": "git merge --abort returns everything to how it was before the merge. Your commits on both branches stay untouched."}}, {"@type": "Question", "name": "Is a conflict a sign I broke something?", "acceptedAnswer": {"@type": "Answer", "text": "No. A conflict means two people changed the same place and git is asking a human to decide. It is a normal part of merging."}}, {"@type": "Question", "name": "Can I keep both changes?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. The final text is your choice: one side, the other side, or a mix of both, as long as the markers are gone."}}]}</script><style>
+
+
+
+
+html,body{margin:0;background:#171009}*{box-sizing:border-box}
+body{font:18px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;color:#f8efe6}
+.app{background:#171009}
+main{max-width:860px;margin:0 auto;padding:24px 18px 48px}
+.brand{color:#ff9e57;font-size:14px;letter-spacing:.14em;font-weight:700;margin-bottom:14px;text-transform:uppercase}
+h1{font:700 36px/1.18 "Trebuchet MS","Segoe UI",sans-serif;margin:0 0 12px;color:#fff}
+.sub{color:#cbb4a3;margin:0 0 22px}
+.ticket{background:#261a08;border:1px solid #5f4326;border-left:6px solid #ff9e57;border-radius:4px;padding:16px 18px;margin:20px 0;font-size:17px}
+.ticket b{color:#ff9e57}
+.answer{border:2px solid #ff9e57;background:#261a08;border-radius:4px;padding:6px 18px;margin:18px 0;font-size:19px}.answer strong{color:#ff9e57}.answer code,.sec+ol code{font:16px ui-monospace,Menlo,Consolas,monospace;background:#130c05;color:#f6e6d4;padding:2px 6px;border-radius:4px;overflow-wrap:anywhere;word-break:break-word}.shell{color:#ffc46b;margin-bottom:0}.sec{font-size:24px;margin:34px 0 10px;font-family:"Trebuchet MS","Segoe UI",sans-serif}ol{padding-left:22px}li{margin:10px 0}.notice{border-left:4px solid #ffc46b;background:#2a1e09;padding:12px 16px;font-size:16px;margin:22px 0}
+.progress{display:flex;justify-content:space-between;gap:12px;font-size:15px;color:#ff9e57;margin-top:26px}
+progress{width:100%;height:8px;accent-color:#ff9e57;margin:8px 0 22px}
+progress::-webkit-progress-bar{background:#35270f;border-radius:4px}progress::-webkit-progress-value{background:#ff9e57;border-radius:4px}progress::-moz-progress-bar{background:#ff9e57}
+.stage{background:#241a08;padding:22px;border-radius:6px;border:1px solid #5f4326}
+h2{font-size:26px;line-height:1.25;margin:0 0 16px;font-family:"Trebuchet MS","Segoe UI",sans-serif}
+p{margin:12px 0}
+pre{white-space:pre-wrap;overflow-wrap:anywhere;word-break:break-word;font:16px/1.55 ui-monospace,Menlo,Consolas,monospace;margin:14px 0;padding:16px;border-radius:6px}
+.command{background:#130c05;color:#f6e6d4;border:1px solid #5f4326}
+.output{background:#2e200a;color:#ffc294;border:1px solid #7c421a}
+.output-label{font-size:15px;color:#ffc294;margin-top:22px}
+label{display:block;font-size:16px;margin-bottom:8px}
+textarea{display:block;width:100%;background:#130c05;color:#fff;border:1px solid #ff9e57;border-radius:6px;padding:14px;font:16px/1.55 ui-monospace,Menlo,Consolas,monospace;resize:vertical}
+.buttons{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+button{cursor:pointer;border-radius:6px;padding:12px 16px;line-height:1.4;min-height:48px;font-size:17px;font-weight:600;background:#ff9e57;color:#261b08;border:1px solid #ff9e57;max-width:100%;white-space:normal}
+button:disabled{background:#35270f;color:#c7ab8e;border-color:#8a4d22;cursor:default}
+.buttons>button{flex:1 1 120px}
+.lesson{border-left:3px solid #ffc46b;padding:12px 16px;background:#33250c;border-radius:4px}
+.hint{padding:12px 16px;background:#33300f;border-radius:4px}
+.error{color:#ffb4b4}
+.choices{display:grid;gap:12px}
+.choices button{display:flex;gap:12px;text-align:left;background:#2b200a;color:#fdf5ea;border:1px solid #a35e2c;padding:16px;border-radius:6px;font-weight:500}
+.choices button span{color:#ff9e57;font-weight:700}
+.choices .chosen{border-color:#ff9e57;background:#402d0f}
+.navigation{display:flex;justify-content:space-between;gap:12px;margin:22px 0}
+.small{font-size:15px;color:#cbb4a3}
+.restored{display:inline-block;color:#ffc294;border:1px solid #ffc46b;padding:8px 12px;margin-bottom:12px;border-radius:6px}
+details{border-top:1px solid #5f4326;padding:18px 0;font-size:16px}
+summary{cursor:pointer;min-height:44px}
+*:focus-visible{outline:3px solid #ff9e57;outline-offset:3px}
+footer{color:#cbb4a3;border-top:1px solid #5f4326;padding-top:16px;font-size:16px}
+@media(max-width:480px){h1{font-size:30px}.stage{padding:16px 13px}pre{padding:12px;font-size:15px}}
+</style></head><body><div class="app"><main>
+<div class="brand">AI Tools That Work / GitHub lesson 3</div>
+<h1>git merge: CONFLICT (content). How do I fix it?</h1>
+<div class="answer"><strong>Short answer</strong>
+<p>A conflict means both branches changed the same lines and git is asking you to decide. Open the file, find the <code>&lt;&lt;&lt;&lt;&lt;&lt;&lt;</code> <code>=======</code> <code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</code> markers, rewrite that part to the final text you want, then <code>git add</code> the file and <code>git commit</code>. To back out instead: <code>git merge --abort</code>.</p></div>
+<p class="sub">Below is a hands-on practice run with real recorded output. You follow one realistic problem from the error to the fix.</p>
+<div class="ticket"><b>The situation</b><br>On main you changed the last line of a shopping list to pasta. On a branch called feature, the same line became rice. You run git merge feature and git stops with a conflict. Work out why, decide, fix it.</div>
+<div class="notice">Recorded simulation, not a live terminal. Nothing on this page runs on your device. The output is real: it was recorded on a small Linux lab (details below). The files and branches are made up for this lesson.</div>
+<div class="notice"><strong>Safety:</strong> while a conflict is open, do not run other git commands that rewrite history. Finish the merge or abort it first. The recorded fix edits one practice file and commits it.</div>
+<div class="progress" id="progress"></div>
+<progress max="8" value="1" aria-label="Session progress"></progress>
+<section class="stage" id="stage" aria-live="polite"></section>
+<div class="navigation"><button id="back">Back</button><button id="next">Next step</button></div>
+<h2 class="sec">Common mistakes with merge conflicts</h2>
+<ol><li><strong>Committing the file with the markers still in it.</strong> The markers are not valid content; they land in your project. Always check they are gone before git add.</li><li><strong>Deleting the file to end the argument.</strong> That loses both versions. The fix is choosing the final text, not removing the question.</li><li><strong>Keeping both markers' text without reading it.</strong> Sometimes both sides belong together, sometimes not. The merge commit records whatever you leave, so read it.</li><li><strong>Running more merges while a conflict is open.</strong> git refuses and the state gets harder to read. Resolve, or git merge --abort, then continue.</li><li><strong>Blaming the tool.</strong> A conflict is git asking a human to decide between two real edits. It is normal, not corruption.</li></ol>
+<h2 class="sec">Frequently asked questions</h2>
+<details><summary>What is a merge conflict?</summary><p>Both branches changed the same lines, so git cannot pick for you. It stops mid-merge, marks both versions inside the file, and waits for you to choose the final text.</p></details><details><summary>What do the markers mean?</summary><p>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD starts your branch's version, ======= separates it from the other branch's version, and &gt;&gt;&gt;&gt;&gt;&gt;&gt; feature ends it. Delete the markers and keep the text you actually want.</p></details><details><summary>How do I finish the merge?</summary><p>Edit each conflicted file to its final text, git add the files, then git commit. That commit is the merge commit.</p></details><details><summary>How do I back out instead?</summary><p>git merge --abort returns everything to how it was before the merge. Your commits on both branches stay untouched.</p></details><details><summary>Is a conflict a sign I broke something?</summary><p>No. A conflict means two people changed the same place and git is asking a human to decide. It is a normal part of merging.</p></details><details><summary>Can I keep both changes?</summary><p>Yes. The final text is your choice: one side, the other side, or a mix of both, as long as the markers are gone.</p></details>
+<div class="notice"><strong>Before you practice</strong>
+<p>This fixed lesson only reveals recorded results. No commands run on your device. Merges and commits change real repositories; do them only on work you own or have permission to change.</p>
+<p>No warranty: provided as is, without a promise of completeness, accuracy or suitability for your system. This page is general learning material, not professional advice.</p>
+<p>No signup, analytics or tracking code is added. Progress stays in this tab and resets when you reload.</p></div>
+<details><summary>About the recording</summary>
+<p>Recorded on 20 October 2026 on a small Linux lab (Ubuntu 22.04, kernel 6.1) with git 2.34.1 and bash 5.1, in a fixed throw-away folder (/tmp/gl-lab3) with no network. Committer names, emails and dates were pinned so the commit hashes are stable. A script ran each command in one interactive bash session and captured its output; carriage-return control characters from the terminal echo were removed, and no wording was changed. The whole recording was run twice from scratch, and the two runs matched exactly.</p>
+<p>Your system may word things differently, and the exact message can differ between git versions. This was tested only in this lab and in Chrome.</p>
+<p>The decisions' feedback is authored guidance, not captured output. Related questions this page draws on: Stack Overflow, "How do I resolve merge conflicts in a Git repository?", and "How do I finish the merge after resolving my merge conflicts?". Nothing you type is sent anywhere.</p></details>
+<footer>5 recorded commands &middot; 2 decisions &middot; 1 debrief. Educational practice only.</footer>
+</main></div>
+<script>
+const stages=[{"kind": "command", "title": "Hit the conflict", "command": "git merge feature", "output": "Auto-merging list.txt\nCONFLICT (content): Merge conflict in list.txt\nAutomatic merge failed; fix conflicts and then commit the result.", "shell": "Terminal", "hint": "Try to join the feature branch into main.", "lesson": "git merged what it could and stopped at the one line both sides changed. CONFLICT (content) means: a human must pick the final text."}, {"kind": "decision", "title": "Decide: the first move", "question": "git stopped mid-merge. What do you do first?", "choices": ["Abort everything: git merge --abort", "Look at the state: git status", "Delete list.txt so the argument ends"], "correct": 1, "feedback": ["Aborting is a real option, but it cancels the join you wanted. Look before you decide.", "Yes. status names the conflicted files and the exact commands to finish or abort.", "That loses both versions; the fix is choosing the final text, not removing the question."]}, {"kind": "command", "title": "Read the state", "command": "git status", "output": "On branch main\nYou have unmerged paths.\n  (fix conflicts and run \"git commit\")\n  (use \"git merge --abort\" to abort the merge)\n\nUnmerged paths:\n  (use \"git add <file>...\" to mark resolution)\n\tboth modified:   list.txt\n\nno changes added to commit (use \"git add\" and/or \"git commit -a\")", "shell": "Terminal", "hint": "status shows where the merge stands.", "lesson": "git tells you everything: the merge is open, list.txt is the conflicted file, add marks a resolution, commit finishes, --abort cancels."}, {"kind": "command", "title": "See both versions", "command": "cat list.txt", "output": "milk\neggs\n<<<<<<< HEAD\npasta\n=======\nrice\n>>>>>>> feature", "shell": "Terminal", "hint": "Open the conflicted file and find the markers.", "lesson": "Between <<<<<<< HEAD and ======= is your branch: pasta. Between ======= and >>>>>>> feature is theirs: rice. The rest of the file merged cleanly on its own."}, {"kind": "decision", "title": "Decide: the fix", "question": "The file holds both versions between markers. How do you finish the merge?", "choices": ["Write the final text, git add the file, git commit", "Keep the markers so both options stay visible", "Run git merge feature again to retry"], "correct": 0, "feedback": ["Yes. The final text is your choice: one side, the other, or a mix. add marks it resolved; commit completes the merge.", "Markers are not content; committing them leaves junk in the project.", "git refuses while unmerged files wait; retrying changes nothing."]}, {"kind": "command", "title": "Resolve and commit", "command": "printf 'milk\\neggs\\npasta\\nrice\\n' > list.txt && git add list.txt && git commit -qm 'merge feature into main'", "output": "", "shell": "Terminal", "hint": "One line: write the final file, mark it resolved, commit the merge.", "lesson": "This resolution keeps both: pasta and rice. git commit printed nothing here because -q asked for quiet; the next step checks the result instead of guessing."}, {"kind": "command", "title": "Verify the history", "command": "git log --oneline", "output": "a5a7c02 merge feature into main\nc7c353a main changes bread to pasta\na3c0aa4 feature changes bread to rice\ndf5bec5 start list", "shell": "Terminal", "hint": "log --oneline shows the newest commit first.", "lesson": "The merge commit a5a7c02 sits on top of both sides: pasta from main, rice from feature, and the original list. The conflict is finished."}, {"kind": "debrief", "title": "Debrief: a conflict is a question"}];
+const RECAP="<div class=\"restored\">Merge finished</div><p><strong>Problem:</strong> git stopped mid-merge: both branches had changed the same line of list.txt.</p><p><strong>What you did:</strong> You read the state with git status, saw both versions inside the file between the markers, wrote the final text, and finished with git add and git commit.</p><p><strong>Evidence:</strong> Before: CONFLICT (content) and both modified: list.txt. After: the log shows the merge commit a5a7c02 on top of both sides.</p><p><strong>What this does not prove:</strong> That every conflict is one line in one file; bigger conflicts take the same steps per file. Recorded in one throw-away lab folder, not on your system.</p><p class=\"lesson\">The habit to keep: a conflict is a question, not an error. Read both sides, write the answer, mark it, commit it.</p>";
+const LAST=stages.length-1;
+let index=0, ran=false, chosen=null;
+const $=id=>document.getElementById(id);
+function esc(x){return String(x).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+function updateNext(){ const s=stages[index]; $('next').disabled=s.kind==='command'?!ran:s.kind==='decision'?chosen!==s.correct:false; }
+function render(){ const s=stages[index];ran=false;chosen=null;
+$('progress').innerHTML='<span>Step '+(index+1)+' of '+stages.length+'</span><span>'+(s.kind==='command'?'Recorded command':s.kind==='decision'?'Decision':'Debrief')+'</span>';
+document.querySelector('progress').value=index+1;$('back').disabled=index===0;$('next').textContent=index===LAST?'Try again':'Next step';
+let html='<h2>'+esc(s.title)+'</h2>';
+if(s.kind==='command'){html+='<p class="shell">Open <strong>'+esc(s.shell)+'</strong>.</p><p>Type this command, or tap to fill it. Run reveals its recorded result.</p><pre class="command"><code>'+esc(s.command)+'</code></pre><form id="command-form"><label for="command">Your command</label><textarea id="command" rows="3" autocapitalize="none" autocorrect="off" spellcheck="false"></textarea><div class="buttons"><button type="button" id="use">Use command</button><button type="button" id="run">Run command</button><button type="button" id="hint-button">Hint</button></div></form><p id="hint" class="hint" hidden>'+esc(s.hint)+'</p><p id="error" class="error" role="alert" hidden></p><div id="result" role="status" hidden><div class="output-label">Captured output</div><pre class="output"><code>'+esc(s.output||'(no output)')+'</code></pre><p class="lesson">'+esc(s.lesson)+'</p></div>';}
+else if(s.kind==='decision'){html+='<p>'+esc(s.question)+'</p><div class="choices">'+s.choices.map((c,i)=>'<button type="button" data-choice="'+i+'"><span>'+(i+1)+'</span>'+esc(c)+'</button>').join('')+'</div><p id="feedback" role="status" hidden></p>';}
+else{html+=RECAP;}
+$('stage').innerHTML=html;
+if(s.kind==='command'){
+$('use').onclick=()=>{$('command').value=s.command;$('error').hidden=true;};
+const run=()=>{if($('command').value.trim()===s.command.trim()){ran=true;$('result').hidden=false;$('error').hidden=true;updateNext();}else{$('error').hidden=false;$('error').textContent='That command is not in this recording. Use the shown command or tap "Use command". Nothing was executed.';}};
+$('run').onclick=run;$('command-form').onsubmit=e=>{e.preventDefault();run();};$('command').onkeydown=e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();run();}};
+$('hint-button').onclick=()=>{$('hint').hidden=!$('hint').hidden;$('hint-button').textContent=$('hint').hidden?'Hint':'Hide hint';};
+}else if(s.kind==='decision'){document.querySelectorAll('[data-choice]').forEach(b=>b.onclick=()=>{chosen=Number(b.dataset.choice);document.querySelectorAll('[data-choice]').forEach(x=>x.classList.toggle('chosen',x===b));$('feedback').hidden=false;$('feedback').className=chosen===s.correct?'lesson':'hint';$('feedback').textContent=s.feedback[chosen]+(chosen!==s.correct?' You can choose again.':'');updateNext();});}
+updateNext();}
+$('back').onclick=()=>{if(index>0){index--;render();$('stage').scrollIntoView({block:'start'});}};
+$('next').onclick=()=>{index=index===LAST?0:index+1;render();$('stage').scrollIntoView({block:'start'});};render();
+</script></body></html>
