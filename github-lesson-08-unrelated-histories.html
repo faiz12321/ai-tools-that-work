@@ -1,0 +1,99 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="canonical" href="https://faiz12321.github.io/ai-tools-that-work/github-lesson-08-unrelated-histories.html"><meta name="color-scheme" content="dark"><title>git: fatal: refusing to merge unrelated histories. How do I fix it? | AI Tools That Work</title><meta name="description" content="Unrelated histories means the two branches share no commit. If they truly belong together, merge with --allow-unrelated-histories. An 8-step practice with real recorded output."><script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What are unrelated histories?", "acceptedAnswer": {"@type": "Answer", "text": "Two lines of commits that share no common ancestor. Each started from its own first commit, so git has no shared base to merge from."}}, {"@type": "Question", "name": "Why does git refuse to merge them?", "acceptedAnswer": {"@type": "Answer", "text": "Because joining two separate projects is almost always an accident, like pulling from the wrong repository. git refuses by default so you stop and check."}}, {"@type": "Question", "name": "What is the fix?", "acceptedAnswer": {"@type": "Answer", "text": "When you are sure the two histories belong together, run git merge branch-name --allow-unrelated-histories. git then merges them as if they shared an empty base."}}, {"@type": "Question", "name": "When should I NOT allow it?", "acceptedAnswer": {"@type": "Answer", "text": "When the other history is a stranger: a wrong remote, a mistyped URL, a project you do not recognize. Joining mixes its whole past into yours, and undoing that means rewriting history."}}, {"@type": "Question", "name": "Will my files conflict?", "acceptedAnswer": {"@type": "Answer", "text": "Files that exist on both sides with different content conflict, exactly like a normal merge; you resolve them the same way. Files that exist on only one side come across cleanly."}}, {"@type": "Question", "name": "Does this come up outside merges?", "acceptedAnswer": {"@type": "Answer", "text": "Yes, most often on git pull from a fresh remote or after reinitializing a repository that already had a remote. The meaning and the fix are the same."}}]}</script><style>
+
+
+
+
+html,body{margin:0;background:#0b1611}*{box-sizing:border-box}
+body{font:18px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;color:#e9f8ef}
+.app{background:#0b1611}
+main{max-width:860px;margin:0 auto;padding:24px 18px 48px}
+.brand{color:#5eeaa0;font-size:14px;letter-spacing:.14em;font-weight:700;margin-bottom:14px;text-transform:uppercase}
+h1{font:700 36px/1.18 "Trebuchet MS","Segoe UI",sans-serif;margin:0 0 12px;color:#fff}
+.sub{color:#a3c9b4;margin:0 0 22px}
+.ticket{background:#0e2a1c;border:1px solid #2a5c42;border-left:6px solid #5eeaa0;border-radius:4px;padding:16px 18px;margin:20px 0;font-size:17px}
+.ticket b{color:#5eeaa0}
+.answer{border:2px solid #5eeaa0;background:#0e2a1c;border-radius:4px;padding:6px 18px;margin:18px 0;font-size:19px}.answer strong{color:#5eeaa0}.answer code,.sec+ol code{font:16px ui-monospace,Menlo,Consolas,monospace;background:#081209;color:#d4f4e0;padding:2px 6px;border-radius:4px;overflow-wrap:anywhere;word-break:break-word}.shell{color:#ffc46b;margin-bottom:0}.sec{font-size:24px;margin:34px 0 10px;font-family:"Trebuchet MS","Segoe UI",sans-serif}ol{padding-left:22px}li{margin:10px 0}.notice{border-left:4px solid #ffc46b;background:#092c1b;padding:12px 16px;font-size:16px;margin:22px 0}
+.progress{display:flex;justify-content:space-between;gap:12px;font-size:15px;color:#5eeaa0;margin-top:26px}
+progress{width:100%;height:8px;accent-color:#5eeaa0;margin:8px 0 22px}
+progress::-webkit-progress-bar{background:#143526;border-radius:4px}progress::-webkit-progress-value{background:#5eeaa0;border-radius:4px}progress::-moz-progress-bar{background:#5eeaa0}
+.stage{background:#082618;padding:22px;border-radius:6px;border:1px solid #2a5c42}
+h2{font-size:26px;line-height:1.25;margin:0 0 16px;font-family:"Trebuchet MS","Segoe UI",sans-serif}
+p{margin:12px 0}
+pre{white-space:pre-wrap;overflow-wrap:anywhere;word-break:break-word;font:16px/1.55 ui-monospace,Menlo,Consolas,monospace;margin:14px 0;padding:16px;border-radius:6px}
+.command{background:#081209;color:#d4f4e0;border:1px solid #2a5c42}
+.output{background:#0a331f;color:#8ff2bd;border:1px solid #1a7643}
+.output-label{font-size:15px;color:#8ff2bd;margin-top:22px}
+label{display:block;font-size:16px;margin-bottom:8px}
+textarea{display:block;width:100%;background:#081209;color:#fff;border:1px solid #5eeaa0;border-radius:6px;padding:14px;font:16px/1.55 ui-monospace,Menlo,Consolas,monospace;resize:vertical}
+.buttons{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+button{cursor:pointer;border-radius:6px;padding:12px 16px;line-height:1.4;min-height:48px;font-size:17px;font-weight:600;background:#5eeaa0;color:#082a1a;border:1px solid #5eeaa0;max-width:100%;white-space:normal}
+button:disabled{background:#143526;color:#8ec7a6;border-color:#228550;cursor:default}
+.buttons>button{flex:1 1 120px}
+.lesson{border-left:3px solid #ffc46b;padding:12px 16px;background:#0c3622;border-radius:4px}
+.hint{padding:12px 16px;background:#33300f;border-radius:4px}
+.error{color:#ffb4b4}
+.choices{display:grid;gap:12px}
+.choices button{display:flex;gap:12px;text-align:left;background:#0a2f1e;color:#eefcf3;border:1px solid #2c9a5e;padding:16px;border-radius:6px;font-weight:500}
+.choices button span{color:#5eeaa0;font-weight:700}
+.choices .chosen{border-color:#5eeaa0;background:#10402a}
+.navigation{display:flex;justify-content:space-between;gap:12px;margin:22px 0}
+.small{font-size:15px;color:#a3c9b4}
+.restored{display:inline-block;color:#8ff2bd;border:1px solid #ffc46b;padding:8px 12px;margin-bottom:12px;border-radius:6px}
+details{border-top:1px solid #2a5c42;padding:18px 0;font-size:16px}
+summary{cursor:pointer;min-height:44px}
+*:focus-visible{outline:3px solid #5eeaa0;outline-offset:3px}
+footer{color:#a3c9b4;border-top:1px solid #2a5c42;padding-top:16px;font-size:16px}
+@media(max-width:480px){h1{font-size:30px}.stage{padding:16px 13px}pre{padding:12px;font-size:15px}}
+</style></head><body><div class="app"><main>
+<div class="brand">AI Tools That Work / GitHub lesson 8</div>
+<h1>git: fatal: refusing to merge unrelated histories. How do I fix it?</h1>
+<div class="answer"><strong>Short answer</strong>
+<p>The two branches share no commit at all: they are separate projects. If they genuinely belong together, run <code>git merge branch-name --allow-unrelated-histories</code>. If you do not recognize the other history, stop; joining mixes its whole past into yours and undoing that means rewriting history.</p></div>
+<p class="sub">Below is a hands-on practice run with real recorded output. You follow one realistic problem from the refusal to the fix.</p>
+<div class="ticket"><b>The situation</b><br>This repo accidentally holds two projects: main started the shop, and the library branch was started separately as its own root, so the two share no commit. You run git merge library and git refuses. Work out why, decide whether the histories belong together, then join them.</div>
+<div class="notice">Recorded simulation, not a live terminal. Nothing on this page runs on your device. The output is real: it was recorded on a small Linux lab (details below). The files and branches are made up for this lesson.</div>
+<div class="notice"><strong>Safety:</strong> <code>--allow-unrelated-histories</code> permanently joins two projects' pasts. Use it only when you know both histories and want them merged. Never use it to silence the refusal on an unfamiliar history; walking away is the correct fix there.</div>
+<div class="progress" id="progress"></div>
+<progress max="8" value="1" aria-label="Session progress"></progress>
+<section class="stage" id="stage" aria-live="polite"></section>
+<div class="navigation"><button id="back">Back</button><button id="next">Next step</button></div>
+<h2 class="sec">Common mistakes with unrelated histories</h2>
+<ol><li><strong>Adding --allow-unrelated-histories without reading the situation.</strong> The flag is not a fix-all; it is a declaration that two projects belong together. If one is a stranger, you have just merged a stranger's past into yours.</li><li><strong>Re-cloning or reinitializing to escape.</strong> git init over an existing clone or pulling into a fresh repo is how many people meet this error. The histories are unrelated because one of them was restarted.</li><li><strong>Expecting conflicts that never come.</strong> With no shared base, only files present on both sides can conflict; the rest simply arrive. In this recording the merge added books.txt cleanly.</li><li><strong>Trying --force.</strong> There is nothing to force; the refusal is a policy question, not a conflict. Force flags do not answer it.</li><li><strong>Panicking about data loss.</strong> The refusal changes nothing. Both branches sit untouched until you deliberately join them.</li></ol>
+<h2 class="sec">Frequently asked questions</h2>
+<details><summary>What are unrelated histories?</summary><p>Two lines of commits that share no common ancestor. Each started from its own first commit, so git has no shared base to merge from.</p></details><details><summary>Why does git refuse to merge them?</summary><p>Because joining two separate projects is almost always an accident, like pulling from the wrong repository. git refuses by default so you stop and check.</p></details><details><summary>What is the fix?</summary><p>When you are sure the two histories belong together, run git merge branch-name --allow-unrelated-histories. git then merges them as if they shared an empty base.</p></details><details><summary>When should I NOT allow it?</summary><p>When the other history is a stranger: a wrong remote, a mistyped URL, a project you do not recognize. Joining mixes its whole past into yours, and undoing that means rewriting history.</p></details><details><summary>Will my files conflict?</summary><p>Files that exist on both sides with different content conflict, exactly like a normal merge; you resolve them the same way. Files that exist on only one side come across cleanly.</p></details><details><summary>Does this come up outside merges?</summary><p>Yes, most often on git pull from a fresh remote or after reinitializing a repository that already had a remote. The meaning and the fix are the same.</p></details>
+<div class="notice"><strong>Before you practice</strong>
+<p>This fixed lesson only reveals recorded results. No commands run on your device. Merges change real repositories; do them only on work you own or have permission to change.</p>
+<p>No warranty: provided as is, without a promise of completeness, accuracy or suitability for your system. This page is general learning material, not professional advice.</p>
+<p>No signup, analytics or tracking code is added. Progress stays in this tab and resets when you reload.</p></div>
+<details><summary>About the recording</summary>
+<p>Recorded on 20 October 2026 on a small Linux lab (Ubuntu 22.04, kernel 6.1) with git 2.34.1 and bash 5.1, in a fixed throw-away folder (/tmp/gl-lab8) with no network and no remote. The library branch was created as a second, unrelated root with git checkout --orphan. Committer names, emails and dates were pinned so the commit hashes are stable. A script ran each command in one bash session and captured its standard output and standard error together; carriage-return control characters from the terminal echo were removed, and no wording was changed. The whole recording was run twice from scratch, and the two runs matched exactly.</p>
+<p>Your system may word things differently, and the exact message can differ between git versions. This was tested only in this lab and in Chrome.</p>
+<p>The decisions' feedback is authored guidance, not captured output. Related questions this page draws on: Stack Overflow, "GIT Fatal: refusing to merge unrelated histories", and "Git is refusing to merge unrelated histories. What are 'unrelated histories'?". Nothing you type is sent anywhere.</p></details>
+<footer>5 recorded commands &middot; 2 decisions &middot; 1 debrief. Educational practice only.</footer>
+</main></div>
+<script>
+const stages=[{"kind": "command", "title": "Hit the refusal", "command": "git merge library", "output": "fatal: refusing to merge unrelated histories", "shell": "Terminal", "hint": "Join the library branch into main.", "lesson": "git refused flat out: fatal. Not a conflict, not a partial merge; the merge never started."}, {"kind": "decision", "title": "Decide: what git is asking", "question": "Why would git refuse instead of trying?", "choices": ["The two branches share no commit, so joining them is probably an accident", "The library branch is corrupted", "Merges need a network connection"], "correct": 0, "feedback": ["Yes. Unrelated means no common ancestor. git treats that as a likely mistake and asks a human to confirm.", "Nothing is corrupted; both branches are healthy. They simply started separately.", "This lab has no network. The check is entirely local."]}, {"kind": "command", "title": "Look at main's history", "command": "git log --oneline", "output": "a4b5521 start shop project", "shell": "Terminal", "hint": "List what main knows about.", "lesson": "main's history is a single commit, a4b5521. The library project is invisible from here: no shared past at all."}, {"kind": "decision", "title": "Decide: the fix", "question": "You know both projects and they belong in one repo. What do you run?", "choices": ["git merge library --allow-unrelated-histories -m 'join library project'", "git merge library --force", "git branch -D library"], "correct": 0, "feedback": ["Yes. The flag tells git: I checked, these two histories belong together.", "--force does not exist for this. The refusal is a policy question, not something to overpower.", "That deletes the library work. The goal is to join it, not destroy it."]}, {"kind": "command", "title": "Join on purpose", "command": "git merge library --allow-unrelated-histories -m 'join library project'", "output": "Merge made by the 'ort' strategy.\n books.txt | 1 +\n 1 file changed, 1 insertion(+)\n create mode 100644 books.txt", "shell": "Terminal", "hint": "Allow the merge you just decided on.", "lesson": "Merge made by the 'ort' strategy. git treated the shared past as empty and added what only library had: books.txt."}, {"kind": "command", "title": "Read the joined history", "command": "git log --oneline", "output": "e26674f join library project\ncec22b5 start library project\na4b5521 start shop project", "shell": "Terminal", "hint": "List the history after the merge.", "lesson": "The merge commit e26674f sits on top of both roots: cec22b5 (library) and a4b5521 (shop). Two pasts, one history."}, {"kind": "command", "title": "See the files", "command": "ls", "output": "books.txt\nshop.txt", "shell": "Terminal", "hint": "List the working folder.", "lesson": "Both projects' files are here: books.txt and shop.txt. Nothing conflicted, because no file existed on both sides."}, {"kind": "debrief", "title": "Debrief: the refusal is a question"}];
+const RECAP="<div class=\"restored\">Histories joined</div><p><strong>Problem:</strong> git merge library failed: the shop and library branches shared no commit, so git refused.</p><p><strong>What you did:</strong> You confirmed main's log knew nothing about library, decided the two projects really belong together, and merged with --allow-unrelated-histories.</p><p><strong>Evidence:</strong> Before: fatal: refusing to merge unrelated histories, and the log showed only a4b5521. After: the log shows the merge commit e26674f joining cec22b5 and a4b5521, and ls shows both projects' files.</p><p><strong>What this does not prove:</strong> That joining is always right. If the other history is a stranger, the fix is to back away, not to allow. Recorded in one throw-away local lab with no remote.</p><p class=\"lesson\">The habit to keep: the refusal is a question - do these two projects belong together? Answer it first, then allow the merge.</p>";
+const LAST=stages.length-1;
+let index=0, ran=false, chosen=null;
+const $=id=>document.getElementById(id);
+function esc(x){return String(x).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+function updateNext(){ const s=stages[index]; $('next').disabled=s.kind==='command'?!ran:s.kind==='decision'?chosen!==s.correct:false; }
+function render(){ const s=stages[index];ran=false;chosen=null;
+$('progress').innerHTML='<span>Step '+(index+1)+' of '+stages.length+'</span><span>'+(s.kind==='command'?'Recorded command':s.kind==='decision'?'Decision':'Debrief')+'</span>';
+document.querySelector('progress').value=index+1;$('back').disabled=index===0;$('next').textContent=index===LAST?'Try again':'Next step';
+let html='<h2>'+esc(s.title)+'</h2>';
+if(s.kind==='command'){html+='<p class="shell">Open <strong>'+esc(s.shell)+'</strong>.</p><p>Type this command, or tap to fill it. Run reveals its recorded result.</p><pre class="command"><code>'+esc(s.command)+'</code></pre><form id="command-form"><label for="command">Your command</label><textarea id="command" rows="3" autocapitalize="none" autocorrect="off" spellcheck="false"></textarea><div class="buttons"><button type="button" id="use">Use command</button><button type="button" id="run">Run command</button><button type="button" id="hint-button">Hint</button></div></form><p id="hint" class="hint" hidden>'+esc(s.hint)+'</p><p id="error" class="error" role="alert" hidden></p><div id="result" role="status" hidden><div class="output-label">Captured output</div><pre class="output"><code>'+esc(s.output||'(no output)')+'</code></pre><p class="lesson">'+esc(s.lesson)+'</p></div>';}
+else if(s.kind==='decision'){html+='<p>'+esc(s.question)+'</p><div class="choices">'+s.choices.map((c,i)=>'<button type="button" data-choice="'+i+'"><span>'+(i+1)+'</span>'+esc(c)+'</button>').join('')+'</div><p id="feedback" role="status" hidden></p>';}
+else{html+=RECAP;}
+$('stage').innerHTML=html;
+if(s.kind==='command'){
+$('use').onclick=()=>{$('command').value=s.command;$('error').hidden=true;};
+const run=()=>{if($('command').value.trim()===s.command.trim()){ran=true;$('result').hidden=false;$('error').hidden=true;updateNext();}else{$('error').hidden=false;$('error').textContent='That command is not in this recording. Use the shown command or tap "Use command". Nothing was executed.';}};
+$('run').onclick=run;$('command-form').onsubmit=e=>{e.preventDefault();run();};$('command').onkeydown=e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();run();}};
+$('hint-button').onclick=()=>{$('hint').hidden=!$('hint').hidden;$('hint-button').textContent=$('hint').hidden?'Hint':'Hide hint';};
+}else if(s.kind==='decision'){document.querySelectorAll('[data-choice]').forEach(b=>b.onclick=()=>{chosen=Number(b.dataset.choice);document.querySelectorAll('[data-choice]').forEach(x=>x.classList.toggle('chosen',x===b));$('feedback').hidden=false;$('feedback').className=chosen===s.correct?'lesson':'hint';$('feedback').textContent=s.feedback[chosen]+(chosen!==s.correct?' You can choose again.':'');updateNext();});}
+updateNext();}
+$('back').onclick=()=>{if(index>0){index--;render();$('stage').scrollIntoView({block:'start'});}};
+$('next').onclick=()=>{index=index===LAST?0:index+1;render();$('stage').scrollIntoView({block:'start'});};render();
+</script></body></html>
