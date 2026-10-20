@@ -1,0 +1,99 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="canonical" href="https://faiz12321.github.io/ai-tools-that-work/github-lesson-02-push-rejected-fetch-first.html"><meta name="color-scheme" content="dark"><title>git push: error: failed to push some refs. How do I fix it? | AI Tools That Work</title><meta name="description" content="Fix git error: failed to push some refs: the remote has work you lack. Pull to merge it, then push again. An 8-step practice with real recorded output."><script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Why was my push rejected?", "acceptedAnswer": {"@type": "Answer", "text": "The remote branch moved ahead of yours: it has commits you do not. git refuses to lose them, so it asks you to integrate the remote work before pushing."}}, {"@type": "Question", "name": "Pull with merge or rebase?", "acceptedAnswer": {"@type": "Answer", "text": "git pull --no-rebase merges, as recorded here. git pull --rebase replays your commits on top of theirs. Both end pushable; a merge keeps the true join visible."}}, {"@type": "Question", "name": "Is force push ever the right answer?", "acceptedAnswer": {"@type": "Answer", "text": "Only when you truly mean to replace the remote history, for example a branch only you use. Never as a reaction to this error: it overwrites the work git just told you about."}}, {"@type": "Question", "name": "Why did git status say ahead by 1 when the remote had more?", "acceptedAnswer": {"@type": "Answer", "text": "status compares against what git last fetched. It had not fetched the new commit yet. git fetch, or the pull, refreshes that picture."}}, {"@type": "Question", "name": "What if the pull stops with a conflict?", "acceptedAnswer": {"@type": "Answer", "text": "Both sides changed the same lines. Open the files, choose the right content, git add the files, git commit, then push."}}, {"@type": "Question", "name": "Fetch first or non-fast-forward: which is it?", "acceptedAnswer": {"@type": "Answer", "text": "Both bracket reasons mean the same thing: the remote moved ahead, so integrate its work before pushing."}}]}</script><style>
+
+
+
+
+html,body{margin:0;background:#14101c}*{box-sizing:border-box}
+body{font:18px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;color:#f0ecf8}
+.app{background:#14101c}
+main{max-width:860px;margin:0 auto;padding:24px 18px 48px}
+.brand{color:#c4a5ff;font-size:14px;letter-spacing:.14em;font-weight:700;margin-bottom:14px;text-transform:uppercase}
+h1{font:700 36px/1.18 "Trebuchet MS","Segoe UI",sans-serif;margin:0 0 12px;color:#fff}
+.sub{color:#b3a9c9;margin:0 0 22px}
+.ticket{background:#1d1230;border:1px solid #46325e;border-left:6px solid #c4a5ff;border-radius:4px;padding:16px 18px;margin:20px 0;font-size:17px}
+.ticket b{color:#c4a5ff}
+.answer{border:2px solid #c4a5ff;background:#1d1230;border-radius:4px;padding:6px 18px;margin:18px 0;font-size:19px}.answer strong{color:#c4a5ff}.answer code,.sec+ol code{font:16px ui-monospace,Menlo,Consolas,monospace;background:#100a18;color:#e8e2f6;padding:2px 6px;border-radius:4px;overflow-wrap:anywhere;word-break:break-word}.shell{color:#ffc46b;margin-bottom:0}.sec{font-size:24px;margin:34px 0 10px;font-family:"Trebuchet MS","Segoe UI",sans-serif}ol{padding-left:22px}li{margin:10px 0}.notice{border-left:4px solid #ffc46b;background:#1e1330;padding:12px 16px;font-size:16px;margin:22px 0}
+.progress{display:flex;justify-content:space-between;gap:12px;font-size:15px;color:#c4a5ff;margin-top:26px}
+progress{width:100%;height:8px;accent-color:#c4a5ff;margin:8px 0 22px}
+progress::-webkit-progress-bar{background:#2a1e3a;border-radius:4px}progress::-webkit-progress-value{background:#c4a5ff;border-radius:4px}progress::-moz-progress-bar{background:#c4a5ff}
+.stage{background:#1c112c;padding:22px;border-radius:6px;border:1px solid #46325e}
+h2{font-size:26px;line-height:1.25;margin:0 0 16px;font-family:"Trebuchet MS","Segoe UI",sans-serif}
+p{margin:12px 0}
+pre{white-space:pre-wrap;overflow-wrap:anywhere;word-break:break-word;font:16px/1.55 ui-monospace,Menlo,Consolas,monospace;margin:14px 0;padding:16px;border-radius:6px}
+.command{background:#100a18;color:#e8e2f6;border:1px solid #46325e}
+.output{background:#220f36;color:#d8c4ff;border:1px solid #5b3a96}
+.output-label{font-size:15px;color:#d8c4ff;margin-top:22px}
+label{display:block;font-size:16px;margin-bottom:8px}
+textarea{display:block;width:100%;background:#100a18;color:#fff;border:1px solid #c4a5ff;border-radius:6px;padding:14px;font:16px/1.55 ui-monospace,Menlo,Consolas,monospace;resize:vertical}
+.buttons{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+button{cursor:pointer;border-radius:6px;padding:12px 16px;line-height:1.4;min-height:48px;font-size:17px;font-weight:600;background:#c4a5ff;color:#1d0c2e;border:1px solid #c4a5ff;max-width:100%;white-space:normal}
+button:disabled{background:#2a1e3a;color:#b0a2c8;border-color:#6848a8;cursor:default}
+.buttons>button{flex:1 1 120px}
+.lesson{border-left:3px solid #ffc46b;padding:12px 16px;background:#26183c;border-radius:4px}
+.hint{padding:12px 16px;background:#33300f;border-radius:4px}
+.error{color:#ffb4b4}
+.choices{display:grid;gap:12px}
+.choices button{display:flex;gap:12px;text-align:left;background:#211534;color:#f4f0fd;border:1px solid #7b5cbf;padding:16px;border-radius:6px;font-weight:500}
+.choices button span{color:#c4a5ff;font-weight:700}
+.choices .chosen{border-color:#c4a5ff;background:#2e1c48}
+.navigation{display:flex;justify-content:space-between;gap:12px;margin:22px 0}
+.small{font-size:15px;color:#b3a9c9}
+.restored{display:inline-block;color:#d8c4ff;border:1px solid #ffc46b;padding:8px 12px;margin-bottom:12px;border-radius:6px}
+details{border-top:1px solid #46325e;padding:18px 0;font-size:16px}
+summary{cursor:pointer;min-height:44px}
+*:focus-visible{outline:3px solid #c4a5ff;outline-offset:3px}
+footer{color:#b3a9c9;border-top:1px solid #46325e;padding-top:16px;font-size:16px}
+@media(max-width:480px){h1{font-size:30px}.stage{padding:16px 13px}pre{padding:12px;font-size:15px}}
+</style></head><body><div class="app"><main>
+<div class="brand">AI Tools That Work / GitHub lesson 2</div>
+<h1>git push: error: failed to push some refs. How do I fix it?</h1>
+<div class="answer"><strong>Short answer</strong>
+<p>The remote has commits you do not. Join them with yours first: <code>git pull --no-rebase</code> to merge (or <code>git pull --rebase</code>), then <code>git push</code> again. Do not answer with <code>--force</code>: that overwrites the other work.</p></div>
+<p class="sub">Below is a hands-on practice run with real recorded output. You follow one realistic problem from the error to the fix.</p>
+<div class="ticket"><b>The situation</b><br>You and a teammate share a repository and started from the same commit. They pushed their file; you committed yours. Your git push is refused. Work out why, decide, fix it.</div>
+<div class="notice">Recorded simulation, not a live terminal. Nothing on this page runs on your device. The output is real: it was recorded on a small Linux lab with a local stand-in remote (details below). The files and commits are made up for this lesson.</div>
+<div class="notice"><strong>Safety:</strong> git push --force and git reset --hard destroy work, including other people's. The recorded fix changes nothing you did not make: it pulls, merges and pushes.</div>
+<div class="progress" id="progress"></div>
+<progress max="8" value="1" aria-label="Session progress"></progress>
+<section class="stage" id="stage" aria-live="polite"></section>
+<div class="navigation"><button id="back">Back</button><button id="next">Next step</button></div>
+<h2 class="sec">Common mistakes with a rejected push</h2>
+<ol><li><strong>Reaching for git push --force.</strong> It overwrites the remote, erasing the very work git just told you about. Force is for branches only you use.</li><li><strong>Cloning again instead of pulling.</strong> A fresh clone sidesteps the problem but abandons your local commit. Pull joins both lines of work.</li><li><strong>Skipping the hint lines.</strong> They name the cause (the remote contains work you do not have) and the fix (integrate it, then push).</li><li><strong>Trusting git status for remote news.</strong> status only knows the last fetch; here it still said ahead by 1 while the remote had moved. A fetch refreshes it.</li><li><strong>Assuming every pull merges cleanly.</strong> When both sides edit the same lines, git stops with a conflict. That is normal, not corruption: resolve, add, commit.</li></ol>
+<h2 class="sec">Frequently asked questions</h2>
+<details><summary>Why was my push rejected?</summary><p>The remote branch moved ahead of yours: it has commits you do not. git refuses to lose them, so it asks you to integrate the remote work before pushing.</p></details><details><summary>Pull with merge or rebase?</summary><p>git pull --no-rebase merges, as recorded here. git pull --rebase replays your commits on top of theirs. Both end pushable; a merge keeps the true join visible.</p></details><details><summary>Is force push ever the right answer?</summary><p>Only when you truly mean to replace the remote history, for example a branch only you use. Never as a reaction to this error: it overwrites the work git just told you about.</p></details><details><summary>Why did git status say ahead by 1 when the remote had more?</summary><p>status compares against what git last fetched. It had not fetched the new commit yet. git fetch, or the pull, refreshes that picture.</p></details><details><summary>What if the pull stops with a conflict?</summary><p>Both sides changed the same lines. Open the files, choose the right content, git add the files, git commit, then push.</p></details><details><summary>Fetch first or non-fast-forward: which is it?</summary><p>Both bracket reasons mean the same thing: the remote moved ahead, so integrate its work before pushing.</p></details>
+<div class="notice"><strong>Before you practice</strong>
+<p>This fixed lesson only reveals recorded results. No commands run on your device. Force-pushing and hard resets change real history; do them only on work you own and mean to replace.</p>
+<p>No warranty: provided as is, without a promise of completeness, accuracy or suitability for your system. This page is general learning material, not professional advice.</p>
+<p>No signup, analytics or tracking code is added. Progress stays in this tab and resets when you reload.</p></div>
+<details><summary>About the recording</summary>
+<p>Recorded on 20 October 2026 on a small Linux lab (Ubuntu 22.04, kernel 6.1) with git 2.34.1 and bash 5.1, using a fixed throw-away folder (/tmp/gl-lab2) with a local bare repository as the stand-in remote, and no network. Committer names, emails and dates were pinned so the commit hashes are stable. A script ran each command in one interactive bash session and captured its output. The whole recording was run twice from scratch, and the two runs matched exactly. No text was replaced or removed in this recording.</p>
+<p>Your system may word things differently, and the exact message can differ between git versions. This was tested only in this lab and in Chrome.</p>
+<p>The decisions' feedback is authored guidance, not captured output. Related questions this page draws on: Stack Overflow, "Error: Updates were rejected because the remote contains work that you do not have locally", and "Git: Push rejected". Nothing you type is sent anywhere.</p></details>
+<footer>5 recorded commands &middot; 2 decisions &middot; 1 debrief. Educational practice only.</footer>
+</main></div>
+<script>
+const stages=[{"kind": "command", "title": "Hit the error", "command": "git push", "output": "To /tmp/gl-lab2/remote.git\n ! [rejected]        main -> main (fetch first)\nerror: failed to push some refs to '/tmp/gl-lab2/remote.git'\nhint: Updates were rejected because the remote contains work that you do\nhint: not have locally. This is usually caused by another repository pushing\nhint: to the same ref. You may want to first integrate the remote changes\nhint: (e.g., 'git pull ...') before pushing again.\nhint: See the 'Note about fast-forwards' in 'git push --help' for details.", "shell": "Terminal", "hint": "Try to publish your commit.", "lesson": "Read the hint: the remote contains work you do not have. Someone pushed while you worked. The push is refused so their work is not lost."}, {"kind": "decision", "title": "Decide: the first move", "question": "The push was refused and the hint mentions git pull. What do you do first?", "choices": ["Force it through: git push --force", "Look at what git knows: git status", "Clone the repository again from scratch"], "correct": 1, "feedback": ["Force overwrites the remote, erasing the work git just told you about.", "Yes. Check what git knows about both sides before touching anything.", "A fresh clone abandons your local commit; the fix is to join the work, not restart."]}, {"kind": "command", "title": "Read the exit status", "command": "git push 2>/dev/null; echo $?", "output": "1", "shell": "Terminal", "hint": "Run it with the error hidden, then print the exit status with echo $?.", "lesson": "1 means the push was refused, and scripts see this number even when nobody reads the message. 0 would mean it was accepted."}, {"kind": "command", "title": "Check what git knows", "command": "git status", "output": "On branch main\nYour branch is ahead of 'origin/main' by 1 commit.\n  (use \"git push\" to publish your local commits)\n\nnothing to commit, working tree clean", "shell": "Terminal", "hint": "status compares your branch with what git last fetched.", "lesson": "Careful: status still says you are simply ahead by 1. It only knows the remote from the last fetch, and the rejection is fresher news. The pull in the next steps fetches the truth."}, {"kind": "decision", "title": "Decide: the fix", "question": "The remote has a commit you lack; you have a commit it lacks. How do you join them?", "choices": ["git pull --no-rebase to merge their work with yours", "git push --force to overwrite theirs", "git reset --hard origin/main to throw your commit away"], "correct": 0, "feedback": ["Yes. Pull fetches their commit and merges it with yours; then the push is accepted.", "That erases their work to make room for yours.", "That throws your work away; nothing needed deleting."]}, {"kind": "command", "title": "Pull and merge", "command": "git pull --no-rebase", "output": "From /tmp/gl-lab2/remote\n   14fc77d..f463e6b  main       -> origin/main\nMerge made by the 'ort' strategy.\n file2.txt | 1 +\n 1 file changed, 1 insertion(+)\n create mode 100644 file2.txt", "shell": "Terminal", "hint": "--no-rebase asks for a plain merge.", "lesson": "The pull fetched their commit (main -> origin/main) and merged: their file2.txt arrived, your commit stayed, and git made a merge commit."}, {"kind": "command", "title": "Push again", "command": "git push", "output": "To /tmp/gl-lab2/remote.git\n   f463e6b..63ebc49  main -> main", "shell": "Terminal", "hint": "Same command as the first step.", "lesson": "Accepted this time. Your branch now contains everything the remote has, plus your work, so the remote can fast-forward to it."}, {"kind": "debrief", "title": "Debrief: join, then push"}];
+const RECAP="<div class=\"restored\">Push accepted</div><p><strong>Problem:</strong> git refused the push: the remote had a commit you lacked.</p><p><strong>What you did:</strong> You read the exit status (1), saw that git status was working from stale fetch data, pulled to merge their file2.txt with your commit, and pushed again.</p><p><strong>Evidence:</strong> Before: rejected (fetch first) and exit status 1. After: f463e6b..63ebc49 main -> main.</p><p><strong>What this does not prove:</strong> That every pull merges cleanly: same-line edits stop with a conflict. Recorded against a local stand-in remote, not GitHub itself.</p><p class=\"lesson\">The habit to keep: when a push is rejected, integrate the remote work first; never answer with --force.</p>";
+const LAST=stages.length-1;
+let index=0, ran=false, chosen=null;
+const $=id=>document.getElementById(id);
+function esc(x){return String(x).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+function updateNext(){ const s=stages[index]; $('next').disabled=s.kind==='command'?!ran:s.kind==='decision'?chosen!==s.correct:false; }
+function render(){ const s=stages[index];ran=false;chosen=null;
+$('progress').innerHTML='<span>Step '+(index+1)+' of '+stages.length+'</span><span>'+(s.kind==='command'?'Recorded command':s.kind==='decision'?'Decision':'Debrief')+'</span>';
+document.querySelector('progress').value=index+1;$('back').disabled=index===0;$('next').textContent=index===LAST?'Try again':'Next step';
+let html='<h2>'+esc(s.title)+'</h2>';
+if(s.kind==='command'){html+='<p class="shell">Open <strong>'+esc(s.shell)+'</strong>.</p><p>Type this command, or tap to fill it. Run reveals its recorded result.</p><pre class="command"><code>'+esc(s.command)+'</code></pre><form id="command-form"><label for="command">Your command</label><textarea id="command" rows="3" autocapitalize="none" autocorrect="off" spellcheck="false"></textarea><div class="buttons"><button type="button" id="use">Use command</button><button type="button" id="run">Run command</button><button type="button" id="hint-button">Hint</button></div></form><p id="hint" class="hint" hidden>'+esc(s.hint)+'</p><p id="error" class="error" role="alert" hidden></p><div id="result" role="status" hidden><div class="output-label">Captured output</div><pre class="output"><code>'+esc(s.output||'(no output)')+'</code></pre><p class="lesson">'+esc(s.lesson)+'</p></div>';}
+else if(s.kind==='decision'){html+='<p>'+esc(s.question)+'</p><div class="choices">'+s.choices.map((c,i)=>'<button type="button" data-choice="'+i+'"><span>'+(i+1)+'</span>'+esc(c)+'</button>').join('')+'</div><p id="feedback" role="status" hidden></p>';}
+else{html+=RECAP;}
+$('stage').innerHTML=html;
+if(s.kind==='command'){
+$('use').onclick=()=>{$('command').value=s.command;$('error').hidden=true;};
+const run=()=>{if($('command').value.trim()===s.command.trim()){ran=true;$('result').hidden=false;$('error').hidden=true;updateNext();}else{$('error').hidden=false;$('error').textContent='That command is not in this recording. Use the shown command or tap "Use command". Nothing was executed.';}};
+$('run').onclick=run;$('command-form').onsubmit=e=>{e.preventDefault();run();};$('command').onkeydown=e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();run();}};
+$('hint-button').onclick=()=>{$('hint').hidden=!$('hint').hidden;$('hint-button').textContent=$('hint').hidden?'Hint':'Hide hint';};
+}else if(s.kind==='decision'){document.querySelectorAll('[data-choice]').forEach(b=>b.onclick=()=>{chosen=Number(b.dataset.choice);document.querySelectorAll('[data-choice]').forEach(x=>x.classList.toggle('chosen',x===b));$('feedback').hidden=false;$('feedback').className=chosen===s.correct?'lesson':'hint';$('feedback').textContent=s.feedback[chosen]+(chosen!==s.correct?' You can choose again.':'');updateNext();});}
+updateNext();}
+$('back').onclick=()=>{if(index>0){index--;render();$('stage').scrollIntoView({block:'start'});}};
+$('next').onclick=()=>{index=index===LAST?0:index+1;render();$('stage').scrollIntoView({block:'start'});};render();
+</script></body></html>
