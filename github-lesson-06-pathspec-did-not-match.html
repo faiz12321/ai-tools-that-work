@@ -1,0 +1,99 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="canonical" href="https://faiz12321.github.io/ai-tools-that-work/github-lesson-06-pathspec-did-not-match.html"><meta name="color-scheme" content="dark"><title>git: error: pathspec did not match. How do I fix it? | AI Tools That Work</title><meta name="description" content="pathspec did not match means git found no branch or file with that name. Check git branch, fix the typo, or create the branch with git switch -c. An 8-step practice with real recorded output."><script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What is a pathspec?", "acceptedAnswer": {"@type": "Answer", "text": "A pathspec is how you name things to git: a branch, a tag, a commit, or a file path. Commands like checkout and restore read the word you give them as one of these."}}, {"@type": "Question", "name": "Why does git say 'did not match any file(s) known to git'?", "acceptedAnswer": {"@type": "Answer", "text": "Because nothing with that name exists in the repository: no branch, no tag, and no tracked file at that path. git checked every kind of thing the word could mean and found none."}}, {"@type": "Question", "name": "I wanted a new branch. What is the fix?", "acceptedAnswer": {"@type": "Answer", "text": "Create it: git switch -c docs. Plain git checkout docs only switches to things that already exist; it never creates a branch."}}, {"@type": "Question", "name": "I wanted an existing branch. What went wrong?", "acceptedAnswer": {"@type": "Answer", "text": "Usually a typo, or the branch exists only on the remote. Run git branch to list local branches and git branch -r for remote ones, then switch to the exact name."}}, {"@type": "Question", "name": "Does the error change anything?", "acceptedAnswer": {"@type": "Answer", "text": "No. The command failed before touching anything: HEAD, your files and the staging area are exactly as they were. You are free to retry with the right name."}}, {"@type": "Question", "name": "How do I avoid this error?", "acceptedAnswer": {"@type": "Answer", "text": "List before you switch: git branch shows what exists. Use git switch for branches and git restore for files, so each command has one clear meaning."}}]}</script><style>
+
+
+
+
+html,body{margin:0;background:#1a0f18}*{box-sizing:border-box}
+body{font:18px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;color:#f9ecf6}
+.app{background:#1a0f18}
+main{max-width:860px;margin:0 auto;padding:24px 18px 48px}
+.brand{color:#ff7ad0;font-size:14px;letter-spacing:.14em;font-weight:700;margin-bottom:14px;text-transform:uppercase}
+h1{font:700 36px/1.18 "Trebuchet MS","Segoe UI",sans-serif;margin:0 0 12px;color:#fff}
+.sub{color:#caa9c4;margin:0 0 22px}
+.ticket{background:#2a1026;border:1px solid #5e2f52;border-left:6px solid #ff7ad0;border-radius:4px;padding:16px 18px;margin:20px 0;font-size:17px}
+.ticket b{color:#ff7ad0}
+.answer{border:2px solid #ff7ad0;background:#2a1026;border-radius:4px;padding:6px 18px;margin:18px 0;font-size:19px}.answer strong{color:#ff7ad0}.answer code,.sec+ol code{font:16px ui-monospace,Menlo,Consolas,monospace;background:#150912;color:#f7e0f0;padding:2px 6px;border-radius:4px;overflow-wrap:anywhere;word-break:break-word}.shell{color:#ffc46b;margin-bottom:0}.sec{font-size:24px;margin:34px 0 10px;font-family:"Trebuchet MS","Segoe UI",sans-serif}ol{padding-left:22px}li{margin:10px 0}.notice{border-left:4px solid #ffc46b;background:#2c0f24;padding:12px 16px;font-size:16px;margin:22px 0}
+.progress{display:flex;justify-content:space-between;gap:12px;font-size:15px;color:#ff7ad0;margin-top:26px}
+progress{width:100%;height:8px;accent-color:#ff7ad0;margin:8px 0 22px}
+progress::-webkit-progress-bar{background:#3a1a34;border-radius:4px}progress::-webkit-progress-value{background:#ff7ad0;border-radius:4px}progress::-moz-progress-bar{background:#ff7ad0}
+.stage{background:#260e20;padding:22px;border-radius:6px;border:1px solid #5e2f52}
+h2{font-size:26px;line-height:1.25;margin:0 0 16px;font-family:"Trebuchet MS","Segoe UI",sans-serif}
+p{margin:12px 0}
+pre{white-space:pre-wrap;overflow-wrap:anywhere;word-break:break-word;font:16px/1.55 ui-monospace,Menlo,Consolas,monospace;margin:14px 0;padding:16px;border-radius:6px}
+.command{background:#150912;color:#f7e0f0;border:1px solid #5e2f52}
+.output{background:#320e28;color:#ffabe2;border:1px solid #802868}
+.output-label{font-size:15px;color:#ffabe2;margin-top:22px}
+label{display:block;font-size:16px;margin-bottom:8px}
+textarea{display:block;width:100%;background:#150912;color:#fff;border:1px solid #ff7ad0;border-radius:6px;padding:14px;font:16px/1.55 ui-monospace,Menlo,Consolas,monospace;resize:vertical}
+.buttons{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+button{cursor:pointer;border-radius:6px;padding:12px 16px;line-height:1.4;min-height:48px;font-size:17px;font-weight:600;background:#ff7ad0;color:#2a0b22;border:1px solid #ff7ad0;max-width:100%;white-space:normal}
+button:disabled{background:#3a1a34;color:#c89ebc;border-color:#903076;cursor:default}
+.buttons>button{flex:1 1 120px}
+.lesson{border-left:3px solid #ffc46b;padding:12px 16px;background:#38122c;border-radius:4px}
+.hint{padding:12px 16px;background:#33300f;border-radius:4px}
+.error{color:#ffb4b4}
+.choices{display:grid;gap:12px}
+.choices button{display:flex;gap:12px;text-align:left;background:#301026;color:#fdf0fa;border:1px solid #a83a8a;padding:16px;border-radius:6px;font-weight:500}
+.choices button span{color:#ff7ad0;font-weight:700}
+.choices .chosen{border-color:#ff7ad0;background:#441636}
+.navigation{display:flex;justify-content:space-between;gap:12px;margin:22px 0}
+.small{font-size:15px;color:#caa9c4}
+.restored{display:inline-block;color:#ffabe2;border:1px solid #ffc46b;padding:8px 12px;margin-bottom:12px;border-radius:6px}
+details{border-top:1px solid #5e2f52;padding:18px 0;font-size:16px}
+summary{cursor:pointer;min-height:44px}
+*:focus-visible{outline:3px solid #ff7ad0;outline-offset:3px}
+footer{color:#caa9c4;border-top:1px solid #5e2f52;padding-top:16px;font-size:16px}
+@media(max-width:480px){h1{font-size:30px}.stage{padding:16px 13px}pre{padding:12px;font-size:15px}}
+</style></head><body><div class="app"><main>
+<div class="brand">AI Tools That Work / GitHub lesson 6</div>
+<h1>git: error: pathspec did not match. How do I fix it?</h1>
+<div class="answer"><strong>Short answer</strong>
+<p>The name you gave git does not exist as a branch, tag or file. Run <code>git branch</code> to see the real names. If you meant an existing branch, fix the typo (and if it lives only on the remote, run <code>git fetch</code> first). If you meant a new branch, create it: <code>git switch -c name</code>.</p></div>
+<p class="sub">Below is a hands-on practice run with real recorded output. You follow one realistic problem from the error to the fix.</p>
+<div class="ticket"><b>The situation</b><br>You want to start writing documentation on a branch called docs, so you run git checkout docs. git answers: error: pathspec 'docs' did not match any file(s) known to git. Work out what git looked for, then get the branch you wanted.</div>
+<div class="notice">Recorded simulation, not a live terminal. Nothing on this page runs on your device. The output is real: it was recorded on a small Linux lab (details below). The files and branches are made up for this lesson.</div>
+<div class="notice"><strong>Safety:</strong> this error changes nothing; the command fails before touching your work. The risky move is the opposite habit: forcing commands with <code>-f</code> or <code>git checkout .</code> to make errors go away, which can discard uncommitted changes.</div>
+<div class="progress" id="progress"></div>
+<progress max="8" value="1" aria-label="Session progress"></progress>
+<section class="stage" id="stage" aria-live="polite"></section>
+<div class="navigation"><button id="back">Back</button><button id="next">Next step</button></div>
+<h2 class="sec">Common mistakes with pathspec errors</h2>
+<ol><li><strong>Retrying the same command louder.</strong> The name does not exist; running it again changes nothing. List what exists with git branch, then act.</li><li><strong>Assuming checkout creates branches.</strong> Plain git checkout docs only switches. Creation needs git switch -c docs (or the older git checkout -b docs).</li><li><strong>Forgetting the remote case.</strong> A branch that exists only on the server is invisible to local checkout until you git fetch. This lab is local-only; on a real clone, fetch first.</li><li><strong>Grabbing -f to silence the error.</strong> Force flags discard uncommitted work. A pathspec error needs a correct name, not more force.</li><li><strong>Mixing up branches and files.</strong> checkout accepts both, which is why the message mentions files. git switch handles branches and git restore handles files, one meaning each.</li></ol>
+<h2 class="sec">Frequently asked questions</h2>
+<details><summary>What is a pathspec?</summary><p>A pathspec is how you name things to git: a branch, a tag, a commit, or a file path. Commands like checkout and restore read the word you give them as one of these.</p></details><details><summary>Why does git say 'did not match any file(s) known to git'?</summary><p>Because nothing with that name exists in the repository: no branch, no tag, and no tracked file at that path. git checked every kind of thing the word could mean and found none.</p></details><details><summary>I wanted a new branch. What is the fix?</summary><p>Create it: git switch -c docs. Plain git checkout docs only switches to things that already exist; it never creates a branch.</p></details><details><summary>I wanted an existing branch. What went wrong?</summary><p>Usually a typo, or the branch exists only on the remote. Run git branch to list local branches and git branch -r for remote ones, then switch to the exact name.</p></details><details><summary>Does the error change anything?</summary><p>No. The command failed before touching anything: HEAD, your files and the staging area are exactly as they were. You are free to retry with the right name.</p></details><details><summary>How do I avoid this error?</summary><p>List before you switch: git branch shows what exists. Use git switch for branches and git restore for files, so each command has one clear meaning.</p></details>
+<div class="notice"><strong>Before you practice</strong>
+<p>This fixed lesson only reveals recorded results. No commands run on your device. Branch commands change real repositories; do them only on work you own or have permission to change.</p>
+<p>No warranty: provided as is, without a promise of completeness, accuracy or suitability for your system. This page is general learning material, not professional advice.</p>
+<p>No signup, analytics or tracking code is added. Progress stays in this tab and resets when you reload.</p></div>
+<details><summary>About the recording</summary>
+<p>Recorded on 20 October 2026 on a small Linux lab (Ubuntu 22.04, kernel 6.1) with git 2.34.1 and bash 5.1, in a fixed throw-away folder (/tmp/gl-lab6) with no network and no remote. Committer names, emails and dates were pinned so the commit hashes are stable. A script ran each command in one bash session and captured its standard output and standard error together; carriage-return control characters from the terminal echo were removed, and no wording was changed. The whole recording was run twice from scratch, and the two runs matched exactly.</p>
+<p>Your system may word things differently, and the exact message can differ between git versions. This was tested only in this lab and in Chrome.</p>
+<p>The decisions' feedback is authored guidance, not captured output. Related questions this page draws on: Stack Overflow, "Git: cannot checkout branch - error: pathspec '...' did not match any file(s) known to git", and "error: pathspec 'test-branch' did not match any files known to git". Nothing you type is sent anywhere.</p></details>
+<footer>5 recorded commands &middot; 2 decisions &middot; 1 debrief. Educational practice only.</footer>
+</main></div>
+<script>
+const stages=[{"kind": "command", "title": "Try to start the docs branch", "command": "git checkout docs", "output": "error: pathspec 'docs' did not match any file(s) known to git", "shell": "Terminal", "hint": "Switch to a branch called docs.", "lesson": "git refused: pathspec 'docs' did not match any file(s) known to git. Nothing changed; the command failed before touching your work."}, {"kind": "decision", "title": "Decide: what git looked for", "question": "Why did git mention files in the error?", "choices": ["checkout accepts branch names and file paths, and it found neither called docs", "The docs folder is damaged", "git always says this when the network is down"], "correct": 0, "feedback": ["Yes. One word can mean a branch, a tag or a file path. git checked all of them and found nothing named docs.", "There is no docs folder yet, and nothing is damaged. The name simply does not exist.", "This lab has no network at all; the lookup is purely local."]}, {"kind": "command", "title": "List what exists", "command": "git branch", "output": "* main", "shell": "Terminal", "hint": "See the branches that actually exist.", "lesson": "Only main exists. That is the whole explanation: you asked to switch to a branch that was never created."}, {"kind": "decision", "title": "Decide: get the branch", "question": "docs should be a new branch starting here. What do you run?", "choices": ["git switch -c docs", "git checkout docs again", "git branch -D docs"], "correct": 0, "feedback": ["Yes. -c creates the branch where you stand and switches to it.", "Same name, same error: the branch still does not exist.", "-D deletes branches. There is nothing to delete, and deleting is the opposite of what you want."]}, {"kind": "command", "title": "Create and switch", "command": "git switch -c docs", "output": "Switched to a new branch 'docs'", "shell": "Terminal", "hint": "Create the branch and move to it.", "lesson": "Switched to a new branch 'docs'. One command created the branch and moved HEAD onto it."}, {"kind": "command", "title": "Verify the branch list", "command": "git branch", "output": "* docs\n  main", "shell": "Terminal", "hint": "List the branches again.", "lesson": "Now there are two: docs (current, starred) and main. The error is resolved by existence, not by force."}, {"kind": "command", "title": "Check the history", "command": "git log --oneline", "output": "400cba5 add app\n871df0f add readme", "shell": "Terminal", "hint": "See where the new branch points.", "lesson": "docs starts at the same commit as main: 400cba5 add app. A new branch is just a new movable name for a commit."}, {"kind": "debrief", "title": "Debrief: a name git could not find"}];
+const RECAP="<div class=\"restored\">Branch created, work continues</div><p><strong>Problem:</strong> git checkout docs failed with pathspec 'docs' did not match any file(s) known to git.</p><p><strong>What you did:</strong> You listed the branches, saw that docs did not exist, understood that git had looked for a thing named docs and found none, and created the branch with git switch -c docs.</p><p><strong>Evidence:</strong> Before: git branch showed only main. After: git branch shows docs and main, and the log confirms both point at 400cba5.</p><p><strong>What this does not prove:</strong> The remote case: when the branch exists only on the server, the fix starts with git fetch, and this lab has no remote. Recorded in one throw-away local lab.</p><p class=\"lesson\">The habit to keep: read pathspec as 'a name git could not find'. List what exists, then switch to it or create it.</p>";
+const LAST=stages.length-1;
+let index=0, ran=false, chosen=null;
+const $=id=>document.getElementById(id);
+function esc(x){return String(x).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+function updateNext(){ const s=stages[index]; $('next').disabled=s.kind==='command'?!ran:s.kind==='decision'?chosen!==s.correct:false; }
+function render(){ const s=stages[index];ran=false;chosen=null;
+$('progress').innerHTML='<span>Step '+(index+1)+' of '+stages.length+'</span><span>'+(s.kind==='command'?'Recorded command':s.kind==='decision'?'Decision':'Debrief')+'</span>';
+document.querySelector('progress').value=index+1;$('back').disabled=index===0;$('next').textContent=index===LAST?'Try again':'Next step';
+let html='<h2>'+esc(s.title)+'</h2>';
+if(s.kind==='command'){html+='<p class="shell">Open <strong>'+esc(s.shell)+'</strong>.</p><p>Type this command, or tap to fill it. Run reveals its recorded result.</p><pre class="command"><code>'+esc(s.command)+'</code></pre><form id="command-form"><label for="command">Your command</label><textarea id="command" rows="3" autocapitalize="none" autocorrect="off" spellcheck="false"></textarea><div class="buttons"><button type="button" id="use">Use command</button><button type="button" id="run">Run command</button><button type="button" id="hint-button">Hint</button></div></form><p id="hint" class="hint" hidden>'+esc(s.hint)+'</p><p id="error" class="error" role="alert" hidden></p><div id="result" role="status" hidden><div class="output-label">Captured output</div><pre class="output"><code>'+esc(s.output||'(no output)')+'</code></pre><p class="lesson">'+esc(s.lesson)+'</p></div>';}
+else if(s.kind==='decision'){html+='<p>'+esc(s.question)+'</p><div class="choices">'+s.choices.map((c,i)=>'<button type="button" data-choice="'+i+'"><span>'+(i+1)+'</span>'+esc(c)+'</button>').join('')+'</div><p id="feedback" role="status" hidden></p>';}
+else{html+=RECAP;}
+$('stage').innerHTML=html;
+if(s.kind==='command'){
+$('use').onclick=()=>{$('command').value=s.command;$('error').hidden=true;};
+const run=()=>{if($('command').value.trim()===s.command.trim()){ran=true;$('result').hidden=false;$('error').hidden=true;updateNext();}else{$('error').hidden=false;$('error').textContent='That command is not in this recording. Use the shown command or tap "Use command". Nothing was executed.';}};
+$('run').onclick=run;$('command-form').onsubmit=e=>{e.preventDefault();run();};$('command').onkeydown=e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();run();}};
+$('hint-button').onclick=()=>{$('hint').hidden=!$('hint').hidden;$('hint-button').textContent=$('hint').hidden?'Hint':'Hide hint';};
+}else if(s.kind==='decision'){document.querySelectorAll('[data-choice]').forEach(b=>b.onclick=()=>{chosen=Number(b.dataset.choice);document.querySelectorAll('[data-choice]').forEach(x=>x.classList.toggle('chosen',x===b));$('feedback').hidden=false;$('feedback').className=chosen===s.correct?'lesson':'hint';$('feedback').textContent=s.feedback[chosen]+(chosen!==s.correct?' You can choose again.':'');updateNext();});}
+updateNext();}
+$('back').onclick=()=>{if(index>0){index--;render();$('stage').scrollIntoView({block:'start'});}};
+$('next').onclick=()=>{index=index===LAST?0:index+1;render();$('stage').scrollIntoView({block:'start'});};render();
+</script></body></html>
