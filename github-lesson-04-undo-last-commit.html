@@ -1,0 +1,99 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="canonical" href="https://faiz12321.github.io/ai-tools-that-work/github-lesson-04-undo-last-commit.html"><meta name="color-scheme" content="dark"><title>git: how do I undo the last commit? | AI Tools That Work</title><meta name="description" content="Undo the last git commit without losing work: git reset --soft HEAD~1 keeps the changes staged, --mixed unstages them, --hard discards them. An 8-step practice with real recorded output."><script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What does git reset --soft HEAD~1 do?", "acceptedAnswer": {"@type": "Answer", "text": "It removes the last commit from the branch and keeps that commit's changes staged, ready to edit or commit again. Nothing in your files is lost."}}, {"@type": "Question", "name": "What is the difference between --soft, --mixed and --hard?", "acceptedAnswer": {"@type": "Answer", "text": "All three move the branch back. --soft keeps the changes staged, --mixed (the default) keeps the changes in your files but unstages them, and --hard throws the changes away together with the commit."}}, {"@type": "Question", "name": "What does HEAD~1 mean?", "acceptedAnswer": {"@type": "Answer", "text": "One commit before the current HEAD. HEAD~2 is two commits before, and so on. Count from the top of git log, not from memory."}}, {"@type": "Question", "name": "Is it safe to reset a commit I already pushed?", "acceptedAnswer": {"@type": "Answer", "text": "No. Resetting rewrites history that others may have pulled, which breaks their work. For commits that are already public, use git revert instead; it adds a new commit that undoes the old one."}}, {"@type": "Question", "name": "Can I get an undone commit back?", "acceptedAnswer": {"@type": "Answer", "text": "Yes, for a while. git reflog remembers where HEAD pointed, so you can reset the branch back to the old commit's hash until garbage collection removes it."}}, {"@type": "Question", "name": "git reset --soft printed nothing. Did it work?", "acceptedAnswer": {"@type": "Answer", "text": "Silence alone proves nothing either way. Verify with git status and git log: the commit should be gone from the log and its changes should appear as staged edits."}}]}</script><style>
+
+
+
+
+html,body{margin:0;background:#0c1517}*{box-sizing:border-box}
+body{font:18px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;color:#e9f5f6}
+.app{background:#0c1517}
+main{max-width:860px;margin:0 auto;padding:24px 18px 48px}
+.brand{color:#54d8e8;font-size:14px;letter-spacing:.14em;font-weight:700;margin-bottom:14px;text-transform:uppercase}
+h1{font:700 36px/1.18 "Trebuchet MS","Segoe UI",sans-serif;margin:0 0 12px;color:#fff}
+.sub{color:#a3c2c7;margin:0 0 22px}
+.ticket{background:#0e262c;border:1px solid #2a525c;border-left:6px solid #54d8e8;border-radius:4px;padding:16px 18px;margin:20px 0;font-size:17px}
+.ticket b{color:#54d8e8}
+.answer{border:2px solid #54d8e8;background:#0e262c;border-radius:4px;padding:6px 18px;margin:18px 0;font-size:19px}.answer strong{color:#54d8e8}.answer code,.sec+ol code{font:16px ui-monospace,Menlo,Consolas,monospace;background:#081113;color:#d8eef0;padding:2px 6px;border-radius:4px;overflow-wrap:anywhere;word-break:break-word}.shell{color:#ffc46b;margin-bottom:0}.sec{font-size:24px;margin:34px 0 10px;font-family:"Trebuchet MS","Segoe UI",sans-serif}ol{padding-left:22px}li{margin:10px 0}.notice{border-left:4px solid #ffc46b;background:#0d262d;padding:12px 16px;font-size:16px;margin:22px 0}
+.progress{display:flex;justify-content:space-between;gap:12px;font-size:15px;color:#54d8e8;margin-top:26px}
+progress{width:100%;height:8px;accent-color:#54d8e8;margin:8px 0 22px}
+progress::-webkit-progress-bar{background:#15333a;border-radius:4px}progress::-webkit-progress-value{background:#54d8e8;border-radius:4px}progress::-moz-progress-bar{background:#54d8e8}
+.stage{background:#0b2126;padding:22px;border-radius:6px;border:1px solid #2a525c}
+h2{font-size:26px;line-height:1.25;margin:0 0 16px;font-family:"Trebuchet MS","Segoe UI",sans-serif}
+p{margin:12px 0}
+pre{white-space:pre-wrap;overflow-wrap:anywhere;word-break:break-word;font:16px/1.55 ui-monospace,Menlo,Consolas,monospace;margin:14px 0;padding:16px;border-radius:6px}
+.command{background:#081113;color:#d8eef0;border:1px solid #2a525c}
+.output{background:#0d2b33;color:#8ee6f2;border:1px solid #1b6474}
+.output-label{font-size:15px;color:#8ee6f2;margin-top:22px}
+label{display:block;font-size:16px;margin-bottom:8px}
+textarea{display:block;width:100%;background:#081113;color:#fff;border:1px solid #54d8e8;border-radius:6px;padding:14px;font:16px/1.55 ui-monospace,Menlo,Consolas,monospace;resize:vertical}
+.buttons{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+button{cursor:pointer;border-radius:6px;padding:12px 16px;line-height:1.4;min-height:48px;font-size:17px;font-weight:600;background:#54d8e8;color:#0a232a;border:1px solid #54d8e8;max-width:100%;white-space:normal}
+button:disabled{background:#15333a;color:#9dbfc4;border-color:#227485;cursor:default}
+.buttons>button{flex:1 1 120px}
+.lesson{border-left:3px solid #ffc46b;padding:12px 16px;background:#10303a;border-radius:4px}
+.hint{padding:12px 16px;background:#33300f;border-radius:4px}
+.error{color:#ffb4b4}
+.choices{display:grid;gap:12px}
+.choices button{display:flex;gap:12px;text-align:left;background:#0e2a32;color:#eefafb;border:1px solid #2c8a9a;padding:16px;border-radius:6px;font-weight:500}
+.choices button span{color:#54d8e8;font-weight:700}
+.choices .chosen{border-color:#54d8e8;background:#123a44}
+.navigation{display:flex;justify-content:space-between;gap:12px;margin:22px 0}
+.small{font-size:15px;color:#a3c2c7}
+.restored{display:inline-block;color:#8ee6f2;border:1px solid #ffc46b;padding:8px 12px;margin-bottom:12px;border-radius:6px}
+details{border-top:1px solid #2a525c;padding:18px 0;font-size:16px}
+summary{cursor:pointer;min-height:44px}
+*:focus-visible{outline:3px solid #54d8e8;outline-offset:3px}
+footer{color:#a3c2c7;border-top:1px solid #2a525c;padding-top:16px;font-size:16px}
+@media(max-width:480px){h1{font-size:30px}.stage{padding:16px 13px}pre{padding:12px;font-size:15px}}
+</style></head><body><div class="app"><main>
+<div class="brand">AI Tools That Work / GitHub lesson 4</div>
+<h1>git: how do I undo the last commit?</h1>
+<div class="answer"><strong>Short answer</strong>
+<p>To remove the last commit but keep its changes in your files, run <code>git reset --soft HEAD~1</code>. The commit leaves the branch and its changes come back as staged edits. Use <code>--mixed</code> (the default) to also unstage them. Avoid <code>--hard</code>: it throws the changes away together with the commit. If you already pushed the commit, use <code>git revert</code> instead.</p></div>
+<p class="sub">Below is a hands-on practice run with real recorded output. You follow one realistic problem from the mistake to the fix.</p>
+<div class="ticket"><b>The situation</b><br>On main you committed 'add third line by mistake' by accident. The text 'three' should stay in notes.txt, but the commit should not exist. Undo it, keep the work, and check the result.</div>
+<div class="notice">Recorded simulation, not a live terminal. Nothing on this page runs on your device. The output is real: it was recorded on a small Linux lab (details below). The files and commits are made up for this lesson.</div>
+<div class="notice"><strong>Safety:</strong> <code>git reset --hard</code> discards uncommitted work and is called out by name wherever it appears below. Never reset commits you already pushed: rewriting shared history breaks other people's pulls. This lab is local-only; nothing was ever pushed.</div>
+<div class="progress" id="progress"></div>
+<progress max="8" value="1" aria-label="Session progress"></progress>
+<section class="stage" id="stage" aria-live="polite"></section>
+<div class="navigation"><button id="back">Back</button><button id="next">Next step</button></div>
+<h2 class="sec">Common mistakes when undoing commits</h2>
+<ol><li><strong>Reaching for --hard when you meant --soft.</strong> --hard deletes the commit's changes from your files too. If that text mattered, it is gone. Pick the reset that matches what you want to keep.</li><li><strong>Resetting a commit you already pushed.</strong> That rewrites shared history and breaks teammates' pulls. For public commits, git revert adds a new commit that undoes the old one without rewriting anything.</li><li><strong>Reading silence as success or as failure.</strong> git reset --soft printed nothing in this recording. Quiet is just quiet; check git status and git log to see what actually happened.</li><li><strong>Typing HEAD~1 without looking.</strong> HEAD~1 means one commit before the current top. Run git log --oneline first and count from the real top, not from memory.</li><li><strong>Deleting the whole repository in a panic.</strong> Undoing one commit is a single reset command; the rest of your history is untouched.</li></ol>
+<h2 class="sec">Frequently asked questions</h2>
+<details><summary>What does git reset --soft HEAD~1 do?</summary><p>It removes the last commit from the branch and keeps that commit's changes staged, ready to edit or commit again. Nothing in your files is lost.</p></details><details><summary>What is the difference between --soft, --mixed and --hard?</summary><p>All three move the branch back. --soft keeps the changes staged, --mixed (the default) keeps the changes in your files but unstages them, and --hard throws the changes away together with the commit.</p></details><details><summary>What does HEAD~1 mean?</summary><p>One commit before the current HEAD. HEAD~2 is two commits before, and so on. Count from the top of git log, not from memory.</p></details><details><summary>Is it safe to reset a commit I already pushed?</summary><p>No. Resetting rewrites history that others may have pulled, which breaks their work. For commits that are already public, use git revert instead; it adds a new commit that undoes the old one.</p></details><details><summary>Can I get an undone commit back?</summary><p>Yes, for a while. git reflog remembers where HEAD pointed, so you can reset the branch back to the old commit's hash until garbage collection removes it.</p></details><details><summary>git reset --soft printed nothing. Did it work?</summary><p>Silence alone proves nothing either way. Verify with git status and git log: the commit should be gone from the log and its changes should appear as staged edits.</p></details>
+<div class="notice"><strong>Before you practice</strong>
+<p>This fixed lesson only reveals recorded results. No commands run on your device. Resets change real repositories; do them only on work you own or have permission to change.</p>
+<p>No warranty: provided as is, without a promise of completeness, accuracy or suitability for your system. This page is general learning material, not professional advice.</p>
+<p>No signup, analytics or tracking code is added. Progress stays in this tab and resets when you reload.</p></div>
+<details><summary>About the recording</summary>
+<p>Recorded on 20 October 2026 on a small Linux lab (Ubuntu 22.04, kernel 6.1) with git 2.34.1 and bash 5.1, in a fixed throw-away folder (/tmp/gl-lab4) with no network and no remote. Committer names, emails and dates were pinned so the commit hashes are stable. A script ran each command in one bash session and captured its output; carriage-return control characters from the terminal echo were removed, and no wording was changed. The whole recording was run twice from scratch, and the two runs matched exactly.</p>
+<p>Your system may word things differently, and the exact message can differ between git versions. This was tested only in this lab and in Chrome.</p>
+<p>The decisions' feedback is authored guidance, not captured output. Related questions this page draws on: Stack Overflow, "How do I undo the most recent local commits in Git?", and "How do I revert a Git repository to a previous commit?". Nothing you type is sent anywhere.</p></details>
+<footer>5 recorded commands &middot; 2 decisions &middot; 1 debrief. Educational practice only.</footer>
+</main></div>
+<script>
+const stages=[{"kind": "command", "title": "See the mistake", "command": "git log --oneline", "output": "033cee0 add third line by mistake\n76a7c53 add second line\n739f00b add notes", "shell": "Terminal", "hint": "List the commits, newest first.", "lesson": "The newest commit sits on top: 033cee0, the one made by mistake. HEAD~1 means one commit before the top, so it names 76a7c53, the commit you want to keep."}, {"kind": "decision", "title": "Decide: which reset", "question": "You want the commit gone from the branch but the text to stay in notes.txt. Which command?", "choices": ["git reset --soft HEAD~1", "git reset --hard HEAD~1", "Delete notes.txt and commit again"], "correct": 0, "feedback": ["Yes. --soft moves the branch back one commit and keeps the change staged. Nothing in the file is lost.", "--hard throws the changes away together with the commit; the 'three' line would be gone from notes.txt.", "That makes another wrong commit on top of the wrong commit. Undo the commit itself instead."]}, {"kind": "command", "title": "Undo the commit, keep the work", "command": "git reset --soft HEAD~1", "output": "", "shell": "Terminal", "hint": "Move the branch back one commit, keep everything staged.", "lesson": "git printed nothing here. Silence is not proof of success or failure; it only means this command had nothing to say. The next step verifies what actually happened."}, {"kind": "decision", "title": "Decide: where is the work now", "question": "The soft reset is done. Where is the 'three' line?", "choices": ["Deleted forever with the commit", "Back as a staged change in notes.txt", "Moved to a hidden backup branch"], "correct": 1, "feedback": ["That is what --hard would have done. --soft never touches your files.", "Yes. The commit is off the branch, and its change is staged, ready to edit or commit again. Check it with git status.", "git made no branch. The change simply returned to the staging area."]}, {"kind": "command", "title": "Verify with status", "command": "git status", "output": "On branch main\nChanges to be committed:\n  (use \"git restore --staged <file>...\" to unstage)\n\tmodified:   notes.txt\n", "shell": "Terminal", "hint": "See what git thinks is ready to commit.", "lesson": "status confirms it: notes.txt is modified and staged. The commit is gone, its work is kept, exactly what --soft promises."}, {"kind": "command", "title": "Check the history", "command": "git log --oneline", "output": "76a7c53 add second line\n739f00b add notes", "shell": "Terminal", "hint": "List the commits again.", "lesson": "The log now starts at 76a7c53. The kept commits' hashes did not change; only the branch's tip moved back one step."}, {"kind": "command", "title": "Compare: mixed unstages too", "command": "git reset --mixed HEAD~1", "output": "Unstaged changes after reset:\nM\tnotes.txt", "shell": "Terminal", "hint": "Undo one more commit, this time leaving the change unstaged.", "lesson": "--mixed is the default and does report: one line per file left unstaged. The text 'two' stays in notes.txt; only the staging is removed. --hard would have wiped the text instead."}, {"kind": "debrief", "title": "Debrief: quiet is not proof"}];
+const RECAP="<div class=\"restored\">Commit undone, work kept</div><p><strong>Problem:</strong> a commit named 'add third line by mistake' sat on top of main, but its text needed to stay in notes.txt.</p><p><strong>What you did:</strong> You read the log, chose a soft reset, verified with git status and git log, then compared with a mixed reset that leaves the same text unstaged.</p><p><strong>Evidence:</strong> Before: the log showed 033cee0 on top. After: the log starts at 76a7c53, and status shows the change as staged (soft) then unstaged (mixed) work.</p><p><strong>What this does not prove:</strong> That this is safe on commits you already pushed; rewriting shared history needs git revert instead. Recorded in one throw-away local lab with no remote.</p><p class=\"lesson\">The habit to keep: pick the reset that matches what you want to keep, and verify with status and log. Never treat a quiet command as proof of anything.</p>";
+const LAST=stages.length-1;
+let index=0, ran=false, chosen=null;
+const $=id=>document.getElementById(id);
+function esc(x){return String(x).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+function updateNext(){ const s=stages[index]; $('next').disabled=s.kind==='command'?!ran:s.kind==='decision'?chosen!==s.correct:false; }
+function render(){ const s=stages[index];ran=false;chosen=null;
+$('progress').innerHTML='<span>Step '+(index+1)+' of '+stages.length+'</span><span>'+(s.kind==='command'?'Recorded command':s.kind==='decision'?'Decision':'Debrief')+'</span>';
+document.querySelector('progress').value=index+1;$('back').disabled=index===0;$('next').textContent=index===LAST?'Try again':'Next step';
+let html='<h2>'+esc(s.title)+'</h2>';
+if(s.kind==='command'){html+='<p class="shell">Open <strong>'+esc(s.shell)+'</strong>.</p><p>Type this command, or tap to fill it. Run reveals its recorded result.</p><pre class="command"><code>'+esc(s.command)+'</code></pre><form id="command-form"><label for="command">Your command</label><textarea id="command" rows="3" autocapitalize="none" autocorrect="off" spellcheck="false"></textarea><div class="buttons"><button type="button" id="use">Use command</button><button type="button" id="run">Run command</button><button type="button" id="hint-button">Hint</button></div></form><p id="hint" class="hint" hidden>'+esc(s.hint)+'</p><p id="error" class="error" role="alert" hidden></p><div id="result" role="status" hidden><div class="output-label">Captured output</div><pre class="output"><code>'+esc(s.output||'(no output)')+'</code></pre><p class="lesson">'+esc(s.lesson)+'</p></div>';}
+else if(s.kind==='decision'){html+='<p>'+esc(s.question)+'</p><div class="choices">'+s.choices.map((c,i)=>'<button type="button" data-choice="'+i+'"><span>'+(i+1)+'</span>'+esc(c)+'</button>').join('')+'</div><p id="feedback" role="status" hidden></p>';}
+else{html+=RECAP;}
+$('stage').innerHTML=html;
+if(s.kind==='command'){
+$('use').onclick=()=>{$('command').value=s.command;$('error').hidden=true;};
+const run=()=>{if($('command').value.trim()===s.command.trim()){ran=true;$('result').hidden=false;$('error').hidden=true;updateNext();}else{$('error').hidden=false;$('error').textContent='That command is not in this recording. Use the shown command or tap "Use command". Nothing was executed.';}};
+$('run').onclick=run;$('command-form').onsubmit=e=>{e.preventDefault();run();};$('command').onkeydown=e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();run();}};
+$('hint-button').onclick=()=>{$('hint').hidden=!$('hint').hidden;$('hint-button').textContent=$('hint').hidden?'Hint':'Hide hint';};
+}else if(s.kind==='decision'){document.querySelectorAll('[data-choice]').forEach(b=>b.onclick=()=>{chosen=Number(b.dataset.choice);document.querySelectorAll('[data-choice]').forEach(x=>x.classList.toggle('chosen',x===b));$('feedback').hidden=false;$('feedback').className=chosen===s.correct?'lesson':'hint';$('feedback').textContent=s.feedback[chosen]+(chosen!==s.correct?' You can choose again.':'');updateNext();});}
+updateNext();}
+$('back').onclick=()=>{if(index>0){index--;render();$('stage').scrollIntoView({block:'start'});}};
+$('next').onclick=()=>{index=index===LAST?0:index+1;render();$('stage').scrollIntoView({block:'start'});};render();
+</script></body></html>
