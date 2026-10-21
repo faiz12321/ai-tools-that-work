@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Git and GitHub lessons | AI Tools That Work</title>
+<meta name="description" content="Every hands-on git and GitHub practice lesson on AI Tools That Work, grouped by topic: fix a git error, undo and recover, and everyday git skills.">
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#0d1117}
+.hub{background:#0d1117;color:#e6edf3;font:18px/1.55 -apple-system,Helvetica,Arial,sans-serif;min-height:100vh}
+.hub main{max-width:760px;margin:0 auto;padding:28px 18px 56px}
+.brand{color:#58a6ff;font-weight:700;letter-spacing:.04em;margin:0;font-size:15px}
+h1{font-size:32px;line-height:1.2;margin:10px 0 12px;color:#fff}
+.lead{font-size:19px;color:#c9d4e3;margin:0 0 6px}
+.fine{color:#8b949e;font-size:15px;margin:14px 0 0}
+.nav{display:flex;flex-wrap:wrap;gap:10px;margin:22px 0 8px;padding:0;list-style:none}
+.nav a{display:inline-block;background:#161b22;border:1px solid #30363d;color:#58a6ff;text-decoration:none;font-weight:600;font-size:16px;padding:10px 16px;border-radius:999px;min-height:44px}
+.nav a:hover{border-color:#58a6ff}
+section{margin-top:38px}
+h2{font-size:25px;margin:0 0 6px;color:#fff}
+.secintro{color:#b6c0cc;font-size:16.5px;margin:0 0 6px}
+h3{font-size:19px;margin:26px 0 4px;color:#7ee2a8;font-weight:700}
+ul.cards{list-style:none;padding:0;margin:12px 0 0}
+li.card{margin:0 0 12px}
+li.card a{display:flex;gap:14px;align-items:flex-start;background:#161b22;border:1px solid #30363d;border-radius:12px;padding:15px 16px;text-decoration:none;color:#e6edf3;min-height:44px}
+li.card a:hover{border-color:#58a6ff}
+.num{flex:none;min-width:34px;height:34px;padding:0 6px;border-radius:9px;background:#21262d;border:1px solid #30363d;color:#8b949e;font-weight:700;font-size:15px;text-align:center;line-height:32px}
+.ct{flex:1}
+.ct b{display:block;font-size:18.5px;line-height:1.3;color:#fff;font-weight:700}
+.ct span{display:block;color:#b6c0cc;font-size:16px;margin-top:3px}
+.top{display:inline-block;margin:6px 0 0;color:#58a6ff;font-size:15px;text-decoration:none}
+footer{margin-top:44px;border-top:1px solid #21262d;padding-top:18px;color:#8b949e;font-size:15px}
+footer a{color:#58a6ff;text-decoration:none}
+.guides{display:block;background:#161b22;border:1px solid #30363d;border-radius:12px;padding:16px;margin:14px 0 18px;color:#e6edf3;text-decoration:none}
+.guides b{display:block;color:#fff;font-size:18px}
+.guides span{color:#b6c0cc;font-size:16px}
+</style></head><body><div class="hub"><main>
+<p class="brand" id="top">AI TOOLS THAT WORK</p>
+<h1>Git and GitHub lessons</h1>
+<p class="lead">Every hands-on git lesson on this site, grouped by what you need to do. Each lesson runs in your browser and shows output recorded from a real practice setup - you type along and make the mistakes safely here.</p>
+<p class="fine">Nothing here runs on your computer or sends anything anywhere.</p>
+<ul class="nav"><li><a href="#errors">Fix a git error</a></li><li><a href="#undo">Undo and recover</a></li><li><a href="#everyday">Everyday git skills</a></li><li><a href="index.html">Main page</a></li></ul>
+<section id="errors"><h2>Fix a git error</h2><p class="secintro">The exact messages people hit, what they actually mean, and the safe way out.</p>
+<ul class="cards">
+<li class="card"><a href="github-lesson-01-not-a-git-repository.html"><span class="num">01</span><span class="ct"><b>git: fatal: not a git repository. How do I fix it?</b><span>Find where your project is, move into it and let git see the repository.</span></span></a></li>
+<li class="card"><a href="github-lesson-02-push-rejected-fetch-first.html"><span class="num">02</span><span class="ct"><b>git push: error: failed to push some refs. How do I fix it?</b><span>The remote moved ahead; pull to merge its work with yours, then push again.</span></span></a></li>
+<li class="card"><a href="github-lesson-03-merge-conflict.html"><span class="num">03</span><span class="ct"><b>git merge: CONFLICT (content). How do I fix it?</b><span>Both branches changed the same line; choose the final text between the markers, then add and commit.</span></span></a></li>
+<li class="card"><a href="github-lesson-05-detached-head.html"><span class="num">05</span><span class="ct"><b>git: You are in &#x27;detached HEAD&#x27; state. How do I fix it?</b><span>Detached HEAD is a workbench, not an error: look around, then keep any new work with git switch -c.</span></span></a></li>
+<li class="card"><a href="github-lesson-06-pathspec-did-not-match.html"><span class="num">06</span><span class="ct"><b>git: error: pathspec did not match. How do I fix it?</b><span>The name does not exist as a branch, tag or file: list your branches, then switch to it or create it.</span></span></a></li>
+<li class="card"><a href="github-lesson-08-unrelated-histories.html"><span class="num">08</span><span class="ct"><b>git: fatal: refusing to merge unrelated histories?</b><span>Two branches with no shared commit: when they truly belong together, join them with --allow-unrelated-histories.</span></span></a></li>
+<li class="card"><a href="github-lesson-31-git-stash-pop-conflict.html"><span class="num">31</span><span class="ct"><b>git: stash pop merge conflict - resolve and drop</b><span>A conflicted git stash pop loses nothing: the stash entry is kept and both versions stay in the file.</span></span></a></li>
+<li class="card"><a href="github-lesson-34-divergent-branches-pull.html"><span class="num">34</span><span class="ct"><b>git: &quot;Need to specify how to reconcile divergent branches&quot; on pull</b><span>Both sides moved and git will not choose for you: answer once with git config, then pull.</span></span></a></li>
+<li class="card"><a href="github-lesson-35-lf-will-be-replaced-by-crlf.html"><span class="num">35</span><span class="ct"><b>git: &quot;warning: LF will be replaced by CRLF&quot; - what it means</b><span>Nothing failed: git warns it will convert line endings between Linux and Windows.</span></span></a></li>
+<li class="card"><a href="github-lesson-36-src-refspec-does-not-match.html"><span class="num">36</span><span class="ct"><b>git: &quot;error: src refspec main does not match any&quot; on push</b><span>Your side has no ref with that name: the branch has no commits yet, or the name was typed wrong.</span></span></a></li>
+<li class="card"><a href="github-lesson-38-index-lock-another-process.html"><span class="num">38</span><span class="ct"><b>git: &quot;Another git process seems to be running&quot; (index.lock)</b><span>A crashed process left its do-not-disturb flag in .git/index.lock; reads pass, writes refuse.</span></span></a></li>
+<li class="card"><a href="github-lesson-40-branch-ahead-of-origin.html"><span class="num">40</span><span class="ct"><b>git: &quot;Your branch is ahead of &#x27;origin/main&#x27; by N commits&quot;</b><span>Not an error - N local commits the remote does not have yet. Review what a push would send.</span></span></a></li>
+<li class="card"><a href="github-lesson-42-merge-head-exists.html"><span class="num">42</span><span class="ct"><b>git: &quot;You have not concluded your merge (MERGE_HEAD exists)&quot;</b><span>A merge stopped on conflicts is a state: MERGE_HEAD marks it until you commit or git merge --abort.</span></span></a></li>
+<li class="card"><a href="github-lesson-45-changes-overwritten-checkout.html"><span class="num">45</span><span class="ct"><b>git: your local changes would be overwritten by checkout. How do I fix it?</b><span>The refusal is protection, not breakage: stash the draft, commit the milestone, or discard - then switch.</span></span></a></li>
+<li class="card"><a href="github-lesson-48-branch-not-fully-merged.html"><span class="num">48</span><span class="ct"><b>git: &quot;the branch is not fully merged&quot; - how do I delete it?</b><span>The safe delete refuses when commits would be orphaned: merge wanted work first; -D only for abandoned work.</span></span></a></li>
+<li class="card"><a href="github-lesson-49-untracked-overwritten-merge.html"><span class="num">49</span><span class="ct"><b>git: &quot;untracked working tree files would be overwritten by merge&quot;</b><span>The merge will not overwrite files it cannot restore: inspect with git show, move drafts aside, or stash -u.</span></span></a></li>
+<li class="card"><a href="github-lesson-50-rebase-unstaged-changes.html"><span class="num">50</span><span class="ct"><b>git: &quot;cannot rebase: You have unstaged changes&quot;</b><span>Rebase demands a clean tree: stash, rebase, stash pop - or let --autostash do the dance.</span></span></a></li>
+<li class="card"><a href="github-lesson-51-embedded-git-repository.html"><span class="num">51</span><span class="ct"><b>git: &quot;warning: adding embedded git repository&quot; - why is my folder empty?</b><span>The folder had its own .git, so git stored a pointer, not files. Repair: rm --cached, delete the nested .git, re-add.</span></span></a></li>
+<li class="card"><a href="github-lesson-52-modify-delete-conflict.html"><span class="num">52</span><span class="ct"><b>git: CONFLICT (modify/delete) - edited on one side, deleted on the other</b><span>Review the surviving version, then vote: git add keeps the file, git rm deletes it, commit concludes.</span></span></a></li>
+<li class="card"><a href="github-lesson-53-refusing-to-update-checked-out-branch.html"><span class="num">53</span><span class="ct"><b>git push: &quot;refusing to update checked out branch&quot;</b><span>The remote was made with plain git init and has a branch checked out. Fix: migrate it to a bare repo.</span></span></a></li>
+<li class="card"><a href="github-lesson-54-add-add-conflict.html"><span class="num">54</span><span class="ct"><b>git: CONFLICT (add/add) - two branches created the same file</b><span>Edit to the final version (or checkout --ours/--theirs), git add, commit.</span></span></a></li>
+<li class="card"><a href="github-lesson-55-cannot-lock-ref.html"><span class="num">55</span><span class="ct"><b>git: fatal: cannot lock ref - why can&#x27;t I create my branch?</b><span>A branch named feature already exists, so feature/api is impossible: rename the blocker with git branch -m.</span></span></a></li>
+<li class="card"><a href="github-lesson-56-empty-repo-head.html"><span class="num">56</span><span class="ct"><b>git: &quot;your current branch &#x27;main&#x27; does not have any commits yet&quot;</b><span>Not broken - the repo is healthy and empty. HEAD points at an unborn branch; the first commit creates it.</span></span></a></li>
+<li class="card"><a href="github-lesson-57-delete-current-branch.html"><span class="num">57</span><span class="ct"><b>git: &quot;Cannot delete branch &#x27;feature&#x27; checked out at ...&quot;</b><span>You are standing on the branch you want to delete: switch to another branch first, then git branch -d works.</span></span></a></li>
+</ul>
+<a class="top" href="#top">Back to top</a></section>
+<section id="undo"><h2>Undo and recover</h2><p class="secintro">Get back lost commits, deleted files and wrong moves - or undo them without rewriting shared history.</p>
+<ul class="cards">
+<li class="card"><a href="github-lesson-04-undo-last-commit.html"><span class="num">04</span><span class="ct"><b>git: how do I undo the last commit?</b><span>Remove the last commit but keep its changes: reset --soft vs --mixed vs --hard, and when revert is the safe choice.</span></span></a></li>
+<li class="card"><a href="github-lesson-07-undo-git-add.html"><span class="num">07</span><span class="ct"><b>git: how do I undo git add?</b><span>Unstage without losing work: git restore --staged takes a file off the commit list and keeps it on disk.</span></span></a></li>
+<li class="card"><a href="github-lesson-14-commit-amend.html"><span class="num">14</span><span class="ct"><b>git: how do I fix the last commit?</b><span>git commit --amend rewrites the message or folds in a forgotten file while the commit is still yours alone.</span></span></a></li>
+<li class="card"><a href="github-lesson-15-git-revert.html"><span class="num">15</span><span class="ct"><b>git: how do I undo a commit without rewriting history?</b><span>git revert adds a new commit that cancels the bad one, so shared history stays intact.</span></span></a></li>
+<li class="card"><a href="github-lesson-17-reflog.html"><span class="num">17</span><span class="ct"><b>git: how do I get back a commit I deleted?</b><span>git reflog journals every HEAD move, so a commit lost to reset --hard can be restored.</span></span></a></li>
+<li class="card"><a href="github-lesson-19-discard-changes.html"><span class="num">19</span><span class="ct"><b>git: how do I throw away uncommitted changes?</b><span>git restore discards tracked edits; git clean -n previews and -f deletes untracked files.</span></span></a></li>
+<li class="card"><a href="github-lesson-20-bisect.html"><span class="num">20</span><span class="ct"><b>git: which commit broke it? (git bisect)</b><span>git bisect halves the suspects each run until it names the commit that broke the test.</span></span></a></li>
+<li class="card"><a href="github-lesson-21-deleted-file.html"><span class="num">21</span><span class="ct"><b>git: I deleted a file and committed - how do I get it back?</b><span>git log --diff-filter=D finds the deletion commit; git restore --source brings the file back.</span></span></a></li>
+<li class="card"><a href="github-lesson-37-reset-hard-origin-main.html"><span class="num">37</span><span class="ct"><b>git: make your repo match the remote exactly</b><span>The real &quot;force pull&quot;: git fetch origin, then git reset --hard origin/main.</span></span></a></li>
+<li class="card"><a href="github-lesson-41-force-with-lease.html"><span class="num">41</span><span class="ct"><b>git: push --force vs --force-with-lease (&quot;stale info&quot;)</b><span>Plain --force overwrites the remote, no questions asked; --force-with-lease refuses when someone pushed.</span></span></a></li>
+<li class="card"><a href="github-lesson-43-move-commits-new-branch.html"><span class="num">43</span><span class="ct"><b>git: committed to the wrong branch? Move the commits</b><span>Branches are movable pointers: branch first, reset, switch - the commits keep their hashes. A local-only fix.</span></span></a></li>
+<li class="card"><a href="github-lesson-58-revert-merge.html"><span class="num">58</span><span class="ct"><b>git revert: &quot;is a merge but no -m option was given&quot; - undo a merge</b><span>A merge has two parents, so revert needs -m to pick the side to keep; re-merging needs a revert of the revert.</span></span></a></li>
+</ul>
+<a class="top" href="#top">Back to top</a></section>
+<section id="everyday"><h2>Everyday git skills</h2><p class="secintro">The commands you use all the time, practised once properly: branches, history, stash, remotes and tags.</p>
+<ul class="cards">
+<li class="card"><a href="github-lesson-09-git-stash.html"><span class="num">09</span><span class="ct"><b>git: how do I save unfinished work and get it back?</b><span>git stash shelves uncommitted changes for a clean tree; git stash pop brings them back.</span></span></a></li>
+<li class="card"><a href="github-lesson-10-git-branch.html"><span class="num">10</span><span class="ct"><b>git: how do I create, switch, and delete branches?</b><span>git branch makes a label, git switch moves to it, git branch -d deletes only after git checks it is safe.</span></span></a></li>
+<li class="card"><a href="github-lesson-11-git-log.html"><span class="num">11</span><span class="ct"><b>git: how do I read the commit history?</b><span>git log --oneline lists, --graph --all draws the true shape, git show inspects one commit.</span></span></a></li>
+<li class="card"><a href="github-lesson-12-git-diff.html"><span class="num">12</span><span class="ct"><b>git: how do I see what changed?</b><span>git diff shows unstaged edits, --staged shows what is queued, diff A B compares two commits.</span></span></a></li>
+<li class="card"><a href="github-lesson-13-gitignore.html"><span class="num">13</span><span class="ct"><b>git: how do I make git ignore files?</b><span>A pattern in .gitignore hides untracked noise; a tracked file needs git rm --cached first.</span></span></a></li>
+<li class="card"><a href="github-lesson-16-cherry-pick.html"><span class="num">16</span><span class="ct"><b>git: how do I copy one commit to another branch?</b><span>git cherry-pick replays a single commit on your current branch as a new commit.</span></span></a></li>
+<li class="card"><a href="github-lesson-18-tag.html"><span class="num">18</span><span class="ct"><b>git: how do I mark a release point?</b><span>git tag -a pins an annotated tag (message, tagger, date) on any commit, even an older one.</span></span></a></li>
+<li class="card"><a href="github-lesson-22-fetch-vs-pull.html"><span class="num">22</span><span class="ct"><b>git: fetch vs pull - what is the difference?</b><span>git fetch updates only the origin snapshot - your files stay put; git pull is fetch plus merge.</span></span></a></li>
+<li class="card"><a href="github-lesson-23-rebase-vs-merge.html"><span class="num">23</span><span class="ct"><b>git: rebase vs merge - which one and when?</b><span>Merge keeps the true shape with a two-parent commit; rebase replays your commits for a straight line.</span></span></a></li>
+<li class="card"><a href="github-lesson-24-rename-files.html"><span class="num">24</span><span class="ct"><b>git: does git track renames? (git mv)</b><span>git mv renames in one step; git detects renames from content, it does not store them.</span></span></a></li>
+<li class="card"><a href="github-lesson-25-git-blame.html"><span class="num">25</span><span class="ct"><b>git: who changed this line, and when? (git blame)</b><span>blame labels every line with its last-changing commit; log -L replays a line&#x27;s history.</span></span></a></li>
+<li class="card"><a href="github-lesson-26-switch-vs-checkout.html"><span class="num">26</span><span class="ct"><b>git: switch -c vs checkout -b (what&#x27;s the difference?)</b><span>Both create and move to a new branch; switch is the modern, branch-only spelling.</span></span></a></li>
+<li class="card"><a href="github-lesson-27-git-worktree.html"><span class="num">27</span><span class="ct"><b>git: work on two branches at once (git worktree)</b><span>git worktree add opens a second folder on the same repo with its own branch.</span></span></a></li>
+<li class="card"><a href="github-lesson-28-git-clean.html"><span class="num">28</span><span class="ct"><b>git: delete untracked files safely (git clean)</b><span>git clean -fd deletes untracked files permanently, so git refuses without -f, -n or -i.</span></span></a></li>
+<li class="card"><a href="github-lesson-29-git-config-identity.html"><span class="num">29</span><span class="ct"><b>git: &quot;Please tell me who you are&quot; (git config user.name)</b><span>git refuses to commit until it knows your author name and email. Set them once with git config.</span></span></a></li>
+<li class="card"><a href="github-lesson-30-git-log-author-date.html"><span class="num">30</span><span class="ct"><b>git: find who committed what, when</b><span>Filter history instead of reading it: git log --author for one person, --since/--until for dates.</span></span></a></li>
+<li class="card"><a href="github-lesson-32-git-remote-origin.html"><span class="num">32</span><span class="ct"><b>git: what is &quot;origin&quot;? (git remote -v)</b><span>&quot;origin&quot; is not a keyword - it is the default nickname for the repo you cloned from.</span></span></a></li>
+<li class="card"><a href="github-lesson-33-git-push-upstream.html"><span class="num">33</span><span class="ct"><b>git: &quot;no upstream branch&quot; on push</b><span>Git will not guess where a new branch belongs: push it once with git push --set-upstream.</span></span></a></li>
+<li class="card"><a href="github-lesson-39-delete-remote-branch.html"><span class="num">39</span><span class="ct"><b>git: how do I delete a branch on GitHub? (remote branch)</b><span>git branch -d deletes only the local branch; the GitHub copy survives until git push origin --delete.</span></span></a></li>
+<li class="card"><a href="github-lesson-44-squash-commits.html"><span class="num">44</span><span class="ct"><b>git: squash your last N commits into one (rebase -i)</b><span>Draft in many commits, publish one story: git rebase -i HEAD~N folds them into a single new one.</span></span></a></li>
+<li class="card"><a href="github-lesson-46-gitignore-still-tracked.html"><span class="num">46</span><span class="ct"><b>git: it is in .gitignore but git still tracks it. How do I fix it?</b><span>Ignore rules only gate untracked files: git rm --cached untracks a committed file while keeping it on disk.</span></span></a></li>
+<li class="card"><a href="github-lesson-47-rename-branch.html"><span class="num">47</span><span class="ct"><b>git: rename a branch locally and on the remote</b><span>Three moves: branch -m renames locally, push -u publishes the new name, push --delete retires the old one.</span></span></a></li>
+<li class="card"><a href="github-lesson-59-tag-already-exists.html"><span class="num">59</span><span class="ct"><b>git: &quot;fatal: tag &#x27;v1.0&#x27; already exists&quot; - move a tag</b><span>Tags are immutable markers: delete and re-tag, then push --force - and warn anyone who fetched the old tag.</span></span></a></li>
+</ul>
+<a class="top" href="#top">Back to top</a></section>
+<footer>
+<a class="guides" href="index.html"><b>More free practice on the main page</b><span>Windows tools, troubleshooting scenarios and ten free PDF guides.</span></a>
+<p>Educational practice only. All lessons use fictional practice repositories and recorded output.</p>
+</footer></main></div></body></html>
