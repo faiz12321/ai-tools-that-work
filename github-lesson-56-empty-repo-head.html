@@ -46,7 +46,7 @@ summary{cursor:pointer;min-height:44px}
 footer{color:#c7b0a3;border-top:1px solid #5c402a;padding-top:16px;font-size:16px}
 @media(max-width:480px){h1{font-size:30px}.stage{padding:16px 13px}pre{padding:12px;font-size:15px}}
 </style></style></head><body><div class="app"><main>
-<div class="brand">AI Tools That Work / GitHub lesson 56</div>
+<div class="brand">AI Tools That Work / GitHub lesson 56</div><p style="margin:0 0 16px"><a style="color:#7cb3ff;text-decoration:none;font-size:14.5px" href="github-lessons.html">← More Git lessons</a></p>
 <h1>git: "your current branch 'main' does not have any commits yet" - is my new repo broken?</h1>
 <div class="answer"><strong>Short answer</strong>
 <p>No - the repository is healthy and simply empty. <code>HEAD</code> points at an <strong>unborn branch</strong>: a name (<code>refs/heads/main</code>) with no commit behind it. That is why <code>git log</code> fails, <code>git branch</code> lists nothing (refs are created by commits), and <code>git show HEAD</code> answers 'ambiguous argument'. Meanwhile <code>git status</code>, <code>git add</code> and <code>git diff --cached</code> all work. Create a file, <code>git add</code>, <code>git commit</code> - the root commit creates the branch and every error disappears.</p></div>

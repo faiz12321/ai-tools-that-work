@@ -46,7 +46,7 @@ summary{cursor:pointer;min-height:44px}
 footer{color:#c7b9a3;border-top:1px solid #5c4c2a;padding-top:16px;font-size:16px}
 @media(max-width:480px){h1{font-size:30px}.stage{padding:16px 13px}pre{padding:12px;font-size:15px}}
 </style></style></head><body><div class="app"><main>
-<div class="brand">AI Tools That Work / GitHub lesson 45</div>
+<div class="brand">AI Tools That Work / GitHub lesson 45</div><p style="margin:0 0 16px"><a style="color:#7cb3ff;text-decoration:none;font-size:14.5px" href="github-lessons.html">← More Git lessons</a></p>
 <h1>git: your local changes would be overwritten by checkout. How do I fix it?</h1>
 <div class="answer"><strong>Short answer</strong>
 <p>The error is git protecting your unsaved work: the branch you are switching to has a different version of a file you edited. Three doors: <code>git stash push -m "note"</code> to park the draft and get it back with <code>git stash pop</code>; <code>git commit</code> if the work is a real milestone; or <code>git restore &lt;file&gt;</code> if it is genuinely garbage. After any of the three, the switch works. And if git switches anyway with a modified file, that file is identical on both branches - your edit just rides along.</p></div>

@@ -46,7 +46,7 @@ summary{cursor:pointer;min-height:44px}
 footer{color:#c0a3c7;border-top:1px solid #552a5c;padding-top:16px;font-size:16px}
 @media(max-width:480px){h1{font-size:30px}.stage{padding:16px 13px}pre{padding:12px;font-size:15px}}
 </style></style></head><body><div class="app"><main>
-<div class="brand">AI Tools That Work / GitHub lesson 57</div>
+<div class="brand">AI Tools That Work / GitHub lesson 57</div><p style="margin:0 0 16px"><a style="color:#7cb3ff;text-decoration:none;font-size:14.5px" href="github-lessons.html">← More Git lessons</a></p>
 <h1>git: "Cannot delete branch 'feature' checked out at ..." - how do I delete my current branch?</h1>
 <div class="answer"><strong>Short answer</strong>
 <p>You are standing on the branch you want to delete, and git will not remove the ref your <code>HEAD</code> points at. Step off first: <code>git switch main</code>, then <code>git branch -d feature</code> - the same command now succeeds. Deleting removes only the <strong>label</strong> (a ref file); the commits are untouched and the printed hash (<code>was 090bef8</code>) can recreate the label. If the path in the error is a folder you forgot, that is a linked worktree holding the branch - switch or remove it first.</p></div>

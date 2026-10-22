@@ -46,7 +46,7 @@ summary{cursor:pointer;min-height:44px}
 footer{color:#a3a5c7;border-top:1px solid #2b2a5c;padding-top:16px;font-size:16px}
 @media(max-width:480px){h1{font-size:30px}.stage{padding:16px 13px}pre{padding:12px;font-size:15px}}
 </style></style></head><body><div class="app"><main>
-<div class="brand">AI Tools That Work / GitHub lesson 59</div>
+<div class="brand">AI Tools That Work / GitHub lesson 59</div><p style="margin:0 0 16px"><a style="color:#7cb3ff;text-decoration:none;font-size:14.5px" href="github-lessons.html">← More Git lessons</a></p>
 <h1>git: "fatal: tag 'v1.0' already exists" - how do I move a tag to another commit?</h1>
 <div class="answer"><strong>Short answer</strong>
 <p>Tags are meant to be <strong>immutable release markers</strong>, so git never re-points one silently. Move it explicitly: <code>git tag -d v1.0</code> then <code>git tag v1.0</code> (or <code>git tag -f v1.0</code>) - only the label moves, never the commits. If the tag was already pushed, the remote refuses too ('already exists in the remote'); publish with <code>git push --force &lt;remote&gt; v1.0</code>. Warn anyone who fetched the old tag: git fetch will not update it for them. If the tag reached users or a registry, cut a new version instead.</p></div>

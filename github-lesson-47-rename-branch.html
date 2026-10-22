@@ -46,7 +46,7 @@ summary{cursor:pointer;min-height:44px}
 footer{color:#c1c7a3;border-top:1px solid #505c2a;padding-top:16px;font-size:16px}
 @media(max-width:480px){h1{font-size:30px}.stage{padding:16px 13px}pre{padding:12px;font-size:15px}}
 </style></style></head><body><div class="app"><main>
-<div class="brand">AI Tools That Work / GitHub lesson 47</div>
+<div class="brand">AI Tools That Work / GitHub lesson 47</div><p style="margin:0 0 16px"><a style="color:#7cb3ff;text-decoration:none;font-size:14.5px" href="github-lessons.html">← More Git lessons</a></p>
 <h1>git: rename a branch locally and on the remote. How do I do it?</h1>
 <div class="answer"><strong>Short answer</strong>
 <p>Three moves, not one. 1) <code>git branch -m old-name new-name</code> renames the LOCAL branch - commits and history stay put, only the label moves. 2) <code>git push -u origin new-name</code> publishes the new name on the remote and re-points your upstream (right after step 1 it still tracks the OLD remote name - that is normal). 3) <code>git push origin --delete old-name</code> retires the old remote branch. Teammates clean up with <code>git fetch --prune</code> and rename their own local copy the same way.</p></div>

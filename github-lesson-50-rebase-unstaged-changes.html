@@ -46,7 +46,7 @@ summary{cursor:pointer;min-height:44px}
 footer{color:#a3c7bc;border-top:1px solid #2a5c50;padding-top:16px;font-size:16px}
 @media(max-width:480px){h1{font-size:30px}.stage{padding:16px 13px}pre{padding:12px;font-size:15px}}
 </style></style></head><body><div class="app"><main>
-<div class="brand">AI Tools That Work / GitHub lesson 50</div>
+<div class="brand">AI Tools That Work / GitHub lesson 50</div><p style="margin:0 0 16px"><a style="color:#7cb3ff;text-decoration:none;font-size:14.5px" href="github-lessons.html">← More Git lessons</a></p>
 <h1>git: "cannot rebase: You have unstaged changes" - how do I fix it?</h1>
 <div class="answer"><strong>Short answer</strong>
 <p>Rebase rewrites your working tree, so it demands a clean one - this is protection, not failure. Park the edits: <code>git stash push -m label</code>, run <code>git rebase main</code>, then <code>git stash pop</code> to land them on the new base. If the work is coherent, committing it satisfies the guard too. Note that staged changes trigger a second refusal (<code>Your index contains uncommitted changes</code>) - staged is not committed. <code>git rebase --autostash</code> automates the whole dance.</p></div>

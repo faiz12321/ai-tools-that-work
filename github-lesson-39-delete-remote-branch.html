@@ -46,7 +46,7 @@ summary{cursor:pointer;min-height:44px}
 footer{color:#a3adc7;border-top:1px solid #2a345c;padding-top:16px;font-size:16px}
 @media(max-width:480px){h1{font-size:30px}.stage{padding:16px 13px}pre{padding:12px;font-size:15px}}
 </style></style></head><body><div class="app"><main>
-<div class="brand">AI Tools That Work / GitHub lesson 39</div>
+<div class="brand">AI Tools That Work / GitHub lesson 39</div><p style="margin:0 0 16px"><a style="color:#7cb3ff;text-decoration:none;font-size:14.5px" href="github-lessons.html">← More Git lessons</a></p>
 <h1>git: how do I delete a branch on GitHub? (remote branch)</h1>
 <div class="answer"><strong>Short answer</strong>
 <p><code>git branch -d</code> deletes only the LOCAL branch - it never talks to the remote, so the copy on GitHub survives and your teammates still see it. Delete the remote branch with <code>git push origin --delete &lt;branch&gt;</code> (older spelling: <code>git push origin :&lt;branch&gt;</code>). If a branch was deleted on GitHub but still shows in <code>git branch -a</code> as <code>remotes/origin/&lt;branch&gt;</code>, that is a stale local bookmark - clear it with <code>git fetch --prune</code>. Prune never deletes your local branches.</p></div>

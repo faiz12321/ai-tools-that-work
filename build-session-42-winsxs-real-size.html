@@ -44,7 +44,7 @@ footer{color:#b6c3d8;border-top:1px solid #1b2450;padding-top:16px;font-size:16p
 pre.code{white-space:pre;overflow-wrap:normal;word-break:normal;font-size:14.5px;tab-size:4}.code{max-height:60vh;overflow:auto;border:1px solid #1f2a58}.fname{display:inline-block;background:#1f2a58;color:#fff;padding:4px 10px;border-radius:6px;font:600 15px ui-monospace,Menlo,Consolas,monospace} details p{overflow-wrap:anywhere}/* Keep terminal tables aligned; scroll only inside the recorded output. */
 pre.output{white-space:pre;overflow-wrap:normal;word-break:normal;overflow-x:auto;max-width:100%;tab-size:4}
 main{overflow-wrap:anywhere}.shell{color:#ffc285}pre.code,pre.output{white-space:pre;overflow-x:auto;overflow-wrap:normal;word-break:normal;max-width:100%;font-size:13px}.stage{min-width:0}</style></head><body><div class="app"><main>
-<div class="brand">AI TOOLS THAT WORK / BUILD SESSION 42</div>
+<div class="brand">AI TOOLS THAT WORK / BUILD SESSION 42</div><p style="margin:0 0 16px"><a style="color:#7cb3ff;text-decoration:none;font-size:14.5px" href="build-sessions.html">← More build sessions</a></p>
 <h1>Measure the Windows component store with DISM analysis</h1>
 <div class="answer"><strong>Short answer</strong><p>Windows can share component-store files through hard links, so adding file lengths is not the same as measuring extra disk use. DISM analysis reports a hard-link-aware actual size, but that number includes files shared with Windows. It is not the amount you can delete. This lesson captures an analysis and builds a small parser. It never asks for cleanup.</p></div>
 <p class="sub">Follow along and build it step by step. You run each command and see the real recorded result.</p>

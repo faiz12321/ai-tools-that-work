@@ -46,7 +46,7 @@ summary{cursor:pointer;min-height:44px}
 footer{color:#c7a3b5;border-top:1px solid #5c2a40;padding-top:16px;font-size:16px}
 @media(max-width:480px){h1{font-size:30px}.stage{padding:16px 13px}pre{padding:12px;font-size:15px}}
 </style></style></head><body><div class="app"><main>
-<div class="brand">AI Tools That Work / GitHub lesson 42</div>
+<div class="brand">AI Tools That Work / GitHub lesson 42</div><p style="margin:0 0 16px"><a style="color:#7cb3ff;text-decoration:none;font-size:14.5px" href="github-lessons.html">← More Git lessons</a></p>
 <h1>git: "You have not concluded your merge (MERGE_HEAD exists)"</h1>
 <div class="answer"><strong>Short answer</strong>
 <p>A merge that stops on conflicts is not over - git parks it as a <strong>state</strong>, marked by a file called <code>.git/MERGE_HEAD</code>. While that file exists, starting another merge or pull is refused: <code>fatal: You have not concluded your merge (MERGE_HEAD exists)</code>. There are exactly two exits: <code>git commit</code> after resolving (which creates the merge commit and concludes the state), or <code>git merge --abort</code> (which cancels it and restores the pre-merge state). The message is a status report, not an error to fight.</p></div>

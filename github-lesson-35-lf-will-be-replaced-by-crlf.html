@@ -46,7 +46,7 @@ summary{cursor:pointer;min-height:44px}
 footer{color:#c7c4a3;border-top:1px solid #5c5c2a;padding-top:16px;font-size:16px}
 @media(max-width:480px){h1{font-size:30px}.stage{padding:16px 13px}pre{padding:12px;font-size:15px}}
 </style></style></head><body><div class="app"><main>
-<div class="brand">AI Tools That Work / GitHub lesson 35</div>
+<div class="brand">AI Tools That Work / GitHub lesson 35</div><p style="margin:0 0 16px"><a style="color:#7cb3ff;text-decoration:none;font-size:14.5px" href="github-lessons.html">← More Git lessons</a></p>
 <h1>git: "warning: LF will be replaced by CRLF" - what it means and what to do</h1>
 <div class="answer"><strong>Short answer</strong>
 <p>Nothing broke. Git is warning that your file has LF (Unix) line endings and that, with <code>core.autocrlf=true</code> (the usual Windows setup), it will check the file out with CRLF endings later. The add already succeeded - <code>git status</code> proves it. The lasting fix is not silencing the warning but committing one line: <code>* text=auto</code> in <code>.gitattributes</code>, so the rule travels with the repo.</p></div>

@@ -46,7 +46,7 @@ summary{cursor:pointer;min-height:44px}
 footer{color:#a3c5c7;border-top:1px solid #2a565c;padding-top:16px;font-size:16px}
 @media(max-width:480px){h1{font-size:30px}.stage{padding:16px 13px}pre{padding:12px;font-size:15px}}
 </style></style></head><body><div class="app"><main>
-<div class="brand">AI Tools That Work / GitHub lesson 46</div>
+<div class="brand">AI Tools That Work / GitHub lesson 46</div><p style="margin:0 0 16px"><a style="color:#7cb3ff;text-decoration:none;font-size:14.5px" href="github-lessons.html">← More Git lessons</a></p>
 <h1>git: it is in .gitignore but git still tracks it. How do I fix it?</h1>
 <div class="answer"><strong>Short answer</strong>
 <p>Ignore rules only gate UNTRACKED files - once a file is committed, .gitignore stops applying to it. Untrack it with <code>git rm --cached &lt;file&gt;</code>: the file leaves git's index but stays on your disk. Commit that removal together with the .gitignore, and git forgets the file going forward. Two warnings: teammates who pull the commit lose THEIR working-tree copy of the file, and past commits still contain it - rotate any real secret.</p></div>

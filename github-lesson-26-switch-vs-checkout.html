@@ -45,7 +45,7 @@ summary{cursor:pointer;min-height:44px}
 footer{color:#cbcaa9;border-top:1px solid #656b24;padding-top:16px;font-size:16px}
 @media(max-width:480px){h1{font-size:30px}.stage{padding:16px 13px}pre{padding:12px;font-size:15px}}
 </style></head><body><div class="app"><main>
-<div class="brand">AI Tools That Work / GitHub lesson 26</div>
+<div class="brand">AI Tools That Work / GitHub lesson 26</div><p style="margin:0 0 16px"><a style="color:#7cb3ff;text-decoration:none;font-size:14.5px" href="github-lessons.html">← More Git lessons</a></p>
 <h1>git: switch -c vs checkout -b (what's the difference?)</h1>
 <div class="answer"><strong>Short answer</strong>
 <p>There is no difference in the result: <code>git switch -c name</code> and <code>git checkout -b name</code> both create a branch at the current commit and move you to it. <code>git switch</code> is the modern branch-only command added in git 2.23, when checkout's two jobs were split into <code>switch</code> (branches) and <code>restore</code> (files). And <code>git switch -</code> jumps back to the branch you were just on.</p></div>

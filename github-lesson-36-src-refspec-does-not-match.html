@@ -46,7 +46,7 @@ summary{cursor:pointer;min-height:44px}
 footer{color:#b6c7a3;border-top:1px solid #415c2a;padding-top:16px;font-size:16px}
 @media(max-width:480px){h1{font-size:30px}.stage{padding:16px 13px}pre{padding:12px;font-size:15px}}
 </style></style></head><body><div class="app"><main>
-<div class="brand">AI Tools That Work / GitHub lesson 36</div>
+<div class="brand">AI Tools That Work / GitHub lesson 36</div><p style="margin:0 0 16px"><a style="color:#7cb3ff;text-decoration:none;font-size:14.5px" href="github-lessons.html">← More Git lessons</a></p>
 <h1>git: "error: src refspec main does not match any" on push</h1>
 <div class="answer"><strong>Short answer</strong>
 <p>The name after <code>origin</code> matches nothing on YOUR side. The usual cause on a new project: you staged files but never committed, so the branch ref does not exist yet - make the first commit and the same push works. The other cause: a typo, or your branch is really called <code>master</code> while you typed <code>main</code>. <code>git branch --show-current</code> settles it in one word.</p></div>

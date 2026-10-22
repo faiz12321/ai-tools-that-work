@@ -45,7 +45,7 @@ summary{cursor:pointer;min-height:44px}
 footer{color:#77b5cf;border-top:1px solid #163b4d;padding-top:16px;font-size:16px}
 @media(max-width:480px){h1{font-size:30px}.stage{padding:16px 13px}pre{padding:12px;font-size:15px}}
 </style></head><body><div class="app"><main>
-<div class="brand">AI Tools That Work / GitHub lesson 20</div>
+<div class="brand">AI Tools That Work / GitHub lesson 20</div><p style="margin:0 0 16px"><a style="color:#7cb3ff;text-decoration:none;font-size:14.5px" href="github-lessons.html">← More Git lessons</a></p>
 <h1>git: which commit broke it? (git bisect)</h1>
 <div class="answer"><strong>Short answer</strong>
 <p><code>git bisect start HEAD &lt;known-good-hash&gt;</code>, then either answer <code>git bisect good</code>/<code>bad</code> at each checkout, or hand git a test: <code>git bisect run ./check.sh</code>. git halves the suspects each round and names the exact first bad commit. Finish with <code>git bisect reset</code>.</p></div>

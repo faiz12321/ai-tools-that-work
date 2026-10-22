@@ -46,7 +46,7 @@ summary{cursor:pointer;min-height:44px}
 footer{color:#c7a3c6;border-top:1px solid #5c2a57;padding-top:16px;font-size:16px}
 @media(max-width:480px){h1{font-size:30px}.stage{padding:16px 13px}pre{padding:12px;font-size:15px}}
 </style></style></head><body><div class="app"><main>
-<div class="brand">AI Tools That Work / GitHub lesson 41</div>
+<div class="brand">AI Tools That Work / GitHub lesson 41</div><p style="margin:0 0 16px"><a style="color:#7cb3ff;text-decoration:none;font-size:14.5px" href="github-lessons.html">← More Git lessons</a></p>
 <h1>git: push --force vs --force-with-lease (what "stale info" means)</h1>
 <div class="answer"><strong>Short answer</strong>
 <p><code>git push --force</code> overwrites the remote branch with your local history unconditionally - a teammate's commit you have never seen falls off silently. <code>git push --force-with-lease</code> adds a contract: overwrite ONLY if the remote is still exactly where your remote-tracking bookmark says. If someone pushed since your last fetch, it refuses with <code>! [rejected] (stale info)</code>. Use the lease spelling always - and after every fetch, look at what came in, because once your bookmark updates, the lease trusts it.</p></div>

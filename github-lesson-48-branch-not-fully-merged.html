@@ -46,7 +46,7 @@ summary{cursor:pointer;min-height:44px}
 footer{color:#a8a3c7;border-top:1px solid #352a5c;padding-top:16px;font-size:16px}
 @media(max-width:480px){h1{font-size:30px}.stage{padding:16px 13px}pre{padding:12px;font-size:15px}}
 </style></style></head><body><div class="app"><main>
-<div class="brand">AI Tools That Work / GitHub lesson 48</div>
+<div class="brand">AI Tools That Work / GitHub lesson 48</div><p style="margin:0 0 16px"><a style="color:#7cb3ff;text-decoration:none;font-size:14.5px" href="github-lessons.html">← More Git lessons</a></p>
 <h1>git: error "the branch is not fully merged" - how do I delete it?</h1>
 <div class="answer"><strong>Short answer</strong>
 <p>The refusal is protection, not failure: <code>git branch -d</code> only deletes when every commit on the branch is reachable from elsewhere. See what is at risk with <code>git log --oneline main..branch-name</code>. If the work is wanted, <code>git merge branch-name</code> first, then <code>-d</code> passes. If it is truly abandoned, use <code>git branch -D branch-name</code> and keep the hash it prints (<code>Deleted branch x (was abc1234)</code>): the commit stays in the object store and <code>git switch -c name abc1234</code> brings it back.</p></div>

@@ -46,7 +46,7 @@ summary{cursor:pointer;min-height:44px}
 footer{color:#b7c7a3;border-top:1px solid #425c2a;padding-top:16px;font-size:16px}
 @media(max-width:480px){h1{font-size:30px}.stage{padding:16px 13px}pre{padding:12px;font-size:15px}}
 </style></style></head><body><div class="app"><main>
-<div class="brand">AI Tools That Work / GitHub lesson 54</div>
+<div class="brand">AI Tools That Work / GitHub lesson 54</div><p style="margin:0 0 16px"><a style="color:#7cb3ff;text-decoration:none;font-size:14.5px" href="github-lessons.html">← More Git lessons</a></p>
 <h1>git: CONFLICT (add/add) - two branches created the same file. How do I resolve it?</h1>
 <div class="answer"><strong>Short answer</strong>
 <p>Both branches created <code>deploy.sh</code> independently, so git cannot pick between two creations - it marks <strong>both versions inside the file</strong> with <code>&lt;&lt;&lt;&lt;&lt;&lt;&lt;</code> / <code>=======</code> / <code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</code>. Edit the file into the version you want (one side, or a hand-written combination), then <code>git add deploy.sh</code> and <code>git commit</code>. If one side should win wholesale: <code>git checkout --ours</code> or <code>--theirs</code>, then add and commit. The tell in <code>git ls-files -u</code>: stages 2 and 3, with <strong>no stage 1</strong> - the file never existed in the common ancestor.</p></div>

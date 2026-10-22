@@ -46,7 +46,7 @@ summary{cursor:pointer;min-height:44px}
 footer{color:#b7a3c7;border-top:1px solid #4a2a5c;padding-top:16px;font-size:16px}
 @media(max-width:480px){h1{font-size:30px}.stage{padding:16px 13px}pre{padding:12px;font-size:15px}}
 </style></style></head><body><div class="app"><main>
-<div class="brand">AI Tools That Work / GitHub lesson 44</div>
+<div class="brand">AI Tools That Work / GitHub lesson 44</div><p style="margin:0 0 16px"><a style="color:#7cb3ff;text-decoration:none;font-size:14.5px" href="github-lessons.html">← More Git lessons</a></p>
 <h1>git: squash your last N commits into one (rebase -i)</h1>
 <div class="answer"><strong>Short answer</strong>
 <p><code>git rebase -i HEAD~N</code> opens a todo list of your last N commits: keep the first as <code>pick</code>, change the rest to <code>squash</code>, save, then edit the combined message. Git builds ONE new commit with all the changes and re-points your branch at it. Nothing is deleted - the old commits sit in the reflog for weeks. Squash is a pre-publish tool: safe while the branch is yours, a rewrite others must agree to once it is pushed and pulled.</p></div>

@@ -46,7 +46,7 @@ summary{cursor:pointer;min-height:44px}
 footer{color:#a4a3c7;border-top:1px solid #2f2a5c;padding-top:16px;font-size:16px}
 @media(max-width:480px){h1{font-size:30px}.stage{padding:16px 13px}pre{padding:12px;font-size:15px}}
 </style></style></head><body><div class="app"><main>
-<div class="brand">AI Tools That Work / GitHub lesson 34</div>
+<div class="brand">AI Tools That Work / GitHub lesson 34</div><p style="margin:0 0 16px"><a style="color:#7cb3ff;text-decoration:none;font-size:14.5px" href="github-lessons.html">← More Git lessons</a></p>
 <h1>git: "Need to specify how to reconcile divergent branches" on pull</h1>
 <div class="answer"><strong>Short answer</strong>
 <p>Both sides of the branch moved, and git will not choose between merge and rebase for you. Answer once with <code>git pull --no-rebase</code> (join with a merge commit) or <code>git pull --rebase</code> (replay your commits on top), then make it permanent with <code>git config pull.rebase true</code> or <code>false</code> - and the error never comes back.</p></div>

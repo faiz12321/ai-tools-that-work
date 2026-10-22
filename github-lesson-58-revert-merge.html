@@ -46,7 +46,7 @@ summary{cursor:pointer;min-height:44px}
 footer{color:#c7a3be;border-top:1px solid #5c2a4b;padding-top:16px;font-size:16px}
 @media(max-width:480px){h1{font-size:30px}.stage{padding:16px 13px}pre{padding:12px;font-size:15px}}
 </style></style></head><body><div class="app"><main>
-<div class="brand">AI Tools That Work / GitHub lesson 58</div>
+<div class="brand">AI Tools That Work / GitHub lesson 58</div><p style="margin:0 0 16px"><a style="color:#7cb3ff;text-decoration:none;font-size:14.5px" href="github-lessons.html">← More Git lessons</a></p>
 <h1>git revert: "error: commit ... is a merge but no -m option was given" - how do I undo a merge?</h1>
 <div class="answer"><strong>Short answer</strong>
 <p>A merge commit has <strong>two parents</strong>, and revert needs to know which side to keep - that is what <code>-m</code> (mainline) selects. Parent 1 is always the branch you were ON when merging, so undoing a feature merge into main is <code>git revert -m 1 &lt;merge-commit&gt;</code>. Then beware the trap: merging that branch again says <code>Already up to date</code> with its changes <strong>missing</strong> - git tracks ancestry, not content. The fix is <code>git revert &lt;revert-commit&gt;</code> (revert the revert), or rebuild the branch if it moved on.</p></div>

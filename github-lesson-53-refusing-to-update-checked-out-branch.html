@@ -46,7 +46,7 @@ summary{cursor:pointer;min-height:44px}
 footer{color:#c7a3aa;border-top:1px solid #5c2a31;padding-top:16px;font-size:16px}
 @media(max-width:480px){h1{font-size:30px}.stage{padding:16px 13px}pre{padding:12px;font-size:15px}}
 </style></style></head><body><div class="app"><main>
-<div class="brand">AI Tools That Work / GitHub lesson 53</div>
+<div class="brand">AI Tools That Work / GitHub lesson 53</div><p style="margin:0 0 16px"><a style="color:#7cb3ff;text-decoration:none;font-size:14.5px" href="github-lessons.html">← More Git lessons</a></p>
 <h1>git push: "refusing to update checked out branch" - how do I fix it?</h1>
 <div class="answer"><strong>Short answer</strong>
 <p>The remote is a <strong>non-bare</strong> repository - someone created it with plain <code>git init</code>, so it has a working tree with <code>main</code> checked out. git refuses to move a branch anyone has checked out, because the ref would advance while that repo's index and files stay behind. The fix is not an override flag: recreate the shared repo as <strong>bare</strong> (<code>git clone --bare old new</code>, history intact) and push to that. Confirm with <code>git rev-parse --is-bare-repository</code>: false before, true after.</p></div>

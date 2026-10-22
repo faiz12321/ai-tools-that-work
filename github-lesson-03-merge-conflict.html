@@ -45,7 +45,7 @@ summary{cursor:pointer;min-height:44px}
 footer{color:#cbb4a3;border-top:1px solid #5f4326;padding-top:16px;font-size:16px}
 @media(max-width:480px){h1{font-size:30px}.stage{padding:16px 13px}pre{padding:12px;font-size:15px}}
 </style></head><body><div class="app"><main>
-<div class="brand">AI Tools That Work / GitHub lesson 3</div>
+<div class="brand">AI Tools That Work / GitHub lesson 3</div><p style="margin:0 0 16px"><a style="color:#7cb3ff;text-decoration:none;font-size:14.5px" href="github-lessons.html">← More Git lessons</a></p>
 <h1>git merge: CONFLICT (content). How do I fix it?</h1>
 <div class="answer"><strong>Short answer</strong>
 <p>A conflict means both branches changed the same lines and git is asking you to decide. Open the file, find the <code>&lt;&lt;&lt;&lt;&lt;&lt;&lt;</code> <code>=======</code> <code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</code> markers, rewrite that part to the final text you want, then <code>git add</code> the file and <code>git commit</code>. To back out instead: <code>git merge --abort</code>.</p></div>

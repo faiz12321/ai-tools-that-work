@@ -46,7 +46,7 @@ summary{cursor:pointer;min-height:44px}
 footer{color:#c7a7a3;border-top:1px solid #5c332a;padding-top:16px;font-size:16px}
 @media(max-width:480px){h1{font-size:30px}.stage{padding:16px 13px}pre{padding:12px;font-size:15px}}
 </style></style></head><body><div class="app"><main>
-<div class="brand">AI Tools That Work / GitHub lesson 51</div>
+<div class="brand">AI Tools That Work / GitHub lesson 51</div><p style="margin:0 0 16px"><a style="color:#7cb3ff;text-decoration:none;font-size:14.5px" href="github-lessons.html">← More Git lessons</a></p>
 <h1>git: "warning: adding embedded git repository" - why is my folder empty?</h1>
 <div class="answer"><strong>Short answer</strong>
 <p>The folder you added has its own <code>.git</code> - so git stored a <strong>gitlink</strong> (mode 160000): one entry pointing at the library's commit hash, not its files. Clones get an empty directory. To vendor the files for real: <code>git rm --cached path</code>, then <code>rm -rf path/.git</code>, then <code>git add path</code> and commit. If you need the library's own history and pinned upgrades, use <code>git submodule add &lt;url&gt; path</code> instead - it creates the matching <code>.gitmodules</code> entry that makes the gitlink fetchable. Check with <code>git ls-files --stage</code>: 160000 = pointer, 100644 = real file.</p></div>

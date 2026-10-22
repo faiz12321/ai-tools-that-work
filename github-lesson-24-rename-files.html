@@ -45,7 +45,7 @@ summary{cursor:pointer;min-height:44px}
 footer{color:#cbaba9;border-top:1px solid #6b2425;padding-top:16px;font-size:16px}
 @media(max-width:480px){h1{font-size:30px}.stage{padding:16px 13px}pre{padding:12px;font-size:15px}}
 </style></head><body><div class="app"><main>
-<div class="brand">AI Tools That Work / GitHub lesson 24</div>
+<div class="brand">AI Tools That Work / GitHub lesson 24</div><p style="margin:0 0 16px"><a style="color:#7cb3ff;text-decoration:none;font-size:14.5px" href="github-lessons.html">← More Git lessons</a></p>
 <h1>git: does git track renames? (git mv)</h1>
 <div class="answer"><strong>Short answer</strong>
 <p><code>git mv old new</code> renames and stages in one step - but git never stores a rename record. It stores snapshots and <em>detects</em> renames later from content similarity. That is why plain <code>mv</code> plus <code>git add -A</code> shows the exact same <code>R</code> flag, and why <code>git log --follow -- &lt;file&gt;</code> can walk history across a rename.</p></div>

@@ -41,7 +41,7 @@ summary{cursor:pointer;min-height:44px}
 footer{color:#b9d4cd;border-top:1px solid #2c5561;padding-top:16px;font-size:16px}
 @media(max-width:480px){h1{font-size:30px}.stage{padding:16px 13px}pre{padding:12px;font-size:15px}}
 </style></head><body><div class="app"><main>
-<div class="brand">AI Tools That Work / Scenario 08</div>
+<div class="brand">AI Tools That Work / Scenario 08</div><p style="margin:0 0 16px"><a style="color:#7cb3ff;text-decoration:none;font-size:14.5px" href="scenarios.html">← More scenarios</a></p>
 <h1>bad interpreter: No such file or directory. How do I fix it?</h1>
 <div class="answer"><strong>Short answer</strong>
 <p>On a script that clearly exists, this error usually means the interpreter named on its first line cannot be used. A common cause is Windows (CRLF) line endings: the first line really reads <code>#!/bin/bash</code> plus a hidden carriage return. Check with <code>file script.sh</code> and look for CRLF. Fix with <code>dos2unix script.sh</code> or <code>sed -i 's/\r$//' script.sh</code>, then run <code>./script.sh</code> again. It changes only that one file.</p></div>

@@ -45,7 +45,7 @@ summary{cursor:pointer;min-height:44px}
 footer{color:#a3c2c7;border-top:1px solid #2a525c;padding-top:16px;font-size:16px}
 @media(max-width:480px){h1{font-size:30px}.stage{padding:16px 13px}pre{padding:12px;font-size:15px}}
 </style></head><body><div class="app"><main>
-<div class="brand">AI Tools That Work / GitHub lesson 4</div>
+<div class="brand">AI Tools That Work / GitHub lesson 4</div><p style="margin:0 0 16px"><a style="color:#7cb3ff;text-decoration:none;font-size:14.5px" href="github-lessons.html">← More Git lessons</a></p>
 <h1>git: how do I undo the last commit?</h1>
 <div class="answer"><strong>Short answer</strong>
 <p>To remove the last commit but keep its changes in your files, run <code>git reset --soft HEAD~1</code>. The commit leaves the branch and its changes come back as staged edits. Use <code>--mixed</code> (the default) to also unstage them. Avoid <code>--hard</code>: it throws the changes away together with the commit. If you already pushed the commit, use <code>git revert</code> instead.</p></div>

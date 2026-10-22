@@ -45,7 +45,7 @@ summary{cursor:pointer;min-height:44px}
 footer{color:#aca9cb;border-top:1px solid #32246b;padding-top:16px;font-size:16px}
 @media(max-width:480px){h1{font-size:30px}.stage{padding:16px 13px}pre{padding:12px;font-size:15px}}
 </style></head><body><div class="app"><main>
-<div class="brand">AI Tools That Work / GitHub lesson 21</div>
+<div class="brand">AI Tools That Work / GitHub lesson 21</div><p style="margin:0 0 16px"><a style="color:#7cb3ff;text-decoration:none;font-size:14.5px" href="github-lessons.html">← More Git lessons</a></p>
 <h1>git: I deleted a file and committed - how do I get it back?</h1>
 <div class="answer"><strong>Short answer</strong>
 <p>Find the deletion commit with <code>git log --diff-filter=D --name-status --oneline -- &lt;file&gt;</code>, then copy the last good version out of its parent: <code>git restore --source=&lt;hash&gt;^ -- &lt;file&gt;</code>. The file comes back to your working tree untracked - <code>git add</code> and commit to keep it.</p></div>

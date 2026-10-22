@@ -46,7 +46,7 @@ summary{cursor:pointer;min-height:44px}
 footer{color:#a3c7a5;border-top:1px solid #2a5c30;padding-top:16px;font-size:16px}
 @media(max-width:480px){h1{font-size:30px}.stage{padding:16px 13px}pre{padding:12px;font-size:15px}}
 </style></style></head><body><div class="app"><main>
-<div class="brand">AI Tools That Work / GitHub lesson 52</div>
+<div class="brand">AI Tools That Work / GitHub lesson 52</div><p style="margin:0 0 16px"><a style="color:#7cb3ff;text-decoration:none;font-size:14.5px" href="github-lessons.html">← More Git lessons</a></p>
 <h1>git: CONFLICT (modify/delete) - one branch edited a file the other deleted. How do I resolve it?</h1>
 <div class="answer"><strong>Short answer</strong>
 <p>The conflict is about the file's <strong>existence</strong>, not its lines - so there are no <code>&lt;&lt;&lt;&lt;&lt;&lt;&lt;</code> markers. git leaves the modified version in your tree and waits for a verdict: <code>git add api.py</code> to keep the edited file, or <code>git rm api.py</code> to accept the deletion. Either way, finish with <code>git commit</code>. Read <code>git ls-files -u</code> first: stage 1 + stage 3 with no stage 2 is the modify/delete signature. And review the surviving content before choosing - an edit on a file you meant to retire may need porting to its replacement.</p></div>

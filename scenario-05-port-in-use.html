@@ -41,7 +41,7 @@ summary{cursor:pointer;min-height:44px}
 footer{color:#b4c6e0;border-top:1px solid #2a456f;padding-top:16px;font-size:16px}
 @media(max-width:480px){h1{font-size:31px}.stage{padding:16px 13px}pre{padding:12px;font-size:15px}}
 </style></head><body><div class="app"><main>
-<div class="brand">AI TOOLS THAT WORK / SCENARIO 05</div>
+<div class="brand">AI TOOLS THAT WORK / SCENARIO 05</div><p style="margin:0 0 16px"><a style="color:#7cb3ff;text-decoration:none;font-size:14.5px" href="scenarios.html">← More scenarios</a></p>
 <h1>How do I find which program is using a port on Windows?</h1>
 <div class="answer"><strong>Short answer</strong>
 <p>In Command Prompt, run <code>netstat -ano | findstr /R /C:":3000 "</code> (use your port number, with a space after it). The last column is the PID of the program using the port. Look the PID up with <code>tasklist /FI "PID eq 1234"</code>, or in PowerShell with <code>Get-Process -Id 1234</code>. Stop it with <code>taskkill /PID 1234 /F</code> only after you have checked it is the program you expect.</p></div>

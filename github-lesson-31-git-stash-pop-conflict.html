@@ -45,7 +45,7 @@ summary{cursor:pointer;min-height:44px}
 footer{color:#bdc7a3;border-top:1px solid #4b5c2a;padding-top:16px;font-size:16px}
 @media(max-width:480px){h1{font-size:30px}.stage{padding:16px 13px}pre{padding:12px;font-size:15px}}
 </style></head><body><div class="app"><main>
-<div class="brand">AI Tools That Work / GitHub lesson 31</div>
+<div class="brand">AI Tools That Work / GitHub lesson 31</div><p style="margin:0 0 16px"><a style="color:#7cb3ff;text-decoration:none;font-size:14.5px" href="github-lessons.html">← More Git lessons</a></p>
 <h1>git: stash pop merge conflict - resolve and drop (git stash pop)</h1>
 <div class="answer"><strong>Short answer</strong>
 <p>A conflicted <code>git stash pop</code> loses nothing: git keeps the stash entry and writes both versions into the file between markers. Edit the file to the final content you want, remove the <code>&lt;&lt;&lt;&lt;&lt;&lt;&lt;</code>, <code>=======</code> and <code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</code> lines, then <code>git add</code> the file and <code>git stash drop</code> to clear the kept entry.</p></div>

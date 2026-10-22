@@ -46,7 +46,7 @@ summary{cursor:pointer;min-height:44px}
 footer{color:#c7c3a3;border-top:1px solid #5c5a2a;padding-top:16px;font-size:16px}
 @media(max-width:480px){h1{font-size:30px}.stage{padding:16px 13px}pre{padding:12px;font-size:15px}}
 </style></style></head><body><div class="app"><main>
-<div class="brand">AI Tools That Work / GitHub lesson 55</div>
+<div class="brand">AI Tools That Work / GitHub lesson 55</div><p style="margin:0 0 16px"><a style="color:#7cb3ff;text-decoration:none;font-size:14.5px" href="github-lessons.html">← More Git lessons</a></p>
 <h1>git: fatal: cannot lock ref 'refs/heads/feature/api' - why can't I create my branch?</h1>
 <div class="answer"><strong>Short answer</strong>
 <p>A branch named <code>feature</code> already exists, so <code>feature/api</code> is physically impossible: git stores every ref as a file under <code>.git/refs/heads/</code>, and one path cannot be both a file (<code>feature</code>) and a folder (<code>feature/api</code>). Fix it by moving the blocker with git - <code>git branch -m feature feature-old</code>, or <code>git branch -d feature</code> if it is merged - then create the branch. Never delete files under <code>.git</code> by hand. The rule is symmetric and applies to tags and remote branches too.</p></div>

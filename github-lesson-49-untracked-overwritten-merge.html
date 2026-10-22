@@ -46,7 +46,7 @@ summary{cursor:pointer;min-height:44px}
 footer{color:#a3bac7;border-top:1px solid #2a465c;padding-top:16px;font-size:16px}
 @media(max-width:480px){h1{font-size:30px}.stage{padding:16px 13px}pre{padding:12px;font-size:15px}}
 </style></style></head><body><div class="app"><main>
-<div class="brand">AI Tools That Work / GitHub lesson 49</div>
+<div class="brand">AI Tools That Work / GitHub lesson 49</div><p style="margin:0 0 16px"><a style="color:#7cb3ff;text-decoration:none;font-size:14.5px" href="github-lessons.html">← More Git lessons</a></p>
 <h1>git: "untracked working tree files would be overwritten by merge" - how do I fix it?</h1>
 <div class="answer"><strong>Short answer</strong>
 <p>git will not overwrite an untracked file - its only copy is your disk, so the merge aborts and asks you to decide. Look at what is coming first: <code>git show origin/main:path</code>. Keep your draft by renaming it aside: <code>mv path path.local</code>, then <code>git pull</code> again. Remove confirmed junk with <code>git clean -n path</code> (dry run) then <code>git clean -f path</code>. Unsure? <code>git stash -u</code>, pull, <code>git stash pop</code>. There is no pull flag that skips this - the decision is the point.</p></div>
